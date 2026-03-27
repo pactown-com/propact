@@ -30,6 +30,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2026-03-27
+
+### Docs
+- Update README.md
+- Update TODO/podaj mozliwosci zastoswania oraz podaj jakie prot.md
+- Update TODO/stworz przyklady uzycia dla examples___z roznymi r.md
+- Update examples/01-shell-upload/README.md
+- Update examples/02-openapi-rest/README.md
+- Update examples/03-mcp-tool/README.md
+- Update examples/04-ws-chat/README.md
+- Update examples/05-md-server/server.md
+- Update examples/06-openai-vision/README.md
+- Update examples/07-ffmpeg-cli/README.md
+- ... and 2 more files
+
+### Other
+- Update "TODO/\360\237\217\227\357\270\217 __Implementacja konwersji w Propact__ (kod goto.md"
+- Update examples/01-shell-upload/run.sh
+- Update examples/02-openapi-rest/openapi.json
+- Update examples/02-openapi-rest/run.sh
+- Update examples/03-mcp-tool/run.sh
+- Update examples/04-ws-chat/run.sh
+- Update examples/05-md-server/run.sh
+- Update examples/06-openai-vision/openapi.json
+- Update examples/06-openai-vision/run.sh
+- Update examples/07-ffmpeg-cli/run.sh
+- ... and 1 more files
+
 ## [0.0.3] - 2026-03-27
 
 ### Docs

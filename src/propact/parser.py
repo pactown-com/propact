@@ -4,8 +4,31 @@ import re
 import asyncio
 from typing import List, Dict, Any, Optional
 from pathlib import Path
+from dataclasses import dataclass
+from enum import Enum
 
-from .core import ProtocolBlock, ProtocolType
+
+class ProtocolType(Enum):
+    """Supported protocol types."""
+    SHELL = "shell"
+    MCP = "mcp"
+    REST = "rest"
+    WS = "ws"
+
+
+@dataclass
+class ProtocolBlock:
+    """Represents a protocol block in markdown."""
+    protocol: ProtocolType
+    content: str
+    attachments: List[str] = None
+    metadata: Dict[str, Any] = None
+    
+    def __post_init__(self):
+        if self.attachments is None:
+            self.attachments = []
+        if self.metadata is None:
+            self.metadata = {}
 
 
 class MarkdownParser:

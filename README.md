@@ -6,6 +6,16 @@
 
 **Markdown speaks all protocols!** Shell → MCP → REST/WS without conversion.
 
+
+propact pozwala na wymiane danych markdown z roznymi rpotokołami pozwalającymi na przesyłanie całych markdown z zwartoscia z roznymi plikami audio video embedded oraz danymi w codeblock w prosty sposob, aby od strony cli to było proste a zeby mozna bylo dowolnie zmieniac endpointy. Chodzi o to, że mam plik markdown np z plikiem img wewnatrz w base64 i chce to wysłać na jakiś endpoint, np upload, ale musze oddzielnie wysłać obraz  a oddzielnie tekst, czyli musze to podzielić, wedle tego co pozwlaa api na endpoint i trzeba to algorytmicznie, inteligentnie rozdzielić i dlatego jest potrzebny propact
+
+np przy załozeniu że musimy wysłac dane do openapi, mamy do dyspozycji dokuemntacji API i propact musi zrozumieć jak działa endpoint i dopasowac do niego treści, kt©óe zostamą do niego wysłane i tak samo, gdy otrrzymujemy jakies tresci z endpointu to musimy je zmianieć na markdown, nie sototne jaki był format źródłowy
+
+chodzi o to, ze markdown jest podstaowywm formatem z metadanymi, a codeblock służy do trzyemania tych danych lub specjalne tagi dla mediów, 
+więce finalnie trzymamy jeden format danych markdown, ale z odpowiednim przygotowaniem przed wysłaniem i po otrzymaniu na dysku, aby dla każdego oendpointu w zalęznosci od SCHEMA, cyzli np oopenapi lub cli shell lub innego API strony www, czy email, itd w zlaęznosci od rpototkołu, któryr też ma specyficzne schema przygotować markdown do trasnportu i z transportu do markdown,
+ w zasadzie każdy plik markdown moze być też serverem danych i każdy mardkown moze być do niego wysłany w celu nadpisania, stwórz takie przykłady
+
+
 ```bash
 pip install propact
 propact README.md  # Run this file!
@@ -20,10 +30,13 @@ echo "Shell → MCP → REST pipeline works!"
 ## Features
 
 - **Universal Protocol Support**: Execute Shell, MCP, REST, and WebSocket protocols directly from Markdown
-- **Attachment Handling**: Manage binary files and images within your protocol documents
+- **Schema-Aware Processing**: Intelligently parse OpenAPI, CLI, and MCP schemas to adapt content
+- **Smart Content Splitting**: Automatically separate attachments, code blocks, and text based on endpoint requirements
+- **Attachment Handling**: Manage binary files, images, audio, and video within your protocol documents
 - **Async Execution**: Full async/await support for concurrent protocol execution
 - **Type Safety**: Full type annotations with Pydantic integration
 - **Modern Python**: Built with Python 3.10+ and the latest best practices
+- **MD-as-Server**: Markdown files can act as servers that update themselves
 
 ## Example Usage
 
@@ -109,6 +122,9 @@ make lint
 ```
 
 ## License
+
+Licensed under Apache-2.0.
+
 
 Licensed under Apache-2.0.
 

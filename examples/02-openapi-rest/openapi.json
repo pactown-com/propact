@@ -1,0 +1,70 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Vision AI API",
+    "version": "1.0.0",
+    "description": "API for analyzing medical and general images"
+  },
+  "paths": {
+    "/analyze": {
+      "post": {
+        "summary": "Analyze an image with AI",
+        "operationId": "analyzeImage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image file to analyze"
+                  },
+                  "json": {
+                    "type": "string",
+                    "description": "JSON string with analysis parameters"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analysis results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "analysis": {
+                      "type": "object",
+                      "properties": {
+                        "findings": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {"type": "string"},
+                              "confidence": {"type": "number"},
+                              "description": {"type": "string"}
+                            }
+                          }
+                        },
+                        "confidence": {"type": "number"},
+                        "processing_time": {"type": "number"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,25 +6,8 @@ import asyncio
 from dataclasses import dataclass, field
 from enum import Enum
 
-from .parser import MarkdownParser
+from .parser import MarkdownParser, ProtocolBlock, ProtocolType
 from .attachments import AttachmentHandler
-
-
-class ProtocolType(Enum):
-    """Supported protocol types."""
-    SHELL = "shell"
-    MCP = "mcp"
-    REST = "rest"
-    WS = "ws"
-
-
-@dataclass
-class ProtocolBlock:
-    """Represents a protocol block in markdown."""
-    protocol: ProtocolType
-    content: str
-    attachments: List[str] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
 
 
 class ToonPact:

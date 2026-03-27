@@ -10,6 +10,7 @@ from rich.console import Console
 from rich.table import Table
 
 from propact import ToonPact, ProtocolType
+from propact.enhanced import Propact
 from propact.core import ProtocolBlock
 
 
@@ -24,6 +25,27 @@ console = Console()
     help="Execute only blocks of the specified protocol"
 )
 @click.option(
+    "--endpoint", "-e",
+    help="Target endpoint for sending content (e.g., https://api.example.com/upload, mcp://localhost/tool)"
+)
+@click.option(
+    "--schema", "-s",
+    type=click.Path(exists=True, path_type=Path),
+    help="Schema file for intelligent content splitting (OpenAPI JSON, CLI help text, etc.)"
+)
+@click.option(
+    "--mode", "-m",
+    type=click.Choice(["execute", "server"]),
+    default="execute",
+    help="Operation mode: execute (default) or server"
+)
+@click.option(
+    "--port",
+    type=int,
+    default=8080,
+    help="Port for server mode (default: 8080)"
+)
+@click.option(
     "--list", "-l",
     is_flag=True,
     help="List all protocol blocks without executing"
@@ -33,19 +55,52 @@ console = Console()
     is_flag=True,
     help="Show detailed output"
 )
-def main(file_path: Path, protocol: Optional[str], list: bool, verbose: bool) -> None:
+def main(file_path: Path, protocol: Optional[str], endpoint: Optional[str], 
+         schema: Optional[Path], mode: str, port: int, list: bool, verbose: bool) -> None:
     """
     Execute Protocol Pact documents.
     
     FILE_PATH: Path to the markdown file containing protocol blocks.
     """
     async def run():
-        pact = ToonPact(file_path)
+        # Use enhanced Propact if endpoint or schema is provided
+        if endpoint or schema:
+            pact = Propact(file_path, endpoint=endpoint, schema=str(schema) if schema else None)
+        else:
+            pact = ToonPact(file_path)
+        
+        if mode == "server":
+            if hasattr(pact, 'server_mode'):
+                await pact.server_mode(port=port)
+            else:
+                console.print("[red]Server mode requires enhanced Propact class. Use --endpoint or --schema.[/red]")
+                return
         
         if list:
             await list_blocks(pact)
             return
             
+        # If endpoint is provided, send to endpoint
+        if endpoint:
+            if hasattr(pact, 'send_to_endpoint'):
+                console.print(f"[blue]Sending to endpoint: {endpoint}[/blue]")
+                result = await pact.send_to_endpoint(endpoint)
+                
+                if "error" in result:
+                    console.print(f"[red]Error: {result['error']}[/red]")
+                else:
+                    console.print(f"[green]✓ Response saved to: {result['markdown_file']}[/green]")
+                    
+                    if verbose:
+                        console.print("\n[bold]Extracted Content:[/bold]")
+                        console.print(f"Files: {list(result['extracted_content'].media.keys())}")
+                        console.print(f"Data: {list(result['extracted_content'].codeblocks.keys())}")
+                        console.print(f"Text length: {len(result['extracted_content'].plain_text)}")
+            else:
+                console.print("[red]Endpoint sending requires enhanced Propact class. Use --endpoint or --schema.[/red]")
+            return
+            
+        # Default protocol execution
         protocol_type = ProtocolType(protocol) if protocol else None
         results = await pact.execute(protocol=protocol_type)
         

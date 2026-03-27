@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "propact"
-version = "0.0.3"
+version = "0.0.4"
 description = "Protocol Pact: Universal Markdown for Shell/MCP/REST/WS"
 authors = ["Tom Sapletta <tom@sapletta.com>"]
 license = "Apache-2.0"
@@ -21,12 +21,21 @@ mcp-python-sdk = "^1.0"
 pytoony = "^0.1"
 base64io = "^1.0"
 click = "^8.1"
+prance = "^24.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4"
 pytest-asyncio = "^0.21"
 ruff = "^0.1"
 mypy = "^1.7"
+
+[tool.poetry.extras]
+grpc = ["grpcio", "grpcio-tools"]
+graphql = ["gql[all]"]
+mqtt = ["paho-mqtt"]
+soap = ["zeep"]
+pandoc = ["pypandoc"]
+all = ["grpcio", "grpcio-tools", "gql[all]", "paho-mqtt", "zeep", "pypandoc"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
