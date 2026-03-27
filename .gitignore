@@ -1,3 +1,4 @@
+examples/public-apis/.env.demo
 .env.example
 .idea
 litellm_config.yaml

@@ -1,40 +1,53 @@
-# code2llm | 15f 2495L | python:14,shell:1 | 2026-03-27
-# CC̄=3.0 | critical:2/112 | dups:0 | cycles:0
+# code2llm | 24f 6317L | python:23,shell:1 | 2026-03-27
+# CC̄=3.7 | critical:6/250 | dups:0 | cycles:0
 
-HEALTH[2]:
+HEALTH[6]:
   🟡 CC    send CC=16 (limit:15)
+  🟡 CC    file CC=15 (limit:15)
+  🟡 CC    universal CC=17 (limit:15)
   🟡 CC    send_to_endpoint CC=20 (limit:15)
+  🟡 CC    _md_to_docx CC=23 (limit:15)
+  🟡 CC    validate CC=16 (limit:15)
 
 REFACTOR[1]:
-  1. split 2 high-CC methods  (CC>15)
+  1. split 6 high-CC methods  (CC>15)
 
-PIPELINES[82]:
-  [1] Src [main]: main → get_server_config → get_config
+PIPELINES[193]:
+  [1] Src [import_browser_spec]: import_browser_spec
       PURITY: 100% pure
-  [2] Src [__init__]: __init__
+  [2] Src [is_llm_enhanced]: is_llm_enhanced
       PURITY: 100% pure
-  [3] Src [send]: send
+  [3] Src [extract_llm_descriptions]: extract_llm_descriptions
       PURITY: 100% pure
-  [4] Src [send]: send
+  [4] Src [__init__]: __init__
       PURITY: 100% pure
-  [5] Src [__init__]: __init__
+  [5] Src [send]: send
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=3.0    ←in:0  →out:0
+  src/                            CC̄=3.7    ←in:0  →out:0
+  │ !! uniconverter               759L  3C   17m  CC=23     ←0
+  │ !! cli                        656L  0C   11m  CC=17     ←0
+  │ matcher                    444L  2C   14m  CC=10     ←1
+  │ !! validation                 414L  4C   11m  CC=16     ←0
   │ !! enhanced                   409L  2C   16m  CC=20     ←0
   │ !! adapters                   368L  6C   17m  CC=16     ←1
   │ converter                  368L  3C   15m  CC=13     ←1
+  │ error_handler              361L  3C   15m  CC=14     ←0
+  │ optimization               361L  3C   13m  CC=9      ←1
   │ config                     356L  12C   19m  CC=3      ←2
-  │ cli                        173L  0C    3m  CC=12     ←0
+  │ llm_proxy                  278L  2C   10m  CC=8      ←1
+  │ security                   263L  2C   10m  CC=13     ←1
+  │ core                       237L  1C    8m  CC=13     ←0
+  │ query_gen                  201L  1C    8m  CC=2      ←0
   │ ws                         149L  3C    7m  CC=3      ←0
   │ rest                       127L  4C    6m  CC=4      ←0
+  │ importer                   115L  1C    4m  CC=8      ←1
   │ mcp                        110L  2C    7m  CC=1      ←0
-  │ core                       104L  1C    7m  CC=9      ←0
   │ parser                     102L  3C    5m  CC=4      ←0
   │ attachments                 94L  1C    7m  CC=6      ←0
   │ shell                       74L  1C    3m  CC=6      ←0
-  │ __init__                    29L  0C    0m  CC=0.0    ←0
+  │ __init__                    39L  0C    0m  CC=0.0    ←0
   │ __init__                     8L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0

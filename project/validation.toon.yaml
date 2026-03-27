@@ -1,65 +1,64 @@
-# vallm batch | 69f | 24✓ 0⚠ 9✗ | 2026-03-27
+# vallm batch | 87f | 32✓ 1⚠ 9✗ | 2026-03-27
 
 SUMMARY:
-  scanned: 69  passed: 24 (34.8%)  warnings: 0  errors: 9  unsupported: 36
+  scanned: 87  passed: 32 (36.8%)  warnings: 1  errors: 9  unsupported: 46
+
+WARNINGS[1]{path,score}:
+  src/propact/cli.py,0.97
+    issues[1]{rule,severity,message,line}:
+      complexity.lizard_cc,warning,main.run: CC=21 exceeds limit 15,70
 
 ERRORS[9]{path,score}:
   src/propact/__init__.py,0.57
-    issues[5]{rule,severity,message,line}:
+    issues[6]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'core' not found,7
       python.import.resolvable,error,Module 'parser' not found,8
       python.import.resolvable,error,Module 'attachments' not found,9
       python.import.resolvable,error,Module 'enhanced' not found,10
       python.import.resolvable,error,Module 'converter' not found,11
+      python.import.resolvable,error,Module 'config' not found,12
   src/propact/protocols/__init__.py,0.57
     issues[4]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'shell' not found,3
       python.import.resolvable,error,Module 'mcp' not found,4
       python.import.resolvable,error,Module 'rest' not found,5
       python.import.resolvable,error,Module 'ws' not found,6
-  tests/test_protocols.py,0.68
-    issues[3]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'pytest' not found,3
-      python.import.resolvable,error,Module 'propact.protocols' not found,5
-      python.import.resolvable,error,Module 'propact.protocols.rest' not found,6
-  tests/test_core.py,0.69
-    issues[5]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'pytest' not found,3
-      python.import.resolvable,error,Module 'propact' not found,7
-      python.import.resolvable,error,Module 'propact.core' not found,8
-      python.import.resolvable,error,Module 'propact.parser' not found,9
-      python.import.resolvable,error,Module 'propact.attachments' not found,10
-  src/propact/enhanced.py,0.80
-    issues[7]{rule,severity,message,line}:
+  src/propact/adapters.py,0.81
+    issues[8]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,7
+      python.import.resolvable,error,Module 'grpc' not found,11
+      python.import.resolvable,error,Module 'grpc' not found,12
+      python.import.resolvable,error,Module 'gql' not found,18
+      python.import.resolvable,error,Module 'gql.transport.aiohttp' not found,19
+      python.import.resolvable,error,Module 'paho.mqtt.client' not found,25
+      python.import.resolvable,error,Module 'zeep' not found,31
+      python.import.resolvable,error,Module 'zeep.asyncio' not found,32
+  src/propact/enhanced.py,0.83
+    issues[6]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'core' not found,16
       python.import.resolvable,error,Module 'parser' not found,17
       python.import.resolvable,error,Module 'attachments' not found,18
       python.import.resolvable,error,Module 'converter' not found,19
       python.import.resolvable,error,Module 'adapters' not found,20
       python.import.resolvable,error,Module 'prance' not found,11
-      python.import.resolvable,error,Module 'httpx' not found,269
-  src/propact/adapters.py,0.82
-    issues[7]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'grpc' not found,13
-      python.import.resolvable,error,Module 'grpc' not found,14
-      python.import.resolvable,error,Module 'gql' not found,20
-      python.import.resolvable,error,Module 'gql.transport.aiohttp' not found,21
-      python.import.resolvable,error,Module 'paho.mqtt.client' not found,27
-      python.import.resolvable,error,Module 'zeep' not found,33
-      python.import.resolvable,error,Module 'zeep.asyncio' not found,34
   src/propact/core.py,0.86
     issues[2]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'parser' not found,7
       python.import.resolvable,error,Module 'attachments' not found,8
-  src/propact/cli.py,0.90
-    issues[2]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'propact' not found,16
-      python.import.resolvable,error,Module 'propact.enhanced' not found,17
+  tests/test_protocols.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  tests/test_core.py,0.94
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  src/propact/testing.py,0.95
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'config' not found,9
   src/propact/converter.py,0.96
     issues[1]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'pypandoc' not found,25
 
 UNSUPPORTED[3]{bucket,count}:
-  *.md,27
+  *.md,36
   *.txt,1
-  other,8
+  other,9

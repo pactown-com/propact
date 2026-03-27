@@ -1,7 +1,7 @@
 <!-- code2docs:start --># propact
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-93-green)
-> **93** functions | **26** classes | **23** files | CC̄ = 3.3
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-132-green)
+> **132** functions | **38** classes | **33** files | CC̄ = 3.0
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,7 +141,7 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 propact/
-    ├── propact/        ├── cli        ├── adapters        ├── core        ├── attachments            ├── mcp        ├── enhanced        ├── protocols/            ├── shell        ├── parser├── project        ├── run        ├── run        ├── run        ├── run        ├── run_old        ├── run        ├── run        ├── run        ├── run            ├── ws            ├── rest        ├── converter```
+    ├── propact/        ├── cli        ├── adapters        ├── core        ├── attachments        ├── enhanced            ├── mcp        ├── parser        ├── protocols/            ├── shell            ├── rest├── project    ├── run-all        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── config            ├── ws        ├── converter```
 
 ## API Overview
 
@@ -155,21 +155,33 @@ propact/
 - **`EmailAdapter`** — Adapter for Email protocol.
 - **`ToonPact`** — Main class for executing Protocol Pact documents.
 - **`AttachmentHandler`** — Handles binary attachments in Protocol Pact documents.
-- **`MCPMessage`** — MCP message structure.
-- **`MCPProtocol`** — Handles MCP (Model Context Protocol) communication within Protocol Pact.
 - **`SplitContent`** — Represents split content ready for transport.
 - **`Propact`** — Enhanced Propact class with schema introspection and intelligent content splitting.
-- **`ShellProtocol`** — Handles shell command execution within Protocol Pact.
+- **`MCPMessage`** — MCP message structure.
+- **`MCPProtocol`** — Handles MCP (Model Context Protocol) communication within Protocol Pact.
 - **`ProtocolType`** — Supported protocol types.
 - **`ProtocolBlock`** — Represents a protocol block in markdown.
 - **`MarkdownParser`** — Parser for extracting protocol blocks from markdown documents.
-- **`WebSocketState`** — WebSocket connection states.
-- **`WebSocketMessage`** — WebSocket message structure.
-- **`WebSocketProtocol`** — Handles WebSocket communication within Protocol Pact.
+- **`ShellProtocol`** — Handles shell command execution within Protocol Pact.
 - **`HTTPMethod`** — HTTP methods supported by REST protocol.
 - **`RESTRequest`** — REST request structure.
 - **`RESTResponse`** — REST response structure.
 - **`RESTProtocol`** — Handles REST API communication within Protocol Pact.
+- **`OpenAIConfig`** — OpenAI API configuration.
+- **`GRPCConfig`** — gRPC configuration.
+- **`MQTTConfig`** — MQTT configuration.
+- **`SMTPConfig`** — SMTP configuration for email.
+- **`WebSocketConfig`** — WebSocket configuration.
+- **`ServerConfig`** — Server configuration.
+- **`MCPConfig`** — MCP configuration.
+- **`LoggingConfig`** — Logging configuration.
+- **`PathConfig`** — Path configuration.
+- **`SecurityConfig`** — Security configuration.
+- **`Config`** — Main configuration class.
+- **`ConfigManager`** — Manages configuration loading and access.
+- **`WebSocketState`** — WebSocket connection states.
+- **`WebSocketMessage`** — WebSocket message structure.
+- **`WebSocketProtocol`** — Handles WebSocket communication within Protocol Pact.
 - **`MediaType`** — Supported media types for conversion.
 - **`ExtractedContent`** — Represents content extracted from markdown.
 - **`MDConverter`** — Universal converter for markdown ↔ various formats.
@@ -180,24 +192,65 @@ propact/
 - `list_blocks(pact)` — List all protocol blocks in the document.
 - `display_results(results, verbose)` — Display execution results.
 - `get_protocol_adapter(protocol, endpoint)` — Get appropriate protocol adapter.
+- `print_header()` — —
+- `print_status()` — —
+- `print_success()` — —
+- `print_warning()` — —
+- `print_error()` — —
+- `check_propact()` — —
+- `validate_example()` — —
+- `check_env_vars()` — —
+- `run_example()` — —
+- `run_legacy_example()` — —
+- `main()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `exit()` — —
+- `get_config()` — Get global configuration.
+- `init_config(env_file)` — Initialize configuration with custom env file.
+- `reload_config()` — Reload global configuration.
+- `get_openai_config()` — Get OpenAI configuration.
+- `get_grpc_config()` — Get gRPC configuration.
+- `get_mqtt_config()` — Get MQTT configuration.
+- `get_smtp_config()` — Get SMTP configuration.
+- `get_websocket_config()` — Get WebSocket configuration.
+- `get_server_config()` — Get server configuration.
+- `is_debug()` — Check if debug mode is enabled.
+- `is_test_mode()` — Check if test mode is enabled.
 
 
 ## Project Structure
 
 📄 `examples.01-shell-upload.run`
 📄 `examples.02-openapi-rest.run`
-📄 `examples.02-openapi-rest.run_old`
 📄 `examples.03-mcp-tool.run`
 📄 `examples.04-ws-chat.run`
 📄 `examples.05-md-server.run`
 📄 `examples.06-openai-vision.run`
 📄 `examples.07-ffmpeg-cli.run`
 📄 `examples.08-grpc-inference.run`
+📄 `examples.09-imgur.run` (1 functions)
+📄 `examples.10-slack.run` (1 functions)
+📄 `examples.11-discord.run` (1 functions)
+📄 `examples.12-openai-vision.run` (1 functions)
+📄 `examples.13-github-gist.run` (1 functions)
+📄 `examples.14-stripe.run` (1 functions)
+📄 `examples.15-youtube.run` (1 functions)
+📄 `examples.16-notion.run` (1 functions)
+📄 `examples.17-twitter.run` (1 functions)
+📄 `examples.run-all` (11 functions)
 📄 `project`
 📦 `src.propact`
 📄 `src.propact.adapters` (17 functions, 6 classes)
 📄 `src.propact.attachments` (7 functions, 1 classes)
 📄 `src.propact.cli` (3 functions)
+📄 `src.propact.config` (19 functions, 12 classes)
 📄 `src.propact.converter` (15 functions, 3 classes)
 📄 `src.propact.core` (7 functions, 1 classes)
 📄 `src.propact.enhanced` (16 functions, 2 classes)

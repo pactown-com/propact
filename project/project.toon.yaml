@@ -1,22 +1,25 @@
-# propact | 93 func | 11f | 2662L | python | 2026-03-27
+# propact | 112 func | 12f | 3087L | python | 2026-03-27
 
 HEALTH:
-  CC̄=3.3  critical=7 (limit:10)  dup=0  cycles=0
+  CC̄=3.0  critical=7 (limit:10)  dup=0  cycles=0
 
-ALERTS[7]:
-  !!! high_fan_out     main = 23 (limit:10)
-  !!! high_fan_out     EmailAdapter.send = 21 (limit:10)
+ALERTS[9]:
+  !!! high_fan_out     main = 32 (limit:10)
+  !!! high_fan_out     EmailAdapter.send = 22 (limit:10)
   !!  cc_exceeded      Propact.send_to_endpoint = 20 (limit:15)
   !!  high_fan_out     Propact.send_to_endpoint = 17 (limit:10)
+  !!  high_fan_out     ConfigManager._load_config = 16 (limit:10)
   !!  high_fan_out     MDConverter.extract_from_markdown = 16 (limit:10)
-  !   high_fan_out     MQTTAdapter.send = 14 (limit:10)
+  !!  high_fan_out     MQTTAdapter.send = 15 (limit:10)
+  !   cc_exceeded      EmailAdapter.send = 16 (limit:15)
   !   high_fan_out     Propact._send_rest = 10 (limit:10)
 
-MODULES[14] (top by size):
+MODULES[15] (top by size):
   M[src/propact/enhanced.py] 409L C:2 F:16 CC↑20 D:0 (python)
+  M[src/propact/adapters.py] 368L C:6 F:17 CC↑16 D:1 (python)
   M[src/propact/converter.py] 368L C:3 F:15 CC↑13 D:0 (python)
-  M[src/propact/adapters.py] 366L C:6 F:17 CC↑13 D:1 (python)
-  M[src/propact/cli.py] 174L C:0 F:3 CC↑12 D:0 (python)
+  M[src/propact/config.py] 356L C:12 F:19 CC↑3 D:2 (python)
+  M[src/propact/cli.py] 212L C:0 F:3 CC↑12 D:0 (python)
   M[src/propact/protocols/ws.py] 149L C:3 F:7 CC↑3 D:0 (python)
   M[src/propact/protocols/rest.py] 127L C:4 F:6 CC↑4 D:0 (python)
   M[src/propact/protocols/mcp.py] 110L C:2 F:7 CC↑1 D:0 (python)
@@ -24,30 +27,31 @@ MODULES[14] (top by size):
   M[src/propact/parser.py] 102L C:3 F:5 CC↑4 D:0 (python)
   M[src/propact/attachments.py] 94L C:1 F:7 CC↑6 D:0 (python)
   M[src/propact/protocols/shell.py] 74L C:1 F:3 CC↑6 D:0 (python)
+  M[src/propact/__init__.py] 29L C:0 F:0 CC↑0 D:0 (python)
   M[project.sh] 24L C:0 F:0 CC↑0 D:0 (shell)
-  M[src/propact/__init__.py] 13L C:0 F:0 CC↑0 D:0 (python)
   M[src/propact/protocols/__init__.py] 8L C:0 F:0 CC↑0 D:0 (python)
-  LANGS: python:13/shell:1
+  LANGS: python:14/shell:1
 
-HOTSPOTS[6]:
-  ★ main fan=23  // Execute Protocol Pact documents.
+HOTSPOTS[7]:
+  ★ main fan=32  // Execute Protocol Pact documents.
 
 FILE_PATH: Path to the markdown file containin
-  ★ EmailAdapter.send fan=21  // Send email.
+  ★ EmailAdapter.send fan=22  // Send email.
   ★ Propact.send_to_endpoint fan=17  // Send split markdown content to endpoint and convert response to markdown.
 
 Args:
+  ★ ConfigManager._load_config fan=16  // Load configuration from environment variables.
   ★ MDConverter.extract_from_markdown fan=16  // Extract all content from markdown.
 
 Args:
     md_content: Markdown content to pa
-  ★ MQTTAdapter.send fan=14  // Send MQTT message.
 
-REFACTOR[4]:
-  [1] M/L Split Propact.send_to_endpoint (CC=20 → target CC<10)
-  [2] M/M Reduce main fan-out (currently 23)
-  [3] M/M Reduce EmailAdapter.send fan-out (currently 21)
-  [4] M/M Reduce Propact.send_to_endpoint fan-out (currently 17)
+REFACTOR[5]:
+  [1] M/L Split EmailAdapter.send (CC=16 → target CC<10)
+  [2] M/L Split Propact.send_to_endpoint (CC=20 → target CC<10)
+  [3] M/M Reduce main fan-out (currently 32)
+  [4] M/M Reduce EmailAdapter.send fan-out (currently 22)
+  [5] M/M Reduce Propact.send_to_endpoint fan-out (currently 17)
 
 EVOLUTION:
-  2026-03-27 CC̄=3.3 crit=7 2662L // Automated analysis
+  2026-03-27 CC̄=3.0 crit=7 3087L // Automated analysis

@@ -204,6 +204,66 @@ async def run_pipeline():
 asyncio.run(run_pipeline())
 ```
 
+## Configuration
+
+Propact uses environment variables and `.env` files for configuration.
+
+### Environment Variables
+
+Create a `.env` file in your project root:
+
+```bash
+# Debug mode
+PROPACT_DEBUG=true
+
+# Test mode
+PROPACT_TEST_MODE=false
+
+# Request timeout (seconds)
+PROPACT_REQUEST_TIMEOUT=30
+
+# Maximum file size (bytes)
+PROPACT_MAX_FILE_SIZE=52428800
+
+# Allowed file extensions
+PROPACT_ALLOWED_EXTENSIONS=.md,.txt,.json,.yaml,.yml
+
+# Server port
+PROPACT_SERVER_PORT=8080
+
+# OpenAI API Key (for vision features)
+OPENAI_API_KEY=sk-...
+
+# MQTT configuration
+PROPACT_MQTT_HOST=localhost
+PROPACT_MQTT_PORT=1883
+
+# SMTP configuration
+PROPACT_SMTP_HOST=smtp.gmail.com
+PROPACT_SMTP_PORT=587
+PROPACT_SMTP_USERNAME=your-email@gmail.com
+PROPACT_SMTP_PASSWORD=your-app-password
+```
+
+### Python API Configuration
+
+```python
+from propact import get_config, init_config
+
+# Initialize with custom env file
+init_config(".env.production")
+
+# Get configuration
+config = get_config()
+print(f"Debug mode: {config.debug}")
+print(f"Timeout: {config.request_timeout}s")
+
+# Check debug/test modes
+from propact import is_debug, is_test_mode
+if is_debug():
+    print("Running in debug mode")
+```
+
 ## Advanced Features
 
 ### Custom Protocol Handlers

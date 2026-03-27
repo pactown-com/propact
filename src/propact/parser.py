@@ -2,7 +2,7 @@
 
 import re
 import asyncio
-from typing import Dict, Any
+from typing import Dict, Any, List
 from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum

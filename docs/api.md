@@ -2,9 +2,24 @@
 
 ## Core Classes
 
+### Propact
+
+Enhanced Propact class with schema introspection and intelligent content splitting.
+
+```python
+class Propact:
+    def __init__(self, file_path: Union[str, Path], endpoint: str = None, 
+                 schema: Union[str, Path, Dict[str, Any]] = None)
+    async def load(self) -> None
+    async def execute(self, protocol: Optional[ProtocolType] = None) -> Dict[str, Any]
+    async def send(self, payload: Any) -> Dict[str, Any]
+    async def receive(self) -> Dict[str, Any]
+    def response_to_markdown(self, response: Any) -> str
+```
+
 ### ToonPact
 
-Main class for executing Protocol Pact documents.
+Main class for executing Protocol Pact documents (legacy core implementation).
 
 ```python
 class ToonPact:
@@ -24,6 +39,7 @@ class ProtocolBlock:
     content: str
     attachments: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
+    raw_content: str = ""  # Original markdown content
 ```
 
 ### ProtocolType
@@ -107,6 +123,50 @@ class WebSocketProtocol:
     def remove_message_handler(self, handler: Callable[[WebSocketMessage], None]) -> None
 ```
 
+## Protocol Adapters
+
+Propact supports multiple protocol adapters for extended functionality:
+
+### BaseProtocolAdapter
+
+Base class for all protocol adapters.
+
+```python
+class BaseProtocolAdapter:
+    def __init__(self, endpoint: str, **kwargs)
+    async def send(self, payload: Dict[str, Any]) -> Dict[str, Any]
+```
+
+### Available Adapters
+
+- **GRPCAdapter** — gRPC protocol support
+- **MQTTAdapter** — MQTT messaging protocol
+- **SOAPAdapter** — SOAP web services
+- **EmailAdapter** — SMTP email sending
+
+## Configuration
+
+### Config
+
+Main configuration class using Pydantic settings.
+
+```python
+class Config(BaseSettings):
+    debug: bool = False
+    test_mode: bool = False
+    request_timeout: int = 30
+    max_file_size: int = 50 * 1024 * 1024  # 50MB
+    allowed_extensions: List[str] = [".md", ".txt", ".json", ".yaml", ".yml"]
+```
+
+### Config Functions
+
+- `get_config()` — Get global configuration
+- `init_config(env_file)` — Initialize with custom env file
+- `reload_config()` — Reload configuration
+- `is_debug()` — Check debug mode
+- `is_test_mode()` — Check test mode
+
 ## Attachments
 
 ### AttachmentHandler
@@ -125,13 +185,17 @@ class AttachmentHandler:
 
 ## CLI
 
-The `propact` command-line interface provides:
+The `propact` command-line interface:
 
 ```bash
 propact FILE_PATH [OPTIONS]
 
 Options:
-  -p, --protocol [shell|mcp|rest|ws]  Execute only blocks of the specified protocol
-  -l, --list                          List all protocol blocks without executing
+  -p, --protocol [shell|mcp|rest|ws]  Execute only specific protocol
+  -e, --endpoint TEXT                 Target endpoint URL
+  -s, --schema PATH                   Schema file (OpenAPI, etc.)
+  -m, --mode [execute|server]         Operation mode (default: execute)
+      --port INTEGER                  Port for server mode
+  -l, --list                          List blocks without executing
   -v, --verbose                       Show detailed output
 ```

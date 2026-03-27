@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.10] - 2026-03-27
 
 ### Fixed
+- Fix relative-imports issues (ticket-d2005cab)
+- Fix unused-imports issues (ticket-0781b1fb)
+- Fix magic-numbers issues (ticket-4c0de600)
+- Fix llm-generated-code issues (ticket-d66eead7)
+- Fix relative-imports issues (ticket-d6023f34)
+
+## [0.1.10] - 2026-03-27
+
+### Fixed
 - Fix duplicate-imports issues (ticket-0b9fca07)
 
 ## [0.1.10] - 2026-03-27
@@ -51,6 +60,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix llm-generated-code issues (ticket-97138167)
 
 ## [Unreleased]
+
+## [0.0.7] - 2026-03-27
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update TODO.md
+- Update docs/README.md
+- Update docs/api.md
+- Update docs/error-handling.md
+- Update docs/openapi-llm.md
+- Update docs/security.md
+- Update docs/semantic-matching.md
+- Update docs/usage.md
+- ... and 30 more files
+
+### Test
+- Update tests/test_error_handler.py
+
+### Other
+- Update .gitignore
+- Update Makefile
+- Update README.md.backup
+- Update examples/01-shell-upload/run.sh
+- Update examples/02-openapi-rest/openapi.json
+- Update examples/02-openapi-rest/run_old.sh
+- Update examples/05-security-hardening/run.sh
+- Update examples/05-security-hardening/secure_handler.py
+- Update examples/06-openai-vision/openapi.json
+- Update examples/09-imgur/run.sh
+- ... and 31 more files
 
 ## [0.0.6] - 2026-03-27
 

@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Slack API",
+    "version": "1.0.0",
+    "description": "Slack Web API with file upload and messaging capabilities"
+  },
+  "paths": {
+    "/api/files.upload": {
+      "post": {
+        "summary": "Upload file",
+        "description": "Uploads or creates a file and shares it with a channel",
+        "operationId": "files.upload",
+        "x-llm-intent": "Upload an image, document, or any file to a Slack channel with optional message",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "channels": {
+                    "type": "string",
+                    "description": "Channel ID or name"
+                  },
+                  "initial_comment": {
+                    "type": "string",
+                    "description": "Message to accompany the file"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the file"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat.postMessage": {
+      "post": {
+        "summary": "Post message",
+        "description": "Sends a message to a channel",
+        "operationId": "chat.postMessage",
+        "x-llm-intent": "Send a text message to a Slack channel with formatting and attachments",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "channel": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/files.share": {
+      "post": {
+        "summary": "Share file",
+        "description": "Shares an existing file with a channel",
+        "operationId": "files.share",
+        "x-llm-intent": "Share an already uploaded file to additional channels"
+      }
+    }
+  }
+}

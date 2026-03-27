@@ -1,30 +1,57 @@
-# propact | 15f 2495L | python:14,shell:1 | 2026-03-27
-# stats: 112 func | 0 cls | 15 mod | CC̄=3.0 | critical:2 | cycles:0
-# alerts[5]: fan-out main=24; fan-out EmailAdapter.send=22; CC Propact.send_to_endpoint=20; fan-out Propact.send_to_endpoint=17; CC EmailAdapter.send=16
-# hotspots[5]: main fan=24; EmailAdapter.send fan=22; Propact.send_to_endpoint fan=17; ConfigManager._load_config fan=16; MDConverter.extract_from_markdown fan=16
-# evolution: CC̄ 3.3→3.0 (improved -0.3)
+# propact | 24f 6317L | python:23,shell:1 | 2026-03-27
+# stats: 223 func | 0 cls | 24 mod | CC̄=3.7 | critical:6 | cycles:0
+# alerts[5]: fan-out main=34; fan-out EmailAdapter.send=22; fan-out ToonPact.smart_send=21; fan-out UniConverter.send_email=20; CC UniConverter._md_to_docx=23
+# hotspots[5]: main fan=34; EmailAdapter.send fan=22; ToonPact.smart_send fan=21; UniConverter.send_email fan=20; UniConverter._md_to_docx fan=19
+# evolution: CC̄ 3.0→3.7 (regressed +0.7)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[15]:
+M[24]:
   project.sh,24
-  src/propact/__init__.py,29
+  src/propact/__init__.py,39
   src/propact/adapters.py,368
   src/propact/attachments.py,94
-  src/propact/cli.py,173
+  src/propact/cli.py,656
   src/propact/config.py,356
   src/propact/converter.py,368
-  src/propact/core.py,104
+  src/propact/core.py,237
   src/propact/enhanced.py,409
+  src/propact/error_handler.py,361
+  src/propact/importer.py,115
+  src/propact/llm_proxy.py,278
+  src/propact/matcher.py,444
+  src/propact/optimization.py,361
   src/propact/parser.py,102
   src/propact/protocols/__init__.py,8
   src/propact/protocols/mcp.py,110
   src/propact/protocols/rest.py,127
   src/propact/protocols/shell.py,74
   src/propact/protocols/ws.py,149
+  src/propact/query_gen.py,201
+  src/propact/security.py,263
+  src/propact/uniconverter.py,759
+  src/propact/validation.py,414
 D:
+  src/propact/uniconverter.py:
+    e: ConversionResult,EmailConfig,UniConverter
+    ConversionResult: __post_init__(0)  # Result of a universal conversion operation...
+    EmailConfig:  # Configuration for email sending...
+    UniConverter: __init__(0),to_markdown(2),from_markdown(3),send_email(5),_markitdown_to_md(1),_html_to_md(1),_email_to_md(1),_pandoc_to_md(2),_md_to_pdf(2),_md_to_html(2),_md_to_docx(2),_md_to_pptx(2),_md_to_xlsx(2),_md_to_email(2),_pandoc_from_md(3),get_supported_formats(0)  # Universal document converter supporting 15+ formats...
   src/propact/enhanced.py:
     e: SplitContent,Propact
     SplitContent: __post_init__(0)  # Represents split content ready for transport...
     Propact(ToonPact): __init__(3),_introspect_schema(1),_smart_split_md(2),_detect_schema_type(1),_adapt_to_openapi(2),_adapt_to_shell(2),_adapt_to_mcp(2),_get_mime_type(1),send_to_endpoint(1),_send_rest(2),_send_mcp(2),_send_ws(2),_send_shell(2),_response_to_md(1),server_mode(1)  # Enhanced Propact class with schema introspection and intelli...
+  src/propact/cli.py:
+    e: cli,main,list_blocks,display_results,convert,file,string,formats,universal,send_email,batch
+    cli()
+    main(file_path;protocol;endpoint;openapi;base_url;openapi_llm_session;generate_spec;llm_key;error_mode;max_retries;schema;mode;port;list;verbose;dry_run;llm_provider;llm_model)
+    list_blocks(pact)
+    display_results(results;verbose)
+    convert()
+    file(input_file;from_format;to_format;output;dialect;table_name;operation;api_type;db_connection)
+    string(content;from_format;to_format;dialect;table_name;operation;api_type)
+    formats()
+    universal(input_path;to_md;to_pdf;to_docx;to_pptx;to_xlsx;to_html;to_email;output)
+    send_email(markdown_file;to_emails;subject;smtp_host;smtp_port;smtp_user;smtp_password;from_email;attach)
+    batch(directory;to_md;output_dir;pattern)
   src/propact/adapters.py:
     e: BaseProtocolAdapter,GRPCAdapter,GraphQLAdapter,MQTTAdapter,SOAPAdapter,EmailAdapter,get_protocol_adapter
     BaseProtocolAdapter: __init__(1),send(1),is_available(0)  # Base class for protocol adapters...
@@ -34,21 +61,54 @@ D:
     SOAPAdapter(BaseProtocolAdapter): __init__(1),is_available(0),send(1)  # Adapter for SOAP protocol...
     EmailAdapter(BaseProtocolAdapter): __init__(1),send(1)  # Adapter for Email protocol...
     get_protocol_adapter(protocol;endpoint)
+  src/propact/validation.py:
+    e: ValidationResult,SchemaInfo,SchemaRegistry,ValidationPipeline
+    ValidationResult:  # Result of validation...
+    SchemaInfo:  # Information about a schema...
+    SchemaRegistry: __init__(1),_load_schemas(0),get_schema(2),register_schema(3),detect_drift(3)  # Registry for managing API schemas...
+    ValidationPipeline: __init__(3),validate(4),_validate_against_schema(2),_validate_types(1),create_schema_pin(3),detect_schema_drift(1)  # Pipeline for validating markdown content...
+  src/propact/error_handler.py:
+    e: ErrorMode,MatchError,PropactErrorHandler
+    ErrorMode(Enum):  # Error handling modes...
+    MatchError:  # Error information for recovery strategies...
+    PropactErrorHandler: __init__(4),handle_match_failure(3),_llm_self_correct(2),_llm_self_correct_litellm(2),_llm_self_correct_ollama(2),_fallback_search(2),_fix_client_error(2),_fix_client_error_litellm(2),_fix_client_error_ollama(2),_retry_with_backoff(1),_simplify_and_retry(2),_generic_fallback(2),_extract_intent(1),_extract_keywords(1),_confirm_fix(0)  # Multi-layer error recovery system for Propact...
+  src/propact/security.py:
+    e: SanitizationConfig,MDSanitizer,create_sanitizer
+    SanitizationConfig: __post_init__(0)  # Configuration for markdown sanitization...
+    MDSanitizer: __init__(1),sanitize(2),_remove_scripts(1),_sanitize_links(1),_sanitize_base64_images(1),_sanitize_html(1),_strict_sanitization(1),audit(1)  # Markdown sanitizer for security protection...
+    create_sanitizer(strict;allow_html)
+  src/propact/core.py:
+    e: ToonPact
+    ToonPact: __init__(1),smart_send(6),load(0),execute(1),_execute_shell(1),_execute_mcp(1),_execute_rest(1),_execute_ws(1)  # Main class for executing Protocol Pact documents.
+
+Handles m...
   src/propact/converter.py:
     e: MediaType,ExtractedContent,MDConverter
     MediaType(Enum):  # Supported media types for conversion...
     ExtractedContent: __post_init__(0)  # Represents content extracted from markdown...
     MDConverter: response_to_markdown(2),_binary_to_markdown(1),_dict_to_markdown(1),_text_to_markdown(1),extract_from_markdown(0),prepare_payload(1),_prepare_openapi_payload(1),_prepare_multipart_payload(0),_prepare_json_payload(0),_prepare_form_payload(0),embed_media(1),_get_mime_type(0),create_codeblock(1),merge_markdown(-1)  # Universal converter for markdown ↔ various formats...
-  src/propact/cli.py:
-    e: main,list_blocks,display_results
-    main(file_path;protocol;endpoint;schema;mode;port;list;verbose)
-    list_blocks(pact)
-    display_results(results;verbose)
-  src/propact/core.py:
-    e: ToonPact
-    ToonPact: __init__(1),load(0),execute(1),_execute_shell(1),_execute_mcp(1),_execute_rest(1),_execute_ws(1)  # Main class for executing Protocol Pact documents.
-
-Handles m...
+  src/propact/matcher.py:
+    e: EndpointMatcher,OpenAPILLMMatcher,create_matcher,create_llm_matcher
+    EndpointMatcher: __init__(2),extract_intent(1),extract_endpoints(1),compute_similarities(2),match(3),match_from_file(3)  # Matches markdown content to OpenAPI endpoints using semantic...
+    OpenAPILLMMatcher: __init__(2),_llm_select(4),match(4),_extract_intent(1),_extract_candidates(1),hybrid_match(4)  # LLM-based semantic matcher for fast/accurate endpoint select...
+    create_matcher(model_name;error_handler)
+    create_llm_matcher(fast_provider;accurate_provider)
+  src/propact/optimization.py:
+    e: OptimizationConfig,MediaRefManager,MDOptimizer,create_optimizer
+    OptimizationConfig: __post_init__(0)  # Configuration for payload optimization...
+    MediaRefManager: __init__(1),generate_ref(2),should_externalize(2)  # Manages external media references...
+    MDOptimizer: __init__(1),optimize(1),_optimize_base64_images(1),_optimize_image(2),_optimize_code_blocks(1),_add_compression_metadata(1),create_chunks(2),get_optimization_report(2)  # Markdown payload optimizer...
+    create_optimizer(enable_compression;enable_image_optimization;chunk_size)
+  src/propact/importer.py:
+    e: OpenAPILLMImporter
+    OpenAPILLMImporter: import_browser_spec(0),from_browser_session(1),is_llm_enhanced(0),extract_llm_descriptions(0)  # Imports and enhances OpenAPI specs generated by openapi-llm...
+  src/propact/llm_proxy.py:
+    e: LLMConfig,LiteLLMProxy,quick_generate,match_intent,self_correct
+    LLMConfig:  # Configuration for an LLM provider...
+    LiteLLMProxy: __init__(2),_load_config(2),generate(4),astream(2),generate_sync(2),list_providers(0),from_env(1)  # Unified interface for 100+ LLM providers via LiteLLM...
+    quick_generate(prompt;provider)
+    match_intent(query;candidates;provider)
+    self_correct(error;context;provider)
   src/propact/attachments.py:
     e: AttachmentHandler
     AttachmentHandler: __init__(0),load_attachment(1),save_attachment(2),encode_base64(1),decode_base64(1),get_mime_type(1),extract_from_markdown(2)  # Handles binary attachments in Protocol Pact documents...
@@ -96,6 +156,11 @@ Handles m...
     WebSocketState(Enum):  # WebSocket connection states...
     WebSocketMessage:  # WebSocket message structure...
     WebSocketProtocol: __init__(2),connect(0),disconnect(0),send(1),receive(0),add_message_handler(1),remove_message_handler(1)  # Handles WebSocket communication within Protocol Pact...
+  src/propact/query_gen.py:
+    e: QueryGenerator,query_to_md,batch_generate
+    QueryGenerator: __init__(1),generate_md(1),generate_from_spec(3),suggest_endpoint(3),enhance_template(3),_render_template(1)  # Generate Propact MD templates from natural language queries ...
+    query_to_md(query;provider)
+    batch_generate(queries;provider)
   src/propact/protocols/mcp.py:
     e: MCPMessage,MCPProtocol
     MCPMessage:  # MCP message structure...

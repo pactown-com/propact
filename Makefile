@@ -65,3 +65,31 @@ format:
 # Fix linting issues
 fix:
 	poetry run ruff check --fix src/ tests/
+
+# LLM testing targets
+llm-test:
+	poetry run python -c "from propact.llm_proxy import LiteLLMProxy; print('LiteLLM import OK')"
+	poetry run propact --help | grep -q llm-provider && echo "CLI LLM flags OK"
+	@echo "✅ LiteLLM multi-provider configuration OK!"
+
+llm-bench:
+	@echo "Benchmarking LLM providers..."
+	@time poetry run python -c "
+import asyncio
+from propact.llm_proxy import quick_generate
+async def bench():
+    try:
+        result = await quick_generate('Say hello', provider='local')
+        print('Local/Ollama:', len(result), 'chars')
+    except Exception as e:
+        print('Local/Ollama:', str(e)[:50])
+asyncio.run(bench())
+"
+	@echo "✅ LLM benchmark complete"
+
+public-demo:
+	@echo "🚀 Running public APIs demo..."
+	cd examples/public-apis && ./demo-public.sh
+
+install-llm:
+	poetry install --extras llm

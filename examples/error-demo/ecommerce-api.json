@@ -1,0 +1,39 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "E-commerce API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/products": {
+      "get": {
+        "summary": "List products",
+        "description": "Get a list of all products"
+      },
+      "post": {
+        "summary": "Create product",
+        "description": "Create a new product in the catalog"
+      }
+    },
+    "/api/v1/orders": {
+      "get": {
+        "summary": "List orders",
+        "description": "Get customer orders"
+      },
+      "post": {
+        "summary": "Create order",
+        "description": "Create a new order"
+      }
+    },
+    "/api/v1/customers": {
+      "get": {
+        "summary": "List customers",
+        "description": "Get all customers"
+      },
+      "post": {
+        "summary": "Create customer",
+        "description": "Register a new customer"
+      }
+    }
+  }
+}

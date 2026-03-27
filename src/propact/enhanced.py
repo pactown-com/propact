@@ -2,7 +2,7 @@
 
 import json
 import subprocess
-from typing import Dict, Any
+from typing import Dict, Any, Union
 from pathlib import Path
 import asyncio
 from dataclasses import dataclass

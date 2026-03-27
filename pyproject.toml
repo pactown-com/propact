@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "propact"
-version = "0.0.6"
+version = "0.0.7"
 description = "Protocol Pact: Universal Markdown for Shell/MCP/REST/WS"
 authors = ["Tom Sapletta <tom@sapletta.com>"]
 license = "Apache-2.0"
@@ -9,7 +9,7 @@ repository = "https://github.com/wronai/propact"
 packages = [{include = "propact", from = "src"}]
 
 [tool.poetry.scripts]
-propact = "propact.cli:main"
+propact = "propact.cli:cli"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -17,11 +17,9 @@ rich = "^13.7"
 markdown = "^3.6"
 pydantic = {extras = ["email"], version = "^2.8"}
 httpx = "^0.27"
-mcp-python-sdk = "^1.0"
-pytoony = "^0.1"
 base64io = "^1.0"
 click = "^8.1"
-prance = "^24.0"
+litellm = "^1.45.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4"
@@ -36,7 +34,40 @@ mqtt = ["paho-mqtt"]
 soap = ["zeep"]
 pandoc = ["pypandoc"]
 dotenv = ["python-dotenv"]
-all = ["grpcio", "grpcio-tools", "gql", "paho-mqtt", "zeep", "pypandoc", "python-dotenv"]
+mcp = ["mcp-python-sdk"]
+semantic = ["sentence-transformers", "numpy"]
+security = ["bleach", "jsonschema", "Pillow", "markdown-it-py"]
+dsl = ["sqlglot", "pandas", "PyYAML", "xmltodict", "markdown-table-generator"]
+llm = ["litellm"]
+uniconverter = ["markitdown", "weasyprint", "python-docx", "python-pptx", "openpyxl", "pypandoc", "html2text", "email-validator"]
+all = ["grpcio", "grpcio-tools", "gql", "paho-mqtt", "zeep", "pypandoc", "python-dotenv", "mcp-python-sdk", "sentence-transformers", "numpy", "bleach", "jsonschema", "Pillow", "markdown-it-py", "sqlglot", "pandas", "PyYAML", "xmltodict", "markdown-table-generator", "markitdown", "weasyprint", "python-docx", "python-pptx", "openpyxl", "html2text", "email-validator"]
+
+[tool.propact.llm]
+default_provider = "local"
+
+[tool.propact.llm.providers.local]
+model = "ollama/llama3.2"
+api_base = "http://localhost:11434"
+
+[tool.propact.llm.providers.cloud]
+model = "openai/gpt-4o-mini"
+api_key = "{{ env OPENAI_API_KEY }}"
+
+[tool.propact.llm.providers.groq]
+model = "groq/llama3-70b-8192"
+api_key = "{{ env GROQ_API_KEY }}"
+
+[tool.propact.llm.providers.anthropic]
+model = "anthropic/claude-3.5-sonnet"
+api_key = "{{ env ANTHROPIC_API_KEY }}"
+
+[tool.propact.llm.providers.openrouter]
+model = "openrouter/openai/gpt-4o-mini"
+api_key = "{{ env OPENROUTER_API_KEY }}"
+
+[tool.propact.llm.providers.bedrock]
+model = "bedrock/claude-3-haiku"
+api_key = "{{ env AWS_ACCESS_KEY_ID }}"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -4,15 +4,15 @@
 # This script demonstrates how propact handles shell endpoints
 
 # Add parent directory to Python path for testing helpers
-export PYTHONPATH="${PYTHONPATH}:$(dirname $(dirname $(pwd))/src)"
+export PYTHONPATH="${PYTHONPATH}:$(dirname "$0")/../../src"
 
 python3 -c "
 from pathlib import Path
 import sys
 
 # Get the directory of this script
-script_dir = Path.cwd()
-src_path = script_dir.parent.parent / 'src'
+script_dir = Path('$(dirname "$0")').absolute()
+src_path = script_dir.parent / 'src'
 sys.path.insert(0, str(src_path))
 
 from propact.testing import ExampleHelper

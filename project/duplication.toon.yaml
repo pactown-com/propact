@@ -1,12 +1,12 @@
-# redup/duplication | 1 groups | 11f 2077L | 2026-03-27
+# redup/duplication | 1 groups | 12f 2473L | 2026-03-27
 
 SUMMARY:
-  files_scanned: 11
-  total_lines:   2077
+  files_scanned: 12
+  total_lines:   2473
   dup_groups:    1
   dup_fragments: 2
   saved_lines:   9
-  scan_ms:       1133
+  scan_ms:       1215
 
 DUPLICATES[1] (ranked by impact):
   [e775ebebbe3efb86]   STRU  __post_init__  L=9 N=2 saved=9 sim=1.00
