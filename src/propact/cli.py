@@ -120,11 +120,17 @@ def cli():
     type=str,
     help="Specific LLM model to use (e.g., ollama/llama3.2, openai/gpt-4o-mini, groq/llama3-70b)"
 )
+@click.option(
+    "--method",
+    type=click.Choice(["GET", "POST", "PUT", "PATCH", "DELETE"], case_sensitive=False),
+    default="POST",
+    help="HTTP method for REST endpoints (default: POST)"
+)
 def main(file_path: Path, protocol: Optional[str], endpoint: Optional[str], 
          openapi: Optional[str], base_url: Optional[str], openapi_llm_session: Optional[str],
          generate_spec: bool, llm_key: Optional[str], error_mode: str, max_retries: int,
          schema: Optional[Path], mode: str, port: int, list: bool, verbose: bool, dry_run: bool,
-         llm_provider: str, llm_model: Optional[str]) -> None:
+         llm_provider: str, llm_model: Optional[str], method: str) -> None:
     """
     Execute Protocol Pact documents.
     
@@ -145,7 +151,7 @@ def main(file_path: Path, protocol: Optional[str], endpoint: Optional[str],
         if endpoint or schema or openapi:
             model_display = llm_model or llm_provider
             console.print(f"[blue]Using LLM provider: {model_display}[/blue]")
-            pact = Propact(file_path, endpoint=endpoint, schema=str(schema) if schema else None)
+            pact = Propact(file_path, endpoint=endpoint, schema=str(schema) if schema else None, method=method)
         else:
             pact = ToonPact(file_path)
         

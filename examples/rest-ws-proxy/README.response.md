@@ -1,15 +1,13 @@
 # Response from Propact
 
-**Status:** 200
+**Status:** 401
 
 ## JSON Response
 
 ```json
 
 {
-  "bitcoin": {
-    "pln": 244795
-  }
+  "error": "Unauthorized"
 }
 
 ```
@@ -18,6 +16,6 @@
 
 ```
 
-{"bitcoin":{"pln":244795}}
+{"error":"Unauthorized"}
 
 ```

@@ -109,6 +109,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.9] - 2026-03-27
+
+### Docs
+- Update examples/09-imgur/README.response.md
+- Update examples/13-github-gist/README.response.md
+- Update examples/18-todo-api/README.md
+- Update examples/18-todo-api/README.response.md
+- Update examples/19-users-api/README.md
+- Update examples/19-users-api/README.response.md
+- Update examples/20-posts-api/README.md
+- Update examples/20-posts-api/README.response.md
+- Update examples/21-albums-api/README.md
+- Update examples/21-albums-api/README.response.md
+- ... and 18 more files
+
+### Test
+- Update test_all_examples.sh
+- Update test_examples_final.sh
+
+### Other
+- Update .env.example
+- Update .gitignore
+- Update examples/18-todo-api/run.sh
+- Update examples/19-users-api/run.sh
+- Update examples/20-posts-api/run.sh
+- Update examples/21-albums-api/run.sh
+- Update examples/22-comments-api/run.sh
+- Update examples/23-photos-api/run.sh
+- Update examples/run-new-examples.sh
+- Update sample_data.json
+- ... and 1 more files
+
 ## [0.0.8] - 2026-03-27
 
 ### Docs

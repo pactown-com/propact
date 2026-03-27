@@ -16,10 +16,10 @@ Sprawdź aktualną pogodę i prognozę dla lat 54.35, lon 18.65.
 ### Demo CLI (zero key dla basic):
 ```bash
 # Free tier (bez klucza dla demo)
-propact examples/public-apis/01-weather/README.md --endpoint "https://api.openweathermap.org/data/2.5/weather?lat=54.35&lon=18.65&appid=demo"
+propact run examples/public-apis/01-weather/README.md --endpoint "https://api.openweathermap.org/data/2.5/weather?lat=54.35&lon=18.65&appid=demo"
 
 # Real (z kluczem)
-OPENWEATHER_API_KEY=abc123 propact examples/public-apis/01-weather/README.md --endpoint "https://api.openweathermap.org/data/2.5/onecall"
+OPENWEATHER_API_KEY=abc123 propact run examples/public-apis/01-weather/README.md --endpoint "https://api.openweathermap.org/data/2.5/onecall"
 ```
 
 ## Expected Output

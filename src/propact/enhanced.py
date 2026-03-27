@@ -43,11 +43,12 @@ class Propact(ToonPact):
     content into appropriate payloads for different endpoints.
     """
     
-    def __init__(self, file_path: Union[str, Path], endpoint: str = None, schema: str = None):
+    def __init__(self, file_path: Union[str, Path], endpoint: str = None, schema: str = None, method: str = "POST"):
         """Initialize Propact with enhanced capabilities."""
         super().__init__(file_path)
         self.endpoint = endpoint
         self.schema_path = schema
+        self.method = method.upper()  # Store HTTP method (default: POST)
         self.schema = self._introspect_schema(schema) if schema else {"generic": "multipart/form-data"}
         self.raw_content = self.file_path.read_text(encoding='utf-8')
         
@@ -191,7 +192,7 @@ class Propact(ToonPact):
         response = None
         
         if endpoint.startswith(("http://", "https://")):
-            response = await self._send_rest(endpoint, payload)
+            response = await self._send_rest(endpoint, payload, self.method)
         elif endpoint.startswith("mcp://"):
             response = await self._send_mcp(endpoint, payload)
         elif endpoint.startswith(("ws://", "wss://")):
@@ -234,16 +235,11 @@ class Propact(ToonPact):
         
         # Convert response to markdown using converter
         if response:
-            content_type = response.get("headers", {}).get("content-type", "text/plain")
-            response_md = MDConverter.response_to_markdown(
-                response.get("data") or response.get("response") or response.get("stdout", ""),
-                content_type,
-                response.get("headers", {})
-            )
+            response_md = self._response_to_md(response)
             
             # Add error information if present
             if "error" in response:
-                response_md += f"\n\n**Error:** {response['error']}"
+                response_md += f"\n\n**Error:** {response['error']}"  # noqa: E501
             
             # Add metadata
             if "metadata" in response:
@@ -262,7 +258,7 @@ class Propact(ToonPact):
             "payload": payload
         }
     
-    async def _send_rest(self, endpoint: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+    async def _send_rest(self, endpoint: str, payload: Dict[str, Any], method: str = "POST") -> Dict[str, Any]:
         """Send content via REST API."""
         import httpx
         
@@ -294,7 +290,20 @@ class Propact(ToonPact):
             data["text"] = payload["text"]
         
         async with httpx.AsyncClient() as client:
-            response = await client.post(endpoint, files=files, data=data)
+            method = method.upper()
+            if method == "GET":
+                response = await client.get(endpoint, params=data)
+            elif method == "POST":
+                response = await client.post(endpoint, files=files, data=data)
+            elif method == "PUT":
+                response = await client.put(endpoint, files=files, data=data)
+            elif method == "PATCH":
+                response = await client.patch(endpoint, files=files, data=data)
+            elif method == "DELETE":
+                response = await client.delete(endpoint, params=data)
+            else:
+                response = await client.post(endpoint, files=files, data=data)
+            
             return {
                 "status_code": response.status_code,
                 "headers": dict(response.headers),

@@ -1,5 +1,6 @@
-examples/public-apis/.env.demo
 .env.example
+examples/public-apis/.env.demo
+poetry.lock
 .idea
 litellm_config.yaml
 litellm-config.yaml

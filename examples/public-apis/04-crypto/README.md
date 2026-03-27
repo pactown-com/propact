@@ -15,7 +15,7 @@ Aktualna cena BTC w PLN + 24h change.
 ## Usage
 
 ```bash
-propact examples/public-apis/04-crypto/README.md --endpoint "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=pln&include_24hr_change=true"
+propact run examples/public-apis/04-crypto/README.md --endpoint "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=pln&include_24hr_change=true"
 ```
 
 ## Expected Output

@@ -15,7 +15,7 @@ Ile dostanę za 1000 PLN dzisiaj?
 ## Usage
 
 ```bash
-propact examples/public-apis/02-currency/README.md --endpoint "https://api.exchangerate.host/convert"
+propact run examples/public-apis/02-currency/README.md --endpoint "https://api.exchangerate.host/convert"
 ```
 
 ## Expected Output

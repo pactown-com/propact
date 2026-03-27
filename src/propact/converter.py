@@ -150,6 +150,13 @@ class MDConverter:
             return f"```html\n{text}\n```"
         elif "xml" in content_type:
             return f"```xml\n{text}\n```"
+        elif "json" in content_type:
+            # Format JSON with proper indentation
+            try:
+                parsed = json.loads(text)
+                return f"```json\n{json.dumps(parsed, indent=2)}\n```"
+            except json.JSONDecodeError:
+                return f"```json\n{text}\n```"
         else:
             # Plain text
             return text
