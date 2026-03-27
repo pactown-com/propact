@@ -1,8 +1,9 @@
 """REST protocol implementation for Propact."""
 
-import asyncio
-import json
-from typing import Dict, Any, Optional, Union, List
+# Constants
+HTTP_STATUS_OK = 200
+
+from typing import Dict, Any, Optional, Union
 from dataclasses import dataclass
 from enum import Enum
 
@@ -42,8 +43,7 @@ class RESTProtocol:
     
     def __init__(self, base_url: Optional[str] = None, 
                  default_headers: Optional[Dict[str, str]] = None):
-        """
-        Initialize RESTProtocol.
+        """Initialize RESTProtocol.
         
         Args:
             base_url: Base URL for all requests.
@@ -76,7 +76,7 @@ class RESTProtocol:
             
         # Simulate response
         return RESTResponse(
-            status_code=200,
+            status_code=HTTP_STATUS_OK,
             headers={"content-type": "application/json"},
             body={"message": "REST protocol not yet implemented", 
                   "url": url,

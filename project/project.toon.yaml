@@ -1,4 +1,4 @@
-# propact | 93 func | 11f | 2645L | python | 2026-03-27
+# propact | 93 func | 11f | 2662L | python | 2026-03-27
 
 HEALTH:
   CC̄=3.3  critical=7 (limit:10)  dup=0  cycles=0
@@ -10,20 +10,20 @@ ALERTS[7]:
   !!  high_fan_out     Propact.send_to_endpoint = 17 (limit:10)
   !!  high_fan_out     MDConverter.extract_from_markdown = 16 (limit:10)
   !   high_fan_out     MQTTAdapter.send = 14 (limit:10)
-  !   high_fan_out     Propact._send_rest = 11 (limit:10)
+  !   high_fan_out     Propact._send_rest = 10 (limit:10)
 
 MODULES[14] (top by size):
-  M[src/propact/enhanced.py] 406L C:2 F:16 CC↑20 D:0 (python)
+  M[src/propact/enhanced.py] 409L C:2 F:16 CC↑20 D:0 (python)
   M[src/propact/converter.py] 368L C:3 F:15 CC↑13 D:0 (python)
-  M[src/propact/adapters.py] 363L C:6 F:17 CC↑13 D:1 (python)
-  M[src/propact/cli.py] 171L C:0 F:3 CC↑12 D:0 (python)
-  M[src/propact/protocols/ws.py] 152L C:3 F:7 CC↑3 D:0 (python)
+  M[src/propact/adapters.py] 366L C:6 F:17 CC↑13 D:1 (python)
+  M[src/propact/cli.py] 174L C:0 F:3 CC↑12 D:0 (python)
+  M[src/propact/protocols/ws.py] 149L C:3 F:7 CC↑3 D:0 (python)
   M[src/propact/protocols/rest.py] 127L C:4 F:6 CC↑4 D:0 (python)
-  M[src/propact/protocols/mcp.py] 115L C:2 F:7 CC↑1 D:0 (python)
-  M[src/propact/core.py] 106L C:1 F:7 CC↑9 D:0 (python)
+  M[src/propact/protocols/mcp.py] 110L C:2 F:7 CC↑1 D:0 (python)
+  M[src/propact/core.py] 104L C:1 F:7 CC↑9 D:0 (python)
   M[src/propact/parser.py] 102L C:3 F:5 CC↑4 D:0 (python)
   M[src/propact/attachments.py] 94L C:1 F:7 CC↑6 D:0 (python)
-  M[src/propact/protocols/shell.py] 76L C:1 F:3 CC↑6 D:0 (python)
+  M[src/propact/protocols/shell.py] 74L C:1 F:3 CC↑6 D:0 (python)
   M[project.sh] 24L C:0 F:0 CC↑0 D:0 (shell)
   M[src/propact/__init__.py] 13L C:0 F:0 CC↑0 D:0 (python)
   M[src/propact/protocols/__init__.py] 8L C:0 F:0 CC↑0 D:0 (python)
@@ -50,4 +50,4 @@ REFACTOR[4]:
   [4] M/M Reduce Propact.send_to_endpoint fan-out (currently 17)
 
 EVOLUTION:
-  2026-03-27 CC̄=3.3 crit=7 2645L // Automated analysis
+  2026-03-27 CC̄=3.3 crit=7 2662L // Automated analysis

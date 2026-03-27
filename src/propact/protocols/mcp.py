@@ -19,8 +19,7 @@ class MCPProtocol:
     """Handles MCP (Model Context Protocol) communication within Protocol Pact."""
     
     def __init__(self, name: str = "propact-mcp"):
-        """
-        Initialize MCPProtocol.
+        """Initialize MCPProtocol.
         
         Args:
             name: Name of the MCP server/client.
@@ -31,8 +30,7 @@ class MCPProtocol:
         
     def register_tool(self, name: str, description: str, 
                      input_schema: Dict[str, Any]) -> None:
-        """
-        Register a tool with the MCP server.
+        """Register a tool with the MCP server.
         
         Args:
             name: Tool name.
@@ -47,8 +45,7 @@ class MCPProtocol:
         
     def register_resource(self, uri: str, name: str, 
                          description: str, mime_type: str = "text/plain") -> None:
-        """
-        Register a resource with the MCP server.
+        """Register a resource with the MCP server.
         
         Args:
             uri: Resource URI.

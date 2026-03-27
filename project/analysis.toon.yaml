@@ -1,38 +1,40 @@
-# code2llm | 14f 2125L | python:13,shell:1 | 2026-03-27
-# CC̄=3.3 | critical:1/93 | dups:0 | cycles:0
+# code2llm | 15f 2495L | python:14,shell:1 | 2026-03-27
+# CC̄=3.0 | critical:2/112 | dups:0 | cycles:0
 
-HEALTH[1]:
+HEALTH[2]:
+  🟡 CC    send CC=16 (limit:15)
   🟡 CC    send_to_endpoint CC=20 (limit:15)
 
 REFACTOR[1]:
-  1. split 1 high-CC methods  (CC>15)
+  1. split 2 high-CC methods  (CC>15)
 
-PIPELINES[67]:
-  [1] Src [main]: main → display_results
+PIPELINES[82]:
+  [1] Src [main]: main → get_server_config → get_config
       PURITY: 100% pure
   [2] Src [__init__]: __init__
       PURITY: 100% pure
-  [3] Src [load]: load
+  [3] Src [send]: send
       PURITY: 100% pure
-  [4] Src [execute]: execute
+  [4] Src [send]: send
       PURITY: 100% pure
-  [5] Src [_execute_shell]: _execute_shell
+  [5] Src [__init__]: __init__
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=3.3    ←in:0  →out:0
-  │ !! enhanced                   406L  2C   16m  CC=20     ←0
+  src/                            CC̄=3.0    ←in:0  →out:0
+  │ !! enhanced                   409L  2C   16m  CC=20     ←0
+  │ !! adapters                   368L  6C   17m  CC=16     ←1
   │ converter                  368L  3C   15m  CC=13     ←1
-  │ adapters                   363L  6C   17m  CC=13     ←1
-  │ cli                        171L  0C    3m  CC=12     ←0
-  │ ws                         152L  3C    7m  CC=3      ←0
+  │ config                     356L  12C   19m  CC=3      ←2
+  │ cli                        173L  0C    3m  CC=12     ←0
+  │ ws                         149L  3C    7m  CC=3      ←0
   │ rest                       127L  4C    6m  CC=4      ←0
-  │ mcp                        115L  2C    7m  CC=1      ←0
-  │ core                       106L  1C    7m  CC=9      ←0
+  │ mcp                        110L  2C    7m  CC=1      ←0
+  │ core                       104L  1C    7m  CC=9      ←0
   │ parser                     102L  3C    5m  CC=4      ←0
   │ attachments                 94L  1C    7m  CC=6      ←0
-  │ shell                       76L  1C    3m  CC=6      ←0
-  │ __init__                    13L  0C    0m  CC=0.0    ←0
+  │ shell                       74L  1C    3m  CC=6      ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
   │ __init__                     8L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0

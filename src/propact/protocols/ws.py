@@ -27,8 +27,7 @@ class WebSocketProtocol:
     """Handles WebSocket communication within Protocol Pact."""
     
     def __init__(self, url: str, headers: Optional[Dict[str, str]] = None):
-        """
-        Initialize WebSocketProtocol.
+        """Initialize WebSocketProtocol.
         
         Args:
             url: WebSocket URL.
@@ -133,8 +132,7 @@ class WebSocketProtocol:
         )
         
     def add_message_handler(self, handler: Callable[[WebSocketMessage], None]) -> None:
-        """
-        Add a message handler callback.
+        """Add a message handler callback.
         
         Args:
             handler: Callback function for handling messages.
@@ -142,8 +140,7 @@ class WebSocketProtocol:
         self.message_handlers.append(handler)
         
     def remove_message_handler(self, handler: Callable[[WebSocketMessage], None]) -> None:
-        """
-        Remove a message handler callback.
+        """Remove a message handler callback.
         
         Args:
             handler: Callback function to remove.

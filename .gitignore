@@ -1,3 +1,4 @@
+.env.example
 .idea
 litellm_config.yaml
 litellm-config.yaml
@@ -14,6 +15,14 @@ gui-server/index.html.bak
 gui-server/logs/
 gui-agent/logs/
 logs/
+
+# Environment variables
+.env
+.venv
+venv/
+ENV/
+env.bak/
+venv.bak/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

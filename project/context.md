@@ -4,14 +4,19 @@
 
 - **Project**: /home/tom/github/pactown-com/propact
 - **Primary Language**: python
-- **Languages**: python: 13, shell: 9
+- **Languages**: python: 14, shell: 10
 - **Analysis Mode**: static
-- **Total Functions**: 93
-- **Total Classes**: 26
-- **Modules**: 22
-- **Entry Points**: 90
+- **Total Functions**: 112
+- **Total Classes**: 38
+- **Modules**: 24
+- **Entry Points**: 105
 
 ## Architecture by Module
+
+### src.propact.config
+- **Functions**: 19
+- **Classes**: 12
+- **File**: `config.py`
 
 ### src.propact.adapters
 - **Functions**: 17
@@ -71,6 +76,10 @@
 
 Main execution flows into the system:
 
+### src.propact.config.ConfigManager._load_config
+> Load configuration from environment variables.
+- **Calls**: OpenAIConfig, GRPCConfig, MQTTConfig, SMTPConfig, WebSocketConfig, ServerConfig, MCPConfig, LoggingConfig
+
 ### src.propact.cli.main
 > Execute Protocol Pact documents.
 
@@ -107,15 +116,15 @@ Returns:
 
 ### src.propact.adapters.MQTTAdapter.send
 > Send MQTT message.
-- **Calls**: None.split, mqtt.Client, client.connect, json.dumps, client.publish, result.wait_for_publish, client.disconnect, host_port.split
+- **Calls**: None.split, src.propact.config.get_mqtt_config, mqtt.Client, client.connect, json.dumps, client.publish, result.wait_for_publish, client.disconnect
+
+### src.propact.enhanced.Propact._send_rest
+> Send content via REST API.
+- **Calls**: None.items, None.items, httpx.AsyncClient, isinstance, None.items, client.post, dict, json.dumps
 
 ### src.propact.enhanced.Propact._introspect_schema
 > Introspect schema from file (OpenAPI, CLI, etc.).
 - **Calls**: Path, schema_path.endswith, schema_file.exists, schema_path.endswith, schema_path.endswith, prance.ResolvingParser, schema_path.endswith, schema_path.endswith
-
-### src.propact.enhanced.Propact._send_rest
-> Send content via REST API.
-- **Calls**: None.items, data.update, httpx.AsyncClient, None.items, client.post, dict, isinstance, None.startswith
 
 ### src.propact.converter.MDConverter.prepare_payload
 > Prepare payload for different protocols based on schema.
@@ -132,6 +141,9 @@ Args:
 ### src.propact.adapters.SOAPAdapter.send
 > Send SOAP request.
 - **Calls**: AsyncClient, payload.get, data.get, data.get, getattr, data.get, hasattr, getattr
+
+### src.propact.adapters.EmailAdapter.__init__
+- **Calls**: None.__init__, src.propact.config.get_smtp_config, kwargs.get, kwargs.get, kwargs.get, kwargs.get, kwargs.get, kwargs.get
 
 ### src.propact.core.ToonPact.execute
 > Execute protocol blocks.
@@ -160,9 +172,6 @@ Returns:
 ### src.propact.adapters.GRPCAdapter.send
 > Send gRPC request.
 - **Calls**: None.split, aio_grpc.insecure_channel, payload.get, len, channel.close, str, self.endpoint.replace, str
-
-### src.propact.adapters.EmailAdapter.__init__
-- **Calls**: None.__init__, kwargs.get, kwargs.get, kwargs.get, kwargs.get, kwargs.get, kwargs.get, super
 
 ### src.propact.enhanced.Propact._send_mcp
 > Send content via MCP protocol.
@@ -247,42 +256,38 @@ Returns:
     REST response.
 - **Calls**: RESTResponse, headers.update, request.url.startswith, self.base_url.rstrip, request.url.lstrip
 
-### src.propact.converter.MDConverter._binary_to_markdown
-> Convert binary data to markdown.
-- **Calls**: None.decode, base64.b64encode, content_type.split, content_type.split, content_type.split
-
 ## Process Flows
 
 Key execution flows identified:
 
-### Flow 1: main
+### Flow 1: _load_config
+```
+_load_config [src.propact.config.ConfigManager]
+```
+
+### Flow 2: main
 ```
 main [src.propact.cli]
 ```
 
-### Flow 2: send_to_endpoint
+### Flow 3: send_to_endpoint
 ```
 send_to_endpoint [src.propact.enhanced.Propact]
 ```
 
-### Flow 3: send
+### Flow 4: send
 ```
 send [src.propact.adapters.EmailAdapter]
 ```
 
-### Flow 4: _response_to_md
+### Flow 5: _response_to_md
 ```
 _response_to_md [src.propact.enhanced.Propact]
 ```
 
-### Flow 5: extract_from_markdown
+### Flow 6: extract_from_markdown
 ```
 extract_from_markdown [src.propact.converter.MDConverter]
-```
-
-### Flow 6: _introspect_schema
-```
-_introspect_schema [src.propact.enhanced.Propact]
 ```
 
 ### Flow 7: _send_rest
@@ -290,19 +295,21 @@ _introspect_schema [src.propact.enhanced.Propact]
 _send_rest [src.propact.enhanced.Propact]
 ```
 
-### Flow 8: prepare_payload
+### Flow 8: _introspect_schema
+```
+_introspect_schema [src.propact.enhanced.Propact]
+```
+
+### Flow 9: prepare_payload
 ```
 prepare_payload [src.propact.converter.MDConverter]
 ```
 
-### Flow 9: execute
+### Flow 10: __init__
 ```
-execute [src.propact.core.ToonPact]
-```
-
-### Flow 10: parse
-```
-parse [src.propact.parser.MarkdownParser]
+__init__ [src.propact.adapters.EmailAdapter]
+  └─ →> get_smtp_config
+      └─> get_config
 ```
 
 ## Key Classes
@@ -319,6 +326,11 @@ Capable of pars
 > Universal converter for markdown ↔ various formats.
 - **Methods**: 14
 - **Key Methods**: src.propact.converter.MDConverter.response_to_markdown, src.propact.converter.MDConverter._binary_to_markdown, src.propact.converter.MDConverter._dict_to_markdown, src.propact.converter.MDConverter._text_to_markdown, src.propact.converter.MDConverter.extract_from_markdown, src.propact.converter.MDConverter.prepare_payload, src.propact.converter.MDConverter._prepare_openapi_payload, src.propact.converter.MDConverter._prepare_multipart_payload, src.propact.converter.MDConverter._prepare_json_payload, src.propact.converter.MDConverter._prepare_form_payload
+
+### src.propact.config.ConfigManager
+> Manages configuration loading and access.
+- **Methods**: 9
+- **Key Methods**: src.propact.config.ConfigManager.__init__, src.propact.config.ConfigManager._find_env_file, src.propact.config.ConfigManager._load_env, src.propact.config.ConfigManager._get_env_bool, src.propact.config.ConfigManager._get_env_int, src.propact.config.ConfigManager._get_env_path, src.propact.config.ConfigManager.config, src.propact.config.ConfigManager._load_config, src.propact.config.ConfigManager.reload
 
 ### src.propact.core.ToonPact
 > Main class for executing Protocol Pact documents.
@@ -411,11 +423,6 @@ Handles markdown documents with protocol blocks f
 > MCP message structure.
 - **Methods**: 0
 
-### src.propact.parser.ProtocolType
-> Supported protocol types.
-- **Methods**: 0
-- **Inherits**: Enum
-
 ## Data Transformation Functions
 
 Key functions that process and transform data:
@@ -446,11 +453,11 @@ Args:
 
 Functions exposed as public API (no underscore prefix):
 
-- `src.propact.cli.main` - 42 calls
+- `src.propact.cli.main` - 43 calls
 - `src.propact.enhanced.Propact.send_to_endpoint` - 39 calls
-- `src.propact.adapters.EmailAdapter.send` - 27 calls
+- `src.propact.adapters.EmailAdapter.send` - 28 calls
 - `src.propact.converter.MDConverter.extract_from_markdown` - 19 calls
-- `src.propact.adapters.MQTTAdapter.send` - 16 calls
+- `src.propact.adapters.MQTTAdapter.send` - 17 calls
 - `src.propact.converter.MDConverter.prepare_payload` - 12 calls
 - `src.propact.adapters.GraphQLAdapter.send` - 11 calls
 - `src.propact.adapters.SOAPAdapter.send` - 11 calls
@@ -475,17 +482,17 @@ Functions exposed as public API (no underscore prefix):
 - `src.propact.attachments.AttachmentHandler.decode_base64` - 2 calls
 - `src.propact.attachments.AttachmentHandler.get_mime_type` - 2 calls
 - `src.propact.enhanced.Propact.server_mode` - 2 calls
-- `src.propact.protocols.ws.WebSocketProtocol.send` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.get` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.post` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.put` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.delete` - 2 calls
+- `src.propact.protocols.ws.WebSocketProtocol.send` - 2 calls
 - `src.propact.protocols.mcp.MCPProtocol.register_tool` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.register_resource` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.create_list_tools_response` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.create_list_resources_response` - 1 calls
 - `src.propact.protocols.shell.ShellProtocol.execute_script` - 1 calls
-- `src.propact.protocols.ws.WebSocketProtocol.connect` - 1 calls
+- `src.propact.config.ConfigManager.reload` - 1 calls
 
 ## System Interactions
 
@@ -493,6 +500,11 @@ How components interact:
 
 ```mermaid
 graph TD
+    _load_config --> OpenAIConfig
+    _load_config --> GRPCConfig
+    _load_config --> MQTTConfig
+    _load_config --> SMTPConfig
+    _load_config --> WebSocketConfig
     main --> command
     main --> argument
     main --> option
@@ -512,17 +524,12 @@ graph TD
     extract_from_markdow --> findall
     extract_from_markdow --> sub
     send --> split
+    send --> get_mqtt_config
     send --> Client
     send --> connect
     send --> dumps
-    send --> publish
-    _introspect_schema --> Path
-    _introspect_schema --> endswith
-    _introspect_schema --> exists
     _send_rest --> items
-    _send_rest --> update
     _send_rest --> AsyncClient
-    _send_rest --> post
 ```
 
 ## Reverse Engineering Guidelines

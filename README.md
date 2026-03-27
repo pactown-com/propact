@@ -3,6 +3,14 @@
 [![PyPI](https://img.shields.io/pypi/v/propact.svg)](https://pypi.org/project/propact/)
 [![Python](https://img.shields.io/pypi/pyversions/propact.svg)](https://pypi.org/project/propact/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
+[![Type Checking](https://img.shields.io/badge/type%20checking-mypy-blue.svg)](https://mypy.readthedocs.io/)
+[![Tests](https://img.shields.io/github/actions/workflow/status/wronai/propact/ci.yml?branch=main&label=tests)](https://github.com/wronai/propact/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/wronai/propact)](https://codecov.io/gh/wronai/propact)
+[![Documentation](https://img.shields.io/github/actions/workflow/status/wronai/propact/docs.yml?branch=main&label=docs)](https://github.com/wronai/propact/actions)
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
+[![Pydantic](https://img.shields.io/badge/Pydantic-v2-blue.svg)](https://pydantic.dev)
+[![Async](https://img.shields.io/badge/async-asyncio-green.svg)](https://docs.python.org/3/library/asyncio.html)
 
 **Markdown speaks all protocols!** Shell → MCP → REST/WS without conversion.
 
@@ -122,6 +130,9 @@ make lint
 ```
 
 ## License
+
+Licensed under Apache-2.0.
+
 
 Licensed under Apache-2.0.
 

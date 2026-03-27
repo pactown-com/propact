@@ -1,9 +1,8 @@
 """Enhanced Propact class with schema introspection and smart split capabilities."""
 
-import re
 import json
 import subprocess
-from typing import Dict, List, Optional, Any, Union
+from typing import Dict, Any
 from pathlib import Path
 import asyncio
 from dataclasses import dataclass
@@ -382,7 +381,7 @@ class Propact(ToonPact):
         if "content" in response and response["content"]:
             md_lines.append("## Raw Response\n")
             md_lines.append("```\n")
-            md_lines.append(response["content"][:1000] + "..." if len(response["content"]) > 1000 else response["content"])
+            md_lines.append(f"{response['content'][:1000]}..." if len(response['content']) > 1000 else response['content'])
             md_lines.append("\n```\n")
         
         if "stdout" in response and response["stdout"]:

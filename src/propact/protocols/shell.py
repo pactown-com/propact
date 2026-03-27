@@ -9,8 +9,7 @@ class ShellProtocol:
     """Handles shell command execution within Protocol Pact."""
     
     def __init__(self, shell: str = "/bin/bash"):
-        """
-        Initialize ShellProtocol.
+        """Initialize ShellProtocol.
         
         Args:
             shell: Shell executable to use.

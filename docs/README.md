@@ -1,7 +1,7 @@
 <!-- code2docs:start --># propact
 
 ![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-93-green)
-> **93** functions | **26** classes | **22** files | CC̄ = 3.3
+> **93** functions | **26** classes | **23** files | CC̄ = 3.3
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,24 +141,24 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 propact/
-    ├── propact/        ├── cli        ├── core        ├── attachments        ├── adapters        ├── enhanced            ├── mcp        ├── protocols/            ├── shell        ├── parser├── project        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run            ├── ws            ├── rest        ├── converter```
+    ├── propact/        ├── cli        ├── adapters        ├── core        ├── attachments            ├── mcp        ├── enhanced        ├── protocols/            ├── shell        ├── parser├── project        ├── run        ├── run        ├── run        ├── run        ├── run_old        ├── run        ├── run        ├── run        ├── run            ├── ws            ├── rest        ├── converter```
 
 ## API Overview
 
 ### Classes
 
-- **`ToonPact`** — Main class for executing Protocol Pact documents.
-- **`AttachmentHandler`** — Handles binary attachments in Protocol Pact documents.
 - **`BaseProtocolAdapter`** — Base class for protocol adapters.
 - **`GRPCAdapter`** — Adapter for gRPC protocol.
 - **`GraphQLAdapter`** — Adapter for GraphQL protocol.
 - **`MQTTAdapter`** — Adapter for MQTT protocol.
 - **`SOAPAdapter`** — Adapter for SOAP protocol.
 - **`EmailAdapter`** — Adapter for Email protocol.
-- **`SplitContent`** — Represents split content ready for transport.
-- **`Propact`** — Enhanced Propact class with schema introspection and intelligent content splitting.
+- **`ToonPact`** — Main class for executing Protocol Pact documents.
+- **`AttachmentHandler`** — Handles binary attachments in Protocol Pact documents.
 - **`MCPMessage`** — MCP message structure.
 - **`MCPProtocol`** — Handles MCP (Model Context Protocol) communication within Protocol Pact.
+- **`SplitContent`** — Represents split content ready for transport.
+- **`Propact`** — Enhanced Propact class with schema introspection and intelligent content splitting.
 - **`ShellProtocol`** — Handles shell command execution within Protocol Pact.
 - **`ProtocolType`** — Supported protocol types.
 - **`ProtocolBlock`** — Represents a protocol block in markdown.
@@ -186,6 +186,7 @@ propact/
 
 📄 `examples.01-shell-upload.run`
 📄 `examples.02-openapi-rest.run`
+📄 `examples.02-openapi-rest.run_old`
 📄 `examples.03-mcp-tool.run`
 📄 `examples.04-ws-chat.run`
 📄 `examples.05-md-server.run`

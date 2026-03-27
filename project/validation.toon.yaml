@@ -1,7 +1,7 @@
-# vallm batch | 68f | 23✓ 0⚠ 9✗ | 2026-03-27
+# vallm batch | 69f | 24✓ 0⚠ 9✗ | 2026-03-27
 
 SUMMARY:
-  scanned: 68  passed: 23 (33.8%)  warnings: 0  errors: 9  unsupported: 36
+  scanned: 69  passed: 24 (34.8%)  warnings: 0  errors: 9  unsupported: 36
 
 ERRORS[9]{path,score}:
   src/propact/__init__.py,0.57
@@ -29,33 +29,32 @@ ERRORS[9]{path,score}:
       python.import.resolvable,error,Module 'propact.core' not found,8
       python.import.resolvable,error,Module 'propact.parser' not found,9
       python.import.resolvable,error,Module 'propact.attachments' not found,10
-  src/propact/enhanced.py,0.81
+  src/propact/enhanced.py,0.80
     issues[7]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'core' not found,17
-      python.import.resolvable,error,Module 'parser' not found,18
-      python.import.resolvable,error,Module 'attachments' not found,19
-      python.import.resolvable,error,Module 'converter' not found,20
-      python.import.resolvable,error,Module 'adapters' not found,21
-      python.import.resolvable,error,Module 'prance' not found,12
-      python.import.resolvable,error,Module 'httpx' not found,270
+      python.import.resolvable,error,Module 'core' not found,16
+      python.import.resolvable,error,Module 'parser' not found,17
+      python.import.resolvable,error,Module 'attachments' not found,18
+      python.import.resolvable,error,Module 'converter' not found,19
+      python.import.resolvable,error,Module 'adapters' not found,20
+      python.import.resolvable,error,Module 'prance' not found,11
+      python.import.resolvable,error,Module 'httpx' not found,269
   src/propact/adapters.py,0.82
     issues[7]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'grpc' not found,9
-      python.import.resolvable,error,Module 'grpc' not found,10
-      python.import.resolvable,error,Module 'gql' not found,16
-      python.import.resolvable,error,Module 'gql.transport.aiohttp' not found,17
-      python.import.resolvable,error,Module 'paho.mqtt.client' not found,23
-      python.import.resolvable,error,Module 'zeep' not found,29
-      python.import.resolvable,error,Module 'zeep.asyncio' not found,30
-  src/propact/cli.py,0.87
-    issues[3]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'propact' not found,12
-      python.import.resolvable,error,Module 'propact.enhanced' not found,13
-      python.import.resolvable,error,Module 'propact.core' not found,14
-  src/propact/core.py,0.89
+      python.import.resolvable,error,Module 'grpc' not found,13
+      python.import.resolvable,error,Module 'grpc' not found,14
+      python.import.resolvable,error,Module 'gql' not found,20
+      python.import.resolvable,error,Module 'gql.transport.aiohttp' not found,21
+      python.import.resolvable,error,Module 'paho.mqtt.client' not found,27
+      python.import.resolvable,error,Module 'zeep' not found,33
+      python.import.resolvable,error,Module 'zeep.asyncio' not found,34
+  src/propact/core.py,0.86
     issues[2]{rule,severity,message,line}:
-      python.import.resolvable,error,Module 'parser' not found,9
-      python.import.resolvable,error,Module 'attachments' not found,10
+      python.import.resolvable,error,Module 'parser' not found,7
+      python.import.resolvable,error,Module 'attachments' not found,8
+  src/propact/cli.py,0.90
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'propact' not found,16
+      python.import.resolvable,error,Module 'propact.enhanced' not found,17
   src/propact/converter.py,0.96
     issues[1]{rule,severity,message,line}:
       python.import.resolvable,error,Module 'pypandoc' not found,25

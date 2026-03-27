@@ -11,6 +11,7 @@ from rich.table import Table
 
 from propact import ToonPact, ProtocolType
 from propact.enhanced import Propact
+from propact.config import get_server_config
 
 
 console = Console()
@@ -41,8 +42,8 @@ console = Console()
 @click.option(
     "--port",
     type=int,
-    default=8080,
-    help="Port for server mode (default: 8080)"
+    default=None,  # Will use config default if None
+    help="Port for server mode (default: from config)"
 )
 @click.option(
     "--list", "-l",
@@ -62,6 +63,12 @@ def main(file_path: Path, protocol: Optional[str], endpoint: Optional[str],
     FILE_PATH: Path to the markdown file containing protocol blocks.
     """
     async def run():
+        # Get server config for default port
+        nonlocal port
+        server_config = get_server_config()
+        if port is None:
+            port = server_config.port
+            
         # Use enhanced Propact if endpoint or schema is provided
         if endpoint or schema:
             pact = Propact(file_path, endpoint=endpoint, schema=str(schema) if schema else None)
@@ -157,14 +164,10 @@ def display_results(results: dict, verbose: bool) -> None:
                 output += f"ERROR: {result['error']}"
         else:
             if "stdout" in result:
-                output = result['stdout'][:100] + "..." if len(result['stdout']) > 100 else result['stdout']
+                output = f"{result['stdout'][:100]}..." if len(result['stdout']) > 100 else result['stdout']
             elif "error" in result:
-                output = result['error'][:100] + "..." if len(result['error']) > 100 else result['error']
+                output = f"{result['error'][:100]}..." if len(result['error']) > 100 else result['error']
                 
         table.add_row(block_name, status, output)
     
     console.print(table)
-
-
-if __name__ == "__main__":
-    main()

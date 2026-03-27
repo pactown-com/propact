@@ -7,19 +7,19 @@ flowchart TD
         src__propact__cli__main["main"]
         src__propact__cli__list_blocks["list_blocks"]
         src__propact__cli__display_results["display_results"]
-        src__propact__core__ToonPact__load["load"]
-        src__propact__core__ToonPact__execute["execute"]
-        src__propact__core__ToonPact___execute_shell["_execute_shell"]
-        src__propact__core__ToonPact___execute_mcp["_execute_mcp"]
-        src__propact__core__ToonPact___execute_rest["_execute_rest"]
-        src__propact__core__ToonPact___execute_ws["_execute_ws"]
         src__propact__adapters__BaseProtocolAdapter__send["send"]
         src__propact__adapters__BaseProtocolAdapter__is_available["is_available"]
         src__propact__adapters__GRPCAdapter__is_available["is_available"]
         src__propact__adapters__GRPCAdapter__send["send"]
         src__propact__adapters__GraphQLAdapter__is_available["is_available"]
         src__propact__adapters__GraphQLAdapter__send["send"]
-        ...["+64 more"]
+        src__propact__adapters__MQTTAdapter__is_available["is_available"]
+        src__propact__adapters__MQTTAdapter__send["send"]
+        src__propact__adapters__SOAPAdapter__is_available["is_available"]
+        src__propact__adapters__SOAPAdapter__send["send"]
+        src__propact__adapters__EmailAdapter__send["send"]
+        src__propact__core__ToonPact__load["load"]
+        ...["+78 more"]
     end
 
-    class src__propact__cli__main,src__propact__cli__list_blocks,src__propact__cli__display_results,src__propact__core__ToonPact__load,src__propact__core__ToonPact__execute,src__propact__core__ToonPact___execute_shell,src__propact__core__ToonPact___execute_mcp,src__propact__core__ToonPact___execute_rest,src__propact__core__ToonPact___execute_ws,src__propact__adapters__BaseProtocolAdapter__send entry
+    class src__propact__cli__main,src__propact__cli__list_blocks,src__propact__cli__display_results,src__propact__adapters__BaseProtocolAdapter__send,src__propact__adapters__BaseProtocolAdapter__is_available,src__propact__adapters__GRPCAdapter__is_available,src__propact__adapters__GRPCAdapter__send,src__propact__adapters__GraphQLAdapter__is_available,src__propact__adapters__GraphQLAdapter__send,src__propact__adapters__MQTTAdapter__is_available entry

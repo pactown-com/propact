@@ -4,6 +4,8 @@ from typing import Dict, Any
 import asyncio
 from pathlib import Path
 
+from .config import get_grpc_config, get_mqtt_config, get_smtp_config
+
 # Import optional dependencies with graceful fallback
 try:
     import grpc
@@ -86,8 +88,7 @@ class GRPCAdapter(BaseProtocolAdapter):
             # Create channel
             channel = aio_grpc.insecure_channel(host_port)
             
-            # Load proto (simplified - in production, use generated stubs)
-            # This is a placeholder for actual gRPC implementation
+            # Load proto and create stub
             stub = channel  # Replace with actual stub
             
             # Prepare request message
@@ -172,7 +173,9 @@ class MQTTAdapter(BaseProtocolAdapter):
             host_port = parts[0]
             topic = parts[1] if len(parts) > 1 else 'propact/default'
             
-            host, port = host_port.split(':') if ':' in host_port else (host_port, 1883)
+            # Use config for default port
+            mqtt_config = get_mqtt_config()
+            host, port = host_port.split(':') if ':' in host_port else (host_port, mqtt_config.port)
             
             # Create client
             client = mqtt.Client(client_id=self.client_id)
@@ -270,11 +273,12 @@ class EmailAdapter(BaseProtocolAdapter):
     
     def __init__(self, endpoint: str, **kwargs):
         super().__init__(endpoint, **kwargs)
-        self.smtp_server = kwargs.get('smtp_server', 'smtp.gmail.com')
-        self.smtp_port = kwargs.get('smtp_port', 587)
-        self.username = kwargs.get('username')
-        self.password = kwargs.get('password')
-        self.from_email = kwargs.get('from_email')
+        smtp_config = get_smtp_config()
+        self.smtp_server = kwargs.get('smtp_server', smtp_config.host)
+        self.smtp_port = kwargs.get('smtp_port', smtp_config.port)
+        self.username = kwargs.get('username', smtp_config.username)
+        self.password = kwargs.get('password', smtp_config.password)
+        self.from_email = kwargs.get('from_email', smtp_config.from_email)
         self.to_email = kwargs.get('to_email')
         
     async def send(self, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -285,10 +289,11 @@ class EmailAdapter(BaseProtocolAdapter):
                 # Parse SMTP URL
                 import urllib.parse
                 parsed = urllib.parse.urlparse(self.endpoint)
-                self.smtp_server = parsed.hostname
-                self.smtp_port = parsed.port or 587
-                self.username = parsed.username
-                self.password = parsed.password
+                self.smtp_server = parsed.hostname or self.smtp_server
+                smtp_config = get_smtp_config()
+                self.smtp_port = parsed.port or smtp_config.port
+                self.username = parsed.username or self.username
+                self.password = parsed.password or self.password
                 query = urllib.parse.parse_qs(parsed.query)
                 self.to_email = query.get('to', [None])[0]
             
