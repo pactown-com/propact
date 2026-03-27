@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "propact"
+version = "0.0.2"
+description = "Protocol Pact: Universal Markdown for Shell/MCP/REST/WS"
+authors = ["Tom Sapletta <tom@sapletta.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/wronai/propact"
+packages = [{include = "propact", from = "src"}]
+
+[tool.poetry.scripts]
+propact = "propact.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+rich = "^13.7"
+markdown = "^3.6"
+pydantic = {extras = ["email"], version = "^2.8"}
+httpx = "^0.27"
+mcp-python-sdk = "^1.0"
+pytoony = "^0.1"
+click = "^8.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4"
+pytest-asyncio = "^0.21"
+ruff = "^0.1"
+mypy = "^1.7"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+include = ["src/**/*.py", "tests/**/*.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "Q", "I", "N", "S", "T20"]
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+asyncio_mode = "auto"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true

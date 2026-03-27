@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-03-27
+
+### Docs
+- Update README.md
+- Update TODO.md
+- Update docs/README.md
+- Update project/README.md
+
+### Test
+- Update tests/__init__.py
+- Update tests/test_core.py
+- Update tests/test_protocols.py
+
+### Other
+- Update Makefile
+- Update planfile.yaml
+- Update prefact.yaml
+- Update project/calls.png
+- Update project/compact_flow.png
+- Update project/duplication.toon.yaml
+- Update project/evolution.toon.yaml
+- Update project/flow.png
+- Update project/index.html
+- Update project/project.toon.yaml
+- ... and 3 more files
+
 ## [0.0.1] - 2026-03-27
 
 ### Docs
