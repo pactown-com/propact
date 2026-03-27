@@ -14,8 +14,8 @@ try:
 except ImportError:
     HAS_PRANCE = False
 
-from .core import ToonPact, ProtocolBlock, ProtocolType
-from .parser import MarkdownParser
+from .core import ToonPact
+from .parser import MarkdownParser, ProtocolBlock, ProtocolType
 from .attachments import AttachmentHandler
 from .converter import MDConverter, ExtractedContent
 from .adapters import get_protocol_adapter, PROTOCOL_ADAPTERS
@@ -280,7 +280,11 @@ class Propact(ToonPact):
         
         # Add data fields
         if "fields" in payload:
-            data.update(payload["fields"])
+            for key, value in payload["fields"].items():
+                if isinstance(value, (dict, list)):
+                    data[key] = json.dumps(value)
+                else:
+                    data[key] = str(value)
         elif "data" in payload:
             for key, value in payload["data"].items():
                 if isinstance(value, (dict, list)):

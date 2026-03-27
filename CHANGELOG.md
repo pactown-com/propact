@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.10] - 2026-03-27
 
 ### Fixed
+- Fix unused-imports issues (ticket-eb2e5708)
+- Fix llm-hallucinations issues (ticket-9d5f50d5)
+- Fix magic-numbers issues (ticket-452ac866)
+- Fix unused-imports issues (ticket-95d2d727)
+- Fix llm-generated-code issues (ticket-64ece238)
+- Fix relative-imports issues (ticket-e9d10bde)
+- Fix string-concat issues (ticket-1ff59bac)
+- Fix unused-imports issues (ticket-d5cd4c4d)
+- Fix magic-numbers issues (ticket-1030fd37)
+- Fix string-concat issues (ticket-f23c71a4)
+- Fix unused-imports issues (ticket-52e7f63c)
+- Fix magic-numbers issues (ticket-c36fb0b3)
+- Fix llm-generated-code issues (ticket-21061d5b)
+
+## [0.1.10] - 2026-03-27
+
+### Fixed
 - Fix relative-imports issues (ticket-26661a5b)
 - Fix string-concat issues (ticket-509e428e)
 - Fix unused-imports issues (ticket-e6dfcb57)
@@ -29,6 +46,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix llm-generated-code issues (ticket-97138167)
 
 ## [Unreleased]
+
+## [0.0.5] - 2026-03-27
+
+### Docs
+- Update CHANGELOG.md
+- Update TODO.md
+- Update docs/README.md
+- Update examples/README.md
+- Update project/README.md
+- Update project/context.md
+
+### Other
+- Update examples/01-shell-upload/run.sh
+- Update examples/02-openapi-rest/run.sh
+- Update examples/02-openapi-rest/run_old.sh
+- Update examples/03-mcp-tool/run.sh
+- Update examples/04-ws-chat/run.sh
+- Update examples/05-md-server/run.sh
+- Update examples/06-openai-vision/run.sh
+- Update examples/07-ffmpeg-cli/run.sh
+- Update examples/08-grpc-inference/run.sh
+- Update planfile.yaml
+- ... and 14 more files
 
 ## [0.0.4] - 2026-03-27
 

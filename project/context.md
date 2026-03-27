@@ -4,14 +4,34 @@
 
 - **Project**: /home/tom/github/pactown-com/propact
 - **Primary Language**: python
-- **Languages**: python: 10, shell: 1
+- **Languages**: python: 13, shell: 9
 - **Analysis Mode**: static
-- **Total Functions**: 44
-- **Total Classes**: 15
-- **Modules**: 11
-- **Entry Points**: 42
+- **Total Functions**: 93
+- **Total Classes**: 26
+- **Modules**: 22
+- **Entry Points**: 90
 
 ## Architecture by Module
+
+### src.propact.adapters
+- **Functions**: 17
+- **Classes**: 6
+- **File**: `adapters.py`
+
+### src.propact.enhanced
+- **Functions**: 16
+- **Classes**: 2
+- **File**: `enhanced.py`
+
+### src.propact.converter
+- **Functions**: 15
+- **Classes**: 3
+- **File**: `converter.py`
+
+### src.propact.core
+- **Functions**: 7
+- **Classes**: 1
+- **File**: `core.py`
 
 ### src.propact.attachments
 - **Functions**: 7
@@ -22,11 +42,6 @@
 - **Functions**: 7
 - **Classes**: 2
 - **File**: `mcp.py`
-
-### src.propact.core
-- **Functions**: 7
-- **Classes**: 3
-- **File**: `core.py`
 
 ### src.propact.protocols.ws
 - **Functions**: 7
@@ -39,8 +54,8 @@
 - **File**: `rest.py`
 
 ### src.propact.parser
-- **Functions**: 4
-- **Classes**: 1
+- **Functions**: 5
+- **Classes**: 3
 - **File**: `parser.py`
 
 ### src.propact.cli
@@ -60,7 +75,73 @@ Main execution flows into the system:
 > Execute Protocol Pact documents.
 
 FILE_PATH: Path to the markdown file containing protocol blocks.
-- **Calls**: click.command, click.argument, click.option, click.option, click.option, ToonPact, src.propact.cli.display_results, asyncio.run
+- **Calls**: click.command, click.argument, click.option, click.option, click.option, click.option, click.option, click.option
+
+### src.propact.enhanced.Propact.send_to_endpoint
+> Send split markdown content to endpoint and convert response to markdown.
+
+Args:
+    endpoint: Target endpoint URL/command
+    
+Returns:
+    Response 
+- **Calls**: self._smart_split_md, MDConverter.prepare_payload, endpoint.startswith, self.file_path.with_suffix, output_path.write_text, endpoint.startswith, None.get, MDConverter.response_to_markdown
+
+### src.propact.adapters.EmailAdapter.send
+> Send email.
+- **Calls**: self.endpoint.startswith, MIMEMultipart, None.get, payload.get, None.items, smtplib.SMTP, server.starttls, msg.as_string
+
+### src.propact.enhanced.Propact._response_to_md
+> Convert response to markdown format.
+- **Calls**: None.join, md_lines.append, md_lines.append, md_lines.append, md_lines.append, md_lines.append, md_lines.append, md_lines.append
+
+### src.propact.converter.MDConverter.extract_from_markdown
+> Extract all content from markdown.
+
+Args:
+    md_content: Markdown content to parse
+    
+Returns:
+    ExtractedContent with media, codeblocks, and tex
+- **Calls**: ExtractedContent, MDConverter.MEDIA_PATTERN.finditer, MDConverter.CODEBLOCK_PATTERN.findall, MDConverter.CODEBLOCK_PATTERN.sub, MDConverter.MEDIA_PATTERN.sub, plain_text.strip, match.groups, content.strip
+
+### src.propact.adapters.MQTTAdapter.send
+> Send MQTT message.
+- **Calls**: None.split, mqtt.Client, client.connect, json.dumps, client.publish, result.wait_for_publish, client.disconnect, host_port.split
+
+### src.propact.enhanced.Propact._introspect_schema
+> Introspect schema from file (OpenAPI, CLI, etc.).
+- **Calls**: Path, schema_path.endswith, schema_file.exists, schema_path.endswith, schema_path.endswith, prance.ResolvingParser, schema_path.endswith, schema_path.endswith
+
+### src.propact.enhanced.Propact._send_rest
+> Send content via REST API.
+- **Calls**: None.items, data.update, httpx.AsyncClient, None.items, client.post, dict, isinstance, None.startswith
+
+### src.propact.converter.MDConverter.prepare_payload
+> Prepare payload for different protocols based on schema.
+
+Args:
+    extracted: Extracted content from markdown
+    schema: Optional schema for payload
+- **Calls**: None.lower, MDConverter._prepare_openapi_payload, None.lower, MDConverter._prepare_multipart_payload, str, None.lower, MDConverter._prepare_json_payload, str
+
+### src.propact.adapters.GraphQLAdapter.send
+> Send GraphQL request.
+- **Calls**: AIOHTTPTransport, Client, payload.get, data.get, data.get, self.endpoint.startswith, self.endpoint.replace, data.get
+
+### src.propact.adapters.SOAPAdapter.send
+> Send SOAP request.
+- **Calls**: AsyncClient, payload.get, data.get, data.get, getattr, data.get, hasattr, getattr
+
+### src.propact.core.ToonPact.execute
+> Execute protocol blocks.
+
+Args:
+    protocol: If specified, only execute blocks of this protocol type.
+    
+Returns:
+    Dictionary with execution res
+- **Calls**: self.load, self._execute_shell, self._execute_mcp, len, self._execute_rest, len, self._execute_ws, len
 
 ### src.propact.parser.MarkdownParser.parse
 > Parse markdown content and extract protocol blocks.
@@ -72,15 +153,33 @@ Returns:
     List of ProtocolBlock objects
 - **Calls**: self.protocol_pattern.finditer, match.group, match.group, ProtocolType, self._extract_attachments, self._extract_metadata, ProtocolBlock, blocks.append
 
-### src.propact.core.ToonPact.execute
-> Execute protocol blocks.
+### src.propact.converter.MDConverter._dict_to_markdown
+> Convert dictionary/list to markdown.
+- **Calls**: json.dumps, json.dumps, isinstance, yaml.dump, ET.Element, data.items, ET.tostring, ET.SubElement
+
+### src.propact.adapters.GRPCAdapter.send
+> Send gRPC request.
+- **Calls**: None.split, aio_grpc.insecure_channel, payload.get, len, channel.close, str, self.endpoint.replace, str
+
+### src.propact.adapters.EmailAdapter.__init__
+- **Calls**: None.__init__, kwargs.get, kwargs.get, kwargs.get, kwargs.get, kwargs.get, kwargs.get, super
+
+### src.propact.enhanced.Propact._send_mcp
+> Send content via MCP protocol.
+- **Calls**: list, list, len, None.keys, None.keys, payload.get, payload.get, payload.get
+
+### src.propact.enhanced.Propact._send_ws
+> Send content via WebSocket.
+- **Calls**: list, list, len, None.keys, None.keys, payload.get, payload.get, payload.get
+
+### src.propact.converter.MDConverter.response_to_markdown
+> Convert any response to markdown format.
 
 Args:
-    protocol: If specified, only execute blocks of this protocol type.
-    
-Returns:
-    Dictionary with execution res
-- **Calls**: self.load, self._execute_shell, self._execute_mcp, len, self._execute_rest, len, self._execute_ws, len
+    response: The response data (bytes, str, dict, etc.)
+    content_type: MIME type of the response
+ 
+- **Calls**: isinstance, headers.get, MDConverter._binary_to_markdown, isinstance, MDConverter._dict_to_markdown, isinstance, MDConverter._text_to_markdown, str
 
 ### src.propact.attachments.AttachmentHandler.extract_from_markdown
 > Extract all attachments from markdown content.
@@ -99,9 +198,44 @@ Args:
     env: Environment variable
 - **Calls**: asyncio.create_subprocess_shell, process.communicate, stdout.decode, stderr.decode, str, str, str
 
+### src.propact.converter.MDConverter.embed_media
+> Embed a media file as base64 in markdown format.
+
+Args:
+    file_path: Path to media file
+    alt_text: Alternative text for the media
+    
+Returns:
+ 
+- **Calls**: Path, file_path.read_bytes, None.decode, MDConverter._get_mime_type, file_path.exists, FileNotFoundError, base64.b64encode
+
+### src.propact.converter.MDConverter.create_codeblock
+> Create a markdown codeblock with content.
+
+Args:
+    content: Content to include in codeblock
+    language: Language identifier for syntax highlightin
+- **Calls**: isinstance, str, language.lower, json.dumps, yaml.dump, json.dumps, language.lower
+
+### src.propact.adapters.MQTTAdapter.__init__
+- **Calls**: None.__init__, kwargs.get, kwargs.get, kwargs.get, kwargs.get, super
+
+### src.propact.enhanced.Propact._smart_split_md
+> Intelligently split markdown content based on schema requirements.
+
+Uses MDConverter for consistent extraction and preparation.
+- **Calls**: MDConverter.extract_from_markdown, MDConverter.prepare_payload, extracted.metadata.update, self._detect_schema_type, list, payload.keys
+
 ### src.propact.parser.MarkdownParser._extract_metadata
 > Extract metadata from block content.
 - **Calls**: content.split, line.split, value.strip, None.startswith, key.strip, line.strip
+
+### src.propact.converter.MDConverter._prepare_openapi_payload
+> Prepare payload for OpenAPI endpoints.
+- **Calls**: None.items, MDConverter._prepare_json_payload, path_item.items, schema.get, None.get, method.lower
+
+### src.propact.adapters.GRPCAdapter.__init__
+- **Calls**: None.__init__, kwargs.get, kwargs.get, kwargs.get, super
 
 ### src.propact.protocols.rest.RESTProtocol.execute
 > Execute a REST request.
@@ -113,138 +247,9 @@ Returns:
     REST response.
 - **Calls**: RESTResponse, headers.update, request.url.startswith, self.base_url.rstrip, request.url.lstrip
 
-### src.propact.attachments.AttachmentHandler.load_attachment
-> Load an attachment from file path.
-
-Args:
-    path: Path to the attachment file.
-    
-Returns:
-    File content as bytes.
-- **Calls**: Path, path.read_bytes, path.exists, FileNotFoundError
-
-### src.propact.protocols.ws.WebSocketProtocol.receive
-> Receive a message from WebSocket.
-
-Returns:
-    Received message or None.
-- **Calls**: WebSocketMessage, asyncio.sleep, None.time, asyncio.get_event_loop
-
-### src.propact.attachments.AttachmentHandler.save_attachment
-> Save attachment data to file.
-
-Args:
-    data: Binary data to save.
-    path: Destination path.
-- **Calls**: Path, path.parent.mkdir, path.write_bytes
-
-### src.propact.parser.MarkdownParser._extract_attachments
-> Extract attachment references from block content.
-- **Calls**: self.attachment_pattern.finditer, attachments.append, match.group
-
-### src.propact.core.ToonPact.__init__
-> Initialize ToonPact with a markdown file.
-- **Calls**: Path, MarkdownParser, AttachmentHandler
-
-### src.propact.attachments.AttachmentHandler.encode_base64
-> Encode binary data as base64 string.
-- **Calls**: None.decode, base64.b64encode
-
-### src.propact.attachments.AttachmentHandler.decode_base64
-> Decode base64 string to binary data.
-- **Calls**: base64.b64decode, encoded.encode
-
-### src.propact.attachments.AttachmentHandler.get_mime_type
-> Get MIME type for a file.
-- **Calls**: mimetypes.guess_type, str
-
-### src.propact.parser.MarkdownParser.__init__
-> Initialize the markdown parser.
-- **Calls**: re.compile, re.compile
-
-### src.propact.core.ToonPact.load
-> Load and parse the markdown document.
-- **Calls**: self.file_path.read_text, self.parser.parse
-
-### src.propact.protocols.ws.WebSocketProtocol.send
-> Send a message through WebSocket.
-
-Args:
-    message: Message to send.
-    
-Returns:
-    Send result.
-- **Calls**: isinstance, json.dumps
-
-### src.propact.protocols.rest.RESTProtocol.get
-> Execute GET request.
-- **Calls**: RESTRequest, self.execute
-
-### src.propact.protocols.rest.RESTProtocol.post
-> Execute POST request.
-- **Calls**: RESTRequest, self.execute
-
-### src.propact.protocols.rest.RESTProtocol.put
-> Execute PUT request.
-- **Calls**: RESTRequest, self.execute
-
-### src.propact.protocols.rest.RESTProtocol.delete
-> Execute DELETE request.
-- **Calls**: RESTRequest, self.execute
-
-### src.propact.protocols.shell.ShellProtocol.execute_script
-> Execute a multi-line shell script.
-
-Args:
-    script: Shell script content.
-    cwd: Working directory for script execution.
-    env: Environment vari
-- **Calls**: self.execute
-
-### src.propact.protocols.mcp.MCPProtocol.register_tool
-> Register a tool with the MCP server.
-
-Args:
-    name: Tool name.
-    description: Tool description.
-    input_schema: JSON schema for tool input.
-- **Calls**: self.tools.append
-
-### src.propact.protocols.mcp.MCPProtocol.register_resource
-> Register a resource with the MCP server.
-
-Args:
-    uri: Resource URI.
-    name: Resource name.
-    description: Resource description.
-    mime_type: 
-- **Calls**: self.resources.append
-
-### src.propact.protocols.mcp.MCPProtocol.create_list_tools_response
-> Create a list tools response message.
-- **Calls**: MCPMessage
-
-### src.propact.protocols.mcp.MCPProtocol.create_list_resources_response
-> Create a list resources response message.
-- **Calls**: MCPMessage
-
-### src.propact.core.ToonPact._execute_shell
-> Execute shell protocol block.
-- **Calls**: subprocess.run
-
-### src.propact.protocols.ws.WebSocketProtocol.connect
-> Establish WebSocket connection.
-
-Returns:
-    Connection result.
-- **Calls**: asyncio.sleep
-
-### src.propact.protocols.ws.WebSocketProtocol.disconnect
-> Close WebSocket connection.
-
-Returns:
-    Disconnection result.
-- **Calls**: asyncio.sleep
+### src.propact.converter.MDConverter._binary_to_markdown
+> Convert binary data to markdown.
+- **Calls**: None.decode, base64.b64encode, content_type.split, content_type.split, content_type.split
 
 ## Process Flows
 
@@ -255,52 +260,72 @@ Key execution flows identified:
 main [src.propact.cli]
 ```
 
-### Flow 2: parse
+### Flow 2: send_to_endpoint
 ```
-parse [src.propact.parser.MarkdownParser]
+send_to_endpoint [src.propact.enhanced.Propact]
 ```
 
-### Flow 3: execute
+### Flow 3: send
+```
+send [src.propact.adapters.EmailAdapter]
+```
+
+### Flow 4: _response_to_md
+```
+_response_to_md [src.propact.enhanced.Propact]
+```
+
+### Flow 5: extract_from_markdown
+```
+extract_from_markdown [src.propact.converter.MDConverter]
+```
+
+### Flow 6: _introspect_schema
+```
+_introspect_schema [src.propact.enhanced.Propact]
+```
+
+### Flow 7: _send_rest
+```
+_send_rest [src.propact.enhanced.Propact]
+```
+
+### Flow 8: prepare_payload
+```
+prepare_payload [src.propact.converter.MDConverter]
+```
+
+### Flow 9: execute
 ```
 execute [src.propact.core.ToonPact]
 ```
 
-### Flow 4: extract_from_markdown
+### Flow 10: parse
 ```
-extract_from_markdown [src.propact.attachments.AttachmentHandler]
-```
-
-### Flow 5: _extract_metadata
-```
-_extract_metadata [src.propact.parser.MarkdownParser]
-```
-
-### Flow 6: load_attachment
-```
-load_attachment [src.propact.attachments.AttachmentHandler]
-```
-
-### Flow 7: receive
-```
-receive [src.propact.protocols.ws.WebSocketProtocol]
-```
-
-### Flow 8: save_attachment
-```
-save_attachment [src.propact.attachments.AttachmentHandler]
-```
-
-### Flow 9: _extract_attachments
-```
-_extract_attachments [src.propact.parser.MarkdownParser]
-```
-
-### Flow 10: __init__
-```
-__init__ [src.propact.core.ToonPact]
+parse [src.propact.parser.MarkdownParser]
 ```
 
 ## Key Classes
+
+### src.propact.enhanced.Propact
+> Enhanced Propact class with schema introspection and intelligent content splitting.
+
+Capable of pars
+- **Methods**: 15
+- **Key Methods**: src.propact.enhanced.Propact.__init__, src.propact.enhanced.Propact._introspect_schema, src.propact.enhanced.Propact._smart_split_md, src.propact.enhanced.Propact._detect_schema_type, src.propact.enhanced.Propact._adapt_to_openapi, src.propact.enhanced.Propact._adapt_to_shell, src.propact.enhanced.Propact._adapt_to_mcp, src.propact.enhanced.Propact._get_mime_type, src.propact.enhanced.Propact.send_to_endpoint, src.propact.enhanced.Propact._send_rest
+- **Inherits**: ToonPact
+
+### src.propact.converter.MDConverter
+> Universal converter for markdown ↔ various formats.
+- **Methods**: 14
+- **Key Methods**: src.propact.converter.MDConverter.response_to_markdown, src.propact.converter.MDConverter._binary_to_markdown, src.propact.converter.MDConverter._dict_to_markdown, src.propact.converter.MDConverter._text_to_markdown, src.propact.converter.MDConverter.extract_from_markdown, src.propact.converter.MDConverter.prepare_payload, src.propact.converter.MDConverter._prepare_openapi_payload, src.propact.converter.MDConverter._prepare_multipart_payload, src.propact.converter.MDConverter._prepare_json_payload, src.propact.converter.MDConverter._prepare_form_payload
+
+### src.propact.core.ToonPact
+> Main class for executing Protocol Pact documents.
+
+Handles markdown documents with protocol blocks f
+- **Methods**: 7
+- **Key Methods**: src.propact.core.ToonPact.__init__, src.propact.core.ToonPact.load, src.propact.core.ToonPact.execute, src.propact.core.ToonPact._execute_shell, src.propact.core.ToonPact._execute_mcp, src.propact.core.ToonPact._execute_rest, src.propact.core.ToonPact._execute_ws
 
 ### src.propact.attachments.AttachmentHandler
 > Handles binary attachments in Protocol Pact documents.
@@ -311,13 +336,6 @@ __init__ [src.propact.core.ToonPact]
 > Handles MCP (Model Context Protocol) communication within Protocol Pact.
 - **Methods**: 7
 - **Key Methods**: src.propact.protocols.mcp.MCPProtocol.__init__, src.propact.protocols.mcp.MCPProtocol.register_tool, src.propact.protocols.mcp.MCPProtocol.register_resource, src.propact.protocols.mcp.MCPProtocol.execute_tool, src.propact.protocols.mcp.MCPProtocol.get_resource, src.propact.protocols.mcp.MCPProtocol.create_list_tools_response, src.propact.protocols.mcp.MCPProtocol.create_list_resources_response
-
-### src.propact.core.ToonPact
-> Main class for executing Protocol Pact documents.
-
-Handles markdown documents with protocol blocks f
-- **Methods**: 7
-- **Key Methods**: src.propact.core.ToonPact.__init__, src.propact.core.ToonPact.load, src.propact.core.ToonPact.execute, src.propact.core.ToonPact._execute_shell, src.propact.core.ToonPact._execute_mcp, src.propact.core.ToonPact._execute_rest, src.propact.core.ToonPact._execute_ws
 
 ### src.propact.protocols.ws.WebSocketProtocol
 > Handles WebSocket communication within Protocol Pact.
@@ -334,45 +352,69 @@ Handles markdown documents with protocol blocks f
 - **Methods**: 4
 - **Key Methods**: src.propact.parser.MarkdownParser.__init__, src.propact.parser.MarkdownParser.parse, src.propact.parser.MarkdownParser._extract_attachments, src.propact.parser.MarkdownParser._extract_metadata
 
+### src.propact.adapters.BaseProtocolAdapter
+> Base class for protocol adapters.
+- **Methods**: 3
+- **Key Methods**: src.propact.adapters.BaseProtocolAdapter.__init__, src.propact.adapters.BaseProtocolAdapter.send, src.propact.adapters.BaseProtocolAdapter.is_available
+
+### src.propact.adapters.GRPCAdapter
+> Adapter for gRPC protocol.
+- **Methods**: 3
+- **Key Methods**: src.propact.adapters.GRPCAdapter.__init__, src.propact.adapters.GRPCAdapter.is_available, src.propact.adapters.GRPCAdapter.send
+- **Inherits**: BaseProtocolAdapter
+
+### src.propact.adapters.MQTTAdapter
+> Adapter for MQTT protocol.
+- **Methods**: 3
+- **Key Methods**: src.propact.adapters.MQTTAdapter.__init__, src.propact.adapters.MQTTAdapter.is_available, src.propact.adapters.MQTTAdapter.send
+- **Inherits**: BaseProtocolAdapter
+
+### src.propact.adapters.SOAPAdapter
+> Adapter for SOAP protocol.
+- **Methods**: 3
+- **Key Methods**: src.propact.adapters.SOAPAdapter.__init__, src.propact.adapters.SOAPAdapter.is_available, src.propact.adapters.SOAPAdapter.send
+- **Inherits**: BaseProtocolAdapter
+
 ### src.propact.protocols.shell.ShellProtocol
 > Handles shell command execution within Protocol Pact.
 - **Methods**: 3
 - **Key Methods**: src.propact.protocols.shell.ShellProtocol.__init__, src.propact.protocols.shell.ShellProtocol.execute, src.propact.protocols.shell.ShellProtocol.execute_script
 
+### src.propact.adapters.GraphQLAdapter
+> Adapter for GraphQL protocol.
+- **Methods**: 2
+- **Key Methods**: src.propact.adapters.GraphQLAdapter.is_available, src.propact.adapters.GraphQLAdapter.send
+- **Inherits**: BaseProtocolAdapter
+
+### src.propact.adapters.EmailAdapter
+> Adapter for Email protocol.
+- **Methods**: 2
+- **Key Methods**: src.propact.adapters.EmailAdapter.__init__, src.propact.adapters.EmailAdapter.send
+- **Inherits**: BaseProtocolAdapter
+
+### src.propact.enhanced.SplitContent
+> Represents split content ready for transport.
+- **Methods**: 1
+- **Key Methods**: src.propact.enhanced.SplitContent.__post_init__
+
+### src.propact.parser.ProtocolBlock
+> Represents a protocol block in markdown.
+- **Methods**: 1
+- **Key Methods**: src.propact.parser.ProtocolBlock.__post_init__
+
+### src.propact.converter.ExtractedContent
+> Represents content extracted from markdown.
+- **Methods**: 1
+- **Key Methods**: src.propact.converter.ExtractedContent.__post_init__
+
 ### src.propact.protocols.mcp.MCPMessage
 > MCP message structure.
 - **Methods**: 0
 
-### src.propact.core.ProtocolType
+### src.propact.parser.ProtocolType
 > Supported protocol types.
 - **Methods**: 0
 - **Inherits**: Enum
-
-### src.propact.core.ProtocolBlock
-> Represents a protocol block in markdown.
-- **Methods**: 0
-
-### src.propact.protocols.ws.WebSocketState
-> WebSocket connection states.
-- **Methods**: 0
-- **Inherits**: Enum
-
-### src.propact.protocols.ws.WebSocketMessage
-> WebSocket message structure.
-- **Methods**: 0
-
-### src.propact.protocols.rest.HTTPMethod
-> HTTP methods supported by REST protocol.
-- **Methods**: 0
-- **Inherits**: Enum
-
-### src.propact.protocols.rest.RESTRequest
-> REST request structure.
-- **Methods**: 0
-
-### src.propact.protocols.rest.RESTResponse
-> REST response structure.
-- **Methods**: 0
 
 ## Data Transformation Functions
 
@@ -404,37 +446,46 @@ Args:
 
 Functions exposed as public API (no underscore prefix):
 
-- `src.propact.cli.main` - 16 calls
+- `src.propact.cli.main` - 42 calls
+- `src.propact.enhanced.Propact.send_to_endpoint` - 39 calls
+- `src.propact.adapters.EmailAdapter.send` - 27 calls
+- `src.propact.converter.MDConverter.extract_from_markdown` - 19 calls
+- `src.propact.adapters.MQTTAdapter.send` - 16 calls
+- `src.propact.converter.MDConverter.prepare_payload` - 12 calls
+- `src.propact.adapters.GraphQLAdapter.send` - 11 calls
+- `src.propact.adapters.SOAPAdapter.send` - 11 calls
 - `src.propact.cli.list_blocks` - 10 calls
 - `src.propact.cli.display_results` - 10 calls
-- `src.propact.parser.MarkdownParser.parse` - 9 calls
 - `src.propact.core.ToonPact.execute` - 9 calls
+- `src.propact.parser.MarkdownParser.parse` - 9 calls
+- `src.propact.adapters.GRPCAdapter.send` - 8 calls
+- `src.propact.converter.MDConverter.response_to_markdown` - 8 calls
 - `src.propact.attachments.AttachmentHandler.extract_from_markdown` - 7 calls
 - `src.propact.protocols.shell.ShellProtocol.execute` - 7 calls
+- `src.propact.converter.MDConverter.embed_media` - 7 calls
+- `src.propact.converter.MDConverter.create_codeblock` - 7 calls
 - `src.propact.protocols.rest.RESTProtocol.execute` - 5 calls
+- `src.propact.adapters.get_protocol_adapter` - 4 calls
 - `src.propact.attachments.AttachmentHandler.load_attachment` - 4 calls
 - `src.propact.protocols.ws.WebSocketProtocol.receive` - 4 calls
 - `src.propact.attachments.AttachmentHandler.save_attachment` - 3 calls
+- `src.propact.converter.MDConverter.merge_markdown` - 3 calls
+- `src.propact.core.ToonPact.load` - 2 calls
 - `src.propact.attachments.AttachmentHandler.encode_base64` - 2 calls
 - `src.propact.attachments.AttachmentHandler.decode_base64` - 2 calls
 - `src.propact.attachments.AttachmentHandler.get_mime_type` - 2 calls
-- `src.propact.core.ToonPact.load` - 2 calls
+- `src.propact.enhanced.Propact.server_mode` - 2 calls
 - `src.propact.protocols.ws.WebSocketProtocol.send` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.get` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.post` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.put` - 2 calls
 - `src.propact.protocols.rest.RESTProtocol.delete` - 2 calls
-- `src.propact.protocols.shell.ShellProtocol.execute_script` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.register_tool` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.register_resource` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.create_list_tools_response` - 1 calls
 - `src.propact.protocols.mcp.MCPProtocol.create_list_resources_response` - 1 calls
+- `src.propact.protocols.shell.ShellProtocol.execute_script` - 1 calls
 - `src.propact.protocols.ws.WebSocketProtocol.connect` - 1 calls
-- `src.propact.protocols.ws.WebSocketProtocol.disconnect` - 1 calls
-- `src.propact.protocols.ws.WebSocketProtocol.add_message_handler` - 1 calls
-- `src.propact.protocols.ws.WebSocketProtocol.remove_message_handler` - 1 calls
-- `src.propact.protocols.mcp.MCPProtocol.execute_tool` - 0 calls
-- `src.propact.protocols.mcp.MCPProtocol.get_resource` - 0 calls
 
 ## System Interactions
 
@@ -445,33 +496,33 @@ graph TD
     main --> command
     main --> argument
     main --> option
-    parse --> finditer
-    parse --> group
-    parse --> ProtocolType
-    parse --> _extract_attachments
-    execute --> load
-    execute --> _execute_shell
-    execute --> _execute_mcp
-    execute --> len
-    execute --> _execute_rest
+    send_to_endpoint --> _smart_split_md
+    send_to_endpoint --> prepare_payload
+    send_to_endpoint --> startswith
+    send_to_endpoint --> with_suffix
+    send_to_endpoint --> write_text
+    send --> startswith
+    send --> MIMEMultipart
+    send --> get
+    send --> items
+    _response_to_md --> join
+    _response_to_md --> append
+    extract_from_markdow --> ExtractedContent
     extract_from_markdow --> finditer
-    extract_from_markdow --> group
-    extract_from_markdow --> startswith
-    extract_from_markdow --> Path
-    extract_from_markdow --> is_absolute
-    execute --> create_subprocess_sh
-    execute --> communicate
-    execute --> decode
-    execute --> str
-    _extract_metadata --> split
-    _extract_metadata --> strip
-    _extract_metadata --> startswith
-    execute --> RESTResponse
-    execute --> update
-    execute --> startswith
-    execute --> rstrip
-    execute --> lstrip
-    load_attachment --> Path
+    extract_from_markdow --> findall
+    extract_from_markdow --> sub
+    send --> split
+    send --> Client
+    send --> connect
+    send --> dumps
+    send --> publish
+    _introspect_schema --> Path
+    _introspect_schema --> endswith
+    _introspect_schema --> exists
+    _send_rest --> items
+    _send_rest --> update
+    _send_rest --> AsyncClient
+    _send_rest --> post
 ```
 
 ## Reverse Engineering Guidelines

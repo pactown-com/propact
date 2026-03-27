@@ -3,24 +3,37 @@
 # Shell Upload Example Runner
 # This script demonstrates how propact handles shell endpoints
 
-echo "=== Shell Upload Example ==="
-echo ""
+# Add parent directory to Python path for testing helpers
+export PYTHONPATH="${PYTHONPATH}:$(dirname $(dirname $(pwd))/src)"
 
-# Create a dummy audio file for demonstration
-echo "Creating sample audio file..."
-echo "FAKE AUDIO DATA" > audio.mp3
+python3 -c "
+from pathlib import Path
+import sys
 
-echo ""
-echo "Running propact with shell endpoint..."
-echo ""
+# Get the directory of this script
+script_dir = Path.cwd()
+src_path = script_dir.parent.parent / 'src'
+sys.path.insert(0, str(src_path))
+
+from propact.testing import ExampleHelper
+
+# Create sample audio file
+helper = ExampleHelper()
+helper.print_status('Creating sample audio file...')
+audio_file = helper.create_sample_file('audio.mp3')
 
 # Run propact with the README
-python -m propact.cli README.md --endpoint "curl -X POST http://localhost:8080/upload"
+helper.print_status('Running propact with shell endpoint...')
+result = helper.run_example(script_dir, 'curl -X POST http://localhost:8080/upload')
 
-echo ""
-echo "Check README.response.md for the converted response"
-echo ""
+if result['success']:
+    helper.print_status('Example completed successfully!', 'SUCCESS')
+    if Path('README.response.md').exists():
+        helper.print_status('Check README.response.md for the converted response')
+else:
+    helper.print_status(f'Example failed: {result.get(\"error\", result.get(\"stderr\"))}', 'ERROR')
 
 # Cleanup
-echo "Cleaning up..."
-rm -f audio.mp3
+helper.print_status('Cleaning up...')
+helper.cleanup_files(audio_file, Path('README.response.md'))
+"

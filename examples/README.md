@@ -2,7 +2,7 @@
 
 This directory contains comprehensive examples demonstrating propact's capabilities across different protocols and use cases.
 
-## Core Examples
+## Core Examples (01-05)
 
 ### 01-shell-upload
 Demonstrates base64 split for shell/CLI endpoints with audio files.
@@ -34,23 +34,23 @@ Markdown as self-updating server.
 - **Features**: Self-modifying markdown, state persistence
 - **Run**: `./run.sh` or `propact server.md --mode server --port 8080`
 
-## Extended Examples
+## Extended Examples (06-08)
 
-### 01-openai-vision
+### 06-openai-vision
 Medical image analysis using OpenAI's Vision API.
 - **Protocol**: REST/HTTP with OpenAI API
 - **Features**: Image analysis, JSON request formatting, API integration
 - **Run**: `./run.sh` or `propact README.md --endpoint "https://api.openai.com/v1/chat/completions" --schema openapi.json`
 - **Requirements**: OpenAI API key in `OPENAI_API_KEY` environment variable
 
-### 02-ffmpeg-cli
+### 07-ffmpeg-cli
 Audio processing through FFmpeg CLI.
 - **Protocol**: Shell/CLI
 - **Features**: Audio conversion, metadata handling, CLI automation
 - **Run**: `./run.sh` or `propact README.md --endpoint "ffmpeg -i podcast.mp3 -c:a aac -b:a 128k -ar 44100 processed_podcast.aac"`
 - **Requirements**: FFmpeg installed on system
 
-### 03-grpc-inference
+### 08-grpc-inference
 ML model inference via gRPC.
 - **Protocol**: gRPC
 - **Features**: Protobuf handling, binary image data, structured responses
@@ -71,9 +71,9 @@ ML model inference via gRPC.
 | 03-mcp-tool | | | ✓ | | | | |
 | 04-ws-chat | | | | ✓ | | | |
 | 05-md-server | | | | ✓ | | | |
-| 01-openai-vision | ✓ | | | | | ✓ | |
-| 02-ffmpeg-cli | | ✓ | | | | | ✓ |
-| 03-grpc-inference | | | | | ✓ | | |
+| 06-openai-vision | ✓ | | | | | ✓ | |
+| 07-ffmpeg-cli | | ✓ | | | | | ✓ |
+| 08-grpc-inference | | | | | ✓ | | |
 
 ## Running Examples
 
@@ -103,14 +103,32 @@ propact README.md --endpoint "https://api.example.com" --schema schema.json
 propact server.md --mode server --port 8080
 ```
 
+## Testing Helper
+
+The `propact.testing` module provides utilities for creating and testing examples:
+
+```python
+from propact.testing import ExampleHelper
+
+# Create sample files
+helper = ExampleHelper()
+audio_file = helper.create_sample_file('audio.mp3')
+
+# Run example with proper environment
+result = helper.run_example(Path.cwd(), endpoint='https://api.example.com')
+
+# Cleanup
+helper.cleanup_files(audio_file)
+```
+
 ## Creating Your Own Examples
 
-1. Create a new directory in `examples/`
+1. Create a new directory in `examples/` with sequential numbering
 2. Add a `README.md` with markdown content including:
    - Media files: `![filename.ext](filename.ext)`
    - Code blocks: ```json\n{...}\n```
    - Plain text descriptions
-3. Add a `run.sh` script for easy execution
+3. Add a `run.sh` script using the `ExampleHelper` class
 4. Optionally add schema files for OpenAPI/Protocol Buffers
 
 ## Dependencies

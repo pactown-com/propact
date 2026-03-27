@@ -1,33 +1,38 @@
-# code2llm | 11f 925L | python:10,shell:1 | 2026-03-27
-# CC̄=2.1 | critical:0/44 | dups:0 | cycles:0
+# code2llm | 14f 2125L | python:13,shell:1 | 2026-03-27
+# CC̄=3.3 | critical:1/93 | dups:0 | cycles:0
 
-HEALTH[0]: ok
+HEALTH[1]:
+  🟡 CC    send_to_endpoint CC=20 (limit:15)
 
-REFACTOR[0]: none needed
+REFACTOR[1]:
+  1. split 1 high-CC methods  (CC>15)
 
-PIPELINES[32]:
+PIPELINES[67]:
   [1] Src [main]: main → display_results
       PURITY: 100% pure
-  [2] Src [load_attachment]: load_attachment
+  [2] Src [__init__]: __init__
       PURITY: 100% pure
-  [3] Src [save_attachment]: save_attachment
+  [3] Src [load]: load
       PURITY: 100% pure
-  [4] Src [encode_base64]: encode_base64
+  [4] Src [execute]: execute
       PURITY: 100% pure
-  [5] Src [decode_base64]: decode_base64
+  [5] Src [_execute_shell]: _execute_shell
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=2.1    ←in:0  →out:0
+  src/                            CC̄=3.3    ←in:0  →out:0
+  │ !! enhanced                   406L  2C   16m  CC=20     ←0
+  │ converter                  368L  3C   15m  CC=13     ←1
+  │ adapters                   363L  6C   17m  CC=13     ←1
+  │ cli                        171L  0C    3m  CC=12     ←0
   │ ws                         152L  3C    7m  CC=3      ←0
   │ rest                       127L  4C    6m  CC=4      ←0
-  │ core                       123L  3C    7m  CC=9      ←0
-  │ cli                        116L  0C    3m  CC=12     ←0
   │ mcp                        115L  2C    7m  CC=1      ←0
+  │ core                       106L  1C    7m  CC=9      ←0
+  │ parser                     102L  3C    5m  CC=4      ←0
   │ attachments                 94L  1C    7m  CC=6      ←0
-  │ parser                      79L  1C    4m  CC=4      ←0
   │ shell                       76L  1C    3m  CC=6      ←0
-  │ __init__                    11L  0C    0m  CC=0.0    ←0
+  │ __init__                    13L  0C    0m  CC=0.0    ←0
   │ __init__                     8L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0

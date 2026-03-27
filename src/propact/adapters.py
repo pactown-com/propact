@@ -1,6 +1,6 @@
 """Protocol adapters for extended protocols in Propact."""
 
-from typing import Dict, Any, Optional, Union
+from typing import Dict, Any
 import asyncio
 from pathlib import Path
 

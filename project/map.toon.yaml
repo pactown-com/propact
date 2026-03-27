@@ -1,31 +1,50 @@
-# propact | 11f 925L | python:10,shell:1 | 2026-03-27
-# stats: 44 func | 0 cls | 11 mod | CC̄=2.1 | critical:0 | cycles:0
-# alerts[1]: fan-out main=14
-# hotspots[5]: main fan=14; list_blocks fan=8; MarkdownParser.parse fan=8; display_results fan=7; AttachmentHandler.extract_from_markdown fan=6
-# evolution: CC̄ 0.0→2.1 (regressed +2.1)
+# propact | 14f 2125L | python:13,shell:1 | 2026-03-27
+# stats: 93 func | 0 cls | 14 mod | CC̄=3.3 | critical:1 | cycles:0
+# alerts[5]: fan-out main=23; fan-out EmailAdapter.send=21; CC Propact.send_to_endpoint=20; fan-out Propact.send_to_endpoint=17; fan-out MDConverter.extract_from_markdown=16
+# hotspots[5]: main fan=23; EmailAdapter.send fan=21; Propact.send_to_endpoint fan=17; MDConverter.extract_from_markdown fan=16; MQTTAdapter.send fan=14
+# evolution: CC̄ 2.1→3.3 (regressed +1.2)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[11]:
+M[14]:
   project.sh,24
-  src/propact/__init__.py,11
+  src/propact/__init__.py,13
+  src/propact/adapters.py,363
   src/propact/attachments.py,94
-  src/propact/cli.py,116
-  src/propact/core.py,123
-  src/propact/parser.py,79
+  src/propact/cli.py,171
+  src/propact/converter.py,368
+  src/propact/core.py,106
+  src/propact/enhanced.py,406
+  src/propact/parser.py,102
   src/propact/protocols/__init__.py,8
   src/propact/protocols/mcp.py,115
   src/propact/protocols/rest.py,127
   src/propact/protocols/shell.py,76
   src/propact/protocols/ws.py,152
 D:
+  src/propact/enhanced.py:
+    e: SplitContent,Propact
+    SplitContent: __post_init__(0)  # Represents split content ready for transport...
+    Propact(ToonPact): __init__(3),_introspect_schema(1),_smart_split_md(2),_detect_schema_type(1),_adapt_to_openapi(2),_adapt_to_shell(2),_adapt_to_mcp(2),_get_mime_type(1),send_to_endpoint(1),_send_rest(2),_send_mcp(2),_send_ws(2),_send_shell(2),_response_to_md(1),server_mode(1)  # Enhanced Propact class with schema introspection and intelli...
+  src/propact/adapters.py:
+    e: BaseProtocolAdapter,GRPCAdapter,GraphQLAdapter,MQTTAdapter,SOAPAdapter,EmailAdapter,get_protocol_adapter
+    BaseProtocolAdapter: __init__(1),send(1),is_available(0)  # Base class for protocol adapters...
+    GRPCAdapter(BaseProtocolAdapter): __init__(1),is_available(0),send(1)  # Adapter for gRPC protocol...
+    GraphQLAdapter(BaseProtocolAdapter): is_available(0),send(1)  # Adapter for GraphQL protocol...
+    MQTTAdapter(BaseProtocolAdapter): __init__(1),is_available(0),send(1)  # Adapter for MQTT protocol...
+    SOAPAdapter(BaseProtocolAdapter): __init__(1),is_available(0),send(1)  # Adapter for SOAP protocol...
+    EmailAdapter(BaseProtocolAdapter): __init__(1),send(1)  # Adapter for Email protocol...
+    get_protocol_adapter(protocol;endpoint)
+  src/propact/converter.py:
+    e: MediaType,ExtractedContent,MDConverter
+    MediaType(Enum):  # Supported media types for conversion...
+    ExtractedContent: __post_init__(0)  # Represents content extracted from markdown...
+    MDConverter: response_to_markdown(2),_binary_to_markdown(1),_dict_to_markdown(1),_text_to_markdown(1),extract_from_markdown(0),prepare_payload(1),_prepare_openapi_payload(1),_prepare_multipart_payload(0),_prepare_json_payload(0),_prepare_form_payload(0),embed_media(1),_get_mime_type(0),create_codeblock(1),merge_markdown(-1)  # Universal converter for markdown ↔ various formats...
   src/propact/cli.py:
     e: main,list_blocks,display_results
-    main(file_path;protocol;list;verbose)
+    main(file_path;protocol;endpoint;schema;mode;port;list;verbose)
     list_blocks(pact)
     display_results(results;verbose)
   src/propact/core.py:
-    e: ProtocolType,ProtocolBlock,ToonPact
-    ProtocolType(Enum):  # Supported protocol types...
-    ProtocolBlock:  # Represents a protocol block in markdown...
+    e: ToonPact
     ToonPact: __init__(1),load(0),execute(1),_execute_shell(1),_execute_mcp(1),_execute_rest(1),_execute_ws(1)  # Main class for executing Protocol Pact documents.
 
 Handles m...
@@ -36,7 +55,9 @@ Handles m...
     e: ShellProtocol
     ShellProtocol: __init__(1),execute(3),execute_script(3)  # Handles shell command execution within Protocol Pact...
   src/propact/parser.py:
-    e: MarkdownParser
+    e: ProtocolType,ProtocolBlock,MarkdownParser
+    ProtocolType(Enum):  # Supported protocol types...
+    ProtocolBlock: __post_init__(0)  # Represents a protocol block in markdown...
     MarkdownParser: __init__(0),parse(1),_extract_attachments(1),_extract_metadata(1)  # Parser for extracting protocol blocks from markdown document...
   src/propact/protocols/rest.py:
     e: HTTPMethod,RESTRequest,RESTResponse,RESTProtocol

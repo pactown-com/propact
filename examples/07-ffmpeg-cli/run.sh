@@ -1,32 +1,36 @@
 #!/bin/bash
 
-# Helper script for FFmpeg CLI example
-echo "=== FFmpeg Audio Processing Example ==="
-echo ""
+# OpenAPI REST Example Runner
+# This script demonstrates propact's schema-aware multipart handling
 
-# Create sample audio file (placeholder)
-echo "Creating sample audio file..."
-echo "FAKE PODCAST MP3 AUDIO DATA" > podcast.mp3
+python3 -c "
+from pathlib import Path
+import sys
 
-echo ""
-echo "Running propact with FFmpeg CLI..."
-echo "Note: This requires FFmpeg to be installed on your system"
-echo ""
+# Get the directory of this script
+script_dir = Path.cwd()
+src_path = script_dir.parent.parent / 'src'
+sys.path.insert(0, str(src_path))
 
-# Check for FFmpeg
-if ! command -v ffmpeg &> /dev/null; then
-    echo "Warning: FFmpeg not found. Install with: brew install ffmpeg (macOS) or apt install ffmpeg (Ubuntu)"
-    echo ""
-fi
+from propact.testing import ExampleHelper
 
-# Run propact
-python -m propact.cli README.md --endpoint "ffmpeg -i podcast.mp3 -c:a aac -b:a 128k -ar 44100 processed_podcast.aac"
+# Create sample image file
+helper = ExampleHelper()
+helper.print_status('Creating sample image file...')
+image_file = helper.create_sample_file('medical_scan.png')
 
-echo ""
-echo "✓ Example completed!"
-echo "Check README.response.md for processing results"
-echo ""
+# Run propact with OpenAI endpoint
+helper.print_status('Running propact with OpenAI Vision API...')
+result = helper.run_example(script_dir, 'https://api.openai.com/v1/chat/completions', 'openapi.json')
+
+if result['success']:
+    helper.print_status('Example completed successfully!', 'SUCCESS')
+    if Path('README.response.md').exists():
+        helper.print_status('Check README.response.md for the converted response')
+else:
+    helper.print_status(f'Example failed: {result.get(\"error\", result.get(\"stderr\"))}', 'ERROR')
 
 # Cleanup
-echo "Cleaning up..."
-rm -f podcast.mp3 processed_podcast.aac README.response.md
+helper.print_status('Cleaning up...')
+helper.cleanup_files(image_file, Path('README.response.md'))
+"

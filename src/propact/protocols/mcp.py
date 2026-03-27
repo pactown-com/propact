@@ -1,7 +1,5 @@
 """MCP (Model Context Protocol) implementation for Propact."""
 
-import asyncio
-import json
 from typing import Dict, Any, Optional, List, Union
 from dataclasses import dataclass
 

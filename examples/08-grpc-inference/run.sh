@@ -1,33 +1,36 @@
 #!/bin/bash
 
-# Helper script for gRPC inference example
-echo "=== gRPC Inference Example ==="
-echo ""
+# OpenAPI REST Example Runner
+# This script demonstrates propact's schema-aware multipart handling
 
-# Create sample image file (placeholder)
-echo "Creating sample medical image..."
-echo "FAKE MEDICAL IMAGE DATA" > medical.jpg
+python3 -c "
+from pathlib import Path
+import sys
 
-echo ""
-echo "Running propact with gRPC endpoint..."
-echo "Note: This requires gRPC dependencies and a running inference server"
-echo ""
+# Get the directory of this script
+script_dir = Path.cwd()
+src_path = script_dir.parent.parent / 'src'
+sys.path.insert(0, str(src_path))
 
-# Check for gRPC dependencies
-python -c "import grpc" 2>/dev/null
-if [ $? -ne 0 ]; then
-    echo "Warning: gRPC dependencies not installed. Install with: pip install propact[grpc]"
-    echo ""
-fi
+from propact.testing import ExampleHelper
 
-# Run propact
-python -m propact.cli README.md --endpoint "grpc://localhost:50051/InferenceService/AnalyzeImage"
+# Create sample image file
+helper = ExampleHelper()
+helper.print_status('Creating sample image file...')
+image_file = helper.create_sample_file('medical_scan.png')
 
-echo ""
-echo "✓ Example completed!"
-echo "Check README.response.md for inference results"
-echo ""
+# Run propact with OpenAI endpoint
+helper.print_status('Running propact with OpenAI Vision API...')
+result = helper.run_example(script_dir, 'https://api.openai.com/v1/chat/completions', 'openapi.json')
+
+if result['success']:
+    helper.print_status('Example completed successfully!', 'SUCCESS')
+    if Path('README.response.md').exists():
+        helper.print_status('Check README.response.md for the converted response')
+else:
+    helper.print_status(f'Example failed: {result.get(\"error\", result.get(\"stderr\"))}', 'ERROR')
 
 # Cleanup
-echo "Cleaning up..."
-rm -f medical.jpg README.response.md
+helper.print_status('Cleaning up...')
+helper.cleanup_files(image_file, Path('README.response.md'))
+"

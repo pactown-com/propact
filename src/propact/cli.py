@@ -11,7 +11,6 @@ from rich.table import Table
 
 from propact import ToonPact, ProtocolType
 from propact.enhanced import Propact
-from propact.core import ProtocolBlock
 
 
 console = Console()

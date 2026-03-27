@@ -1,27 +1,36 @@
 #!/bin/bash
 
-# Helper script for 05-md-server example
-echo "=== MD Server Example ==="
-echo ""
+# OpenAPI REST Example Runner
+# This script demonstrates propact's schema-aware multipart handling
 
-# Create sample status image
-echo "Creating sample status image..."
-echo "FAKE STATUS IMAGE" > status.png
+python3 -c "
+from pathlib import Path
+import sys
 
-echo ""
-echo "Starting propact in server mode..."
-echo "Command: propact server.md --mode server --port 8080"
-echo ""
-echo "Note: Server mode is a placeholder in current implementation"
-echo ""
+# Get the directory of this script
+script_dir = Path.cwd()
+src_path = script_dir.parent.parent / 'src'
+sys.path.insert(0, str(src_path))
 
-# Run propact in server mode
-python -m propact.cli server.md --mode server --port 8080
+from propact.testing import ExampleHelper
 
-echo ""
-echo "✓ Example completed!"
-echo ""
+# Create sample image file
+helper = ExampleHelper()
+helper.print_status('Creating sample image file...')
+image_file = helper.create_sample_file('medical_scan.png')
+
+# Run propact with OpenAI endpoint
+helper.print_status('Running propact with OpenAI Vision API...')
+result = helper.run_example(script_dir, 'https://api.openai.com/v1/chat/completions', 'openapi.json')
+
+if result['success']:
+    helper.print_status('Example completed successfully!', 'SUCCESS')
+    if Path('README.response.md').exists():
+        helper.print_status('Check README.response.md for the converted response')
+else:
+    helper.print_status(f'Example failed: {result.get(\"error\", result.get(\"stderr\"))}', 'ERROR')
 
 # Cleanup
-echo "Cleaning up..."
-rm -f status.png
+helper.print_status('Cleaning up...')
+helper.cleanup_files(image_file, Path('README.response.md'))
+"

@@ -1,7 +1,7 @@
 <!-- code2docs:start --># propact
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-44-green)
-> **44** functions | **15** classes | **11** files | CC̄ = 2.1
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-93-green)
+> **93** functions | **26** classes | **22** files | CC̄ = 3.3
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,20 +141,28 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 propact/
-    ├── propact/        ├── parser        ├── cli        ├── attachments        ├── protocols/            ├── shell            ├── mcp├── project        ├── core            ├── ws            ├── rest```
+    ├── propact/        ├── cli        ├── core        ├── attachments        ├── adapters        ├── enhanced            ├── mcp        ├── protocols/            ├── shell        ├── parser├── project        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run        ├── run            ├── ws            ├── rest        ├── converter```
 
 ## API Overview
 
 ### Classes
 
-- **`MarkdownParser`** — Parser for extracting protocol blocks from markdown documents.
+- **`ToonPact`** — Main class for executing Protocol Pact documents.
 - **`AttachmentHandler`** — Handles binary attachments in Protocol Pact documents.
-- **`ShellProtocol`** — Handles shell command execution within Protocol Pact.
+- **`BaseProtocolAdapter`** — Base class for protocol adapters.
+- **`GRPCAdapter`** — Adapter for gRPC protocol.
+- **`GraphQLAdapter`** — Adapter for GraphQL protocol.
+- **`MQTTAdapter`** — Adapter for MQTT protocol.
+- **`SOAPAdapter`** — Adapter for SOAP protocol.
+- **`EmailAdapter`** — Adapter for Email protocol.
+- **`SplitContent`** — Represents split content ready for transport.
+- **`Propact`** — Enhanced Propact class with schema introspection and intelligent content splitting.
 - **`MCPMessage`** — MCP message structure.
 - **`MCPProtocol`** — Handles MCP (Model Context Protocol) communication within Protocol Pact.
+- **`ShellProtocol`** — Handles shell command execution within Protocol Pact.
 - **`ProtocolType`** — Supported protocol types.
 - **`ProtocolBlock`** — Represents a protocol block in markdown.
-- **`ToonPact`** — Main class for executing Protocol Pact documents.
+- **`MarkdownParser`** — Parser for extracting protocol blocks from markdown documents.
 - **`WebSocketState`** — WebSocket connection states.
 - **`WebSocketMessage`** — WebSocket message structure.
 - **`WebSocketProtocol`** — Handles WebSocket communication within Protocol Pact.
@@ -162,22 +170,37 @@ propact/
 - **`RESTRequest`** — REST request structure.
 - **`RESTResponse`** — REST response structure.
 - **`RESTProtocol`** — Handles REST API communication within Protocol Pact.
+- **`MediaType`** — Supported media types for conversion.
+- **`ExtractedContent`** — Represents content extracted from markdown.
+- **`MDConverter`** — Universal converter for markdown ↔ various formats.
 
 ### Functions
 
-- `main(file_path, protocol, list, verbose)` — Execute Protocol Pact documents.
+- `main(file_path, protocol, endpoint, schema)` — Execute Protocol Pact documents.
 - `list_blocks(pact)` — List all protocol blocks in the document.
 - `display_results(results, verbose)` — Display execution results.
+- `get_protocol_adapter(protocol, endpoint)` — Get appropriate protocol adapter.
 
 
 ## Project Structure
 
+📄 `examples.01-shell-upload.run`
+📄 `examples.02-openapi-rest.run`
+📄 `examples.03-mcp-tool.run`
+📄 `examples.04-ws-chat.run`
+📄 `examples.05-md-server.run`
+📄 `examples.06-openai-vision.run`
+📄 `examples.07-ffmpeg-cli.run`
+📄 `examples.08-grpc-inference.run`
 📄 `project`
 📦 `src.propact`
+📄 `src.propact.adapters` (17 functions, 6 classes)
 📄 `src.propact.attachments` (7 functions, 1 classes)
 📄 `src.propact.cli` (3 functions)
-📄 `src.propact.core` (7 functions, 3 classes)
-📄 `src.propact.parser` (4 functions, 1 classes)
+📄 `src.propact.converter` (15 functions, 3 classes)
+📄 `src.propact.core` (7 functions, 1 classes)
+📄 `src.propact.enhanced` (16 functions, 2 classes)
+📄 `src.propact.parser` (5 functions, 3 classes)
 📦 `src.propact.protocols`
 📄 `src.propact.protocols.mcp` (7 functions, 2 classes)
 📄 `src.propact.protocols.rest` (6 functions, 4 classes)
