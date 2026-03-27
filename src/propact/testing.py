@@ -6,7 +6,7 @@ from typing import Dict, Any, Optional
 import subprocess
 import sys
 
-from .config import get_config
+from propact.config import get_config
 
 
 class ExampleHelper:
@@ -123,9 +123,6 @@ class ExampleHelper:
         Returns:
             Result dictionary with success status and any errors
         """
-        import subprocess
-        import sys
-        
         readme_path = example_dir / "README.md"
         if not readme_path.exists():
             return {"success": False, "error": f"README.md not found in {example_dir}"}
@@ -148,7 +145,7 @@ class ExampleHelper:
         
         # Set environment
         env = os.environ.copy()
-        env["PYTHONPATH"] = str(src_dir) + ":" + env.get("PYTHONPATH", "")
+        env["PYTHONPATH"] = f"{src_dir}:{env.get('PYTHONPATH', '')}"
         
         if endpoint:
             cmd.extend(["--endpoint", endpoint])

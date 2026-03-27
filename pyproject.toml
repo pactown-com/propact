@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "propact"
-version = "0.0.7"
+version = "0.0.8"
 description = "Protocol Pact: Universal Markdown for Shell/MCP/REST/WS"
 authors = ["Tom Sapletta <tom@sapletta.com>"]
 license = "Apache-2.0"

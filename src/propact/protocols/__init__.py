@@ -1,8 +1,8 @@
 """Protocol implementations for Propact."""
 
-from .shell import ShellProtocol
-from .mcp import MCPProtocol
-from .rest import RESTProtocol
-from .ws import WebSocketProtocol
+from propact.protocols.shell import ShellProtocol
+from propact.protocols.mcp import MCPProtocol
+from propact.protocols.rest import RESTProtocol
+from propact.protocols.ws import WebSocketProtocol
 
 __all__ = ["ShellProtocol", "MCPProtocol", "RESTProtocol", "WebSocketProtocol"]

@@ -4,14 +4,19 @@
 
 - **Project**: /home/tom/github/pactown-com/propact
 - **Primary Language**: python
-- **Languages**: python: 24, shell: 21
+- **Languages**: python: 25, shell: 21
 - **Analysis Mode**: static
-- **Total Functions**: 250
-- **Total Classes**: 61
-- **Modules**: 45
-- **Entry Points**: 239
+- **Total Functions**: 280
+- **Total Classes**: 69
+- **Modules**: 46
+- **Entry Points**: 269
 
 ## Architecture by Module
+
+### src.propact.dsl_converter
+- **Functions**: 30
+- **Classes**: 8
+- **File**: `dsl_converter.py`
 
 ### src.propact.config
 - **Functions**: 19
@@ -106,11 +111,6 @@
 - **Classes**: 2
 - **File**: `secure_handler.py`
 
-### src.propact.protocols.rest
-- **Functions**: 6
-- **Classes**: 4
-- **File**: `rest.py`
-
 ## Key Entry Points
 
 Main execution flows into the system:
@@ -154,6 +154,10 @@ Args:
     base_url: Base URL for the API
     openapi_spec: OpenAPI specif
 - **Calls**: Console, self.file_path.read_text, PropactErrorHandler, src.propact.matcher.create_matcher, console.print, enumerate, console.print, ProtocolBlock
+
+### src.propact.dsl_converter.SQLConverter.from_markdown
+> Convert Markdown table to SQL INSERT/UPDATE statements.
+- **Calls**: kwargs.get, kwargs.get, kwargs.get, self._parse_md_table, None.join, sql_statements.append, None.join, ConversionResult
 
 ### src.propact.cli.file
 > Convert a file from one format to another.
@@ -221,6 +225,10 @@ Args:
 > Convert response to markdown format.
 - **Calls**: None.join, md_lines.append, md_lines.append, md_lines.append, md_lines.append, md_lines.append, md_lines.append, md_lines.append
 
+### src.propact.dsl_converter.BaseConverter._create_md_table
+> Create a markdown table from headers and rows.
+- **Calls**: lines.append, lines.append, None.join, len, enumerate, h.ljust, enumerate, lines.append
+
 ### src.propact.converter.MDConverter.extract_from_markdown
 > Extract all content from markdown.
 
@@ -230,6 +238,10 @@ Args:
 Returns:
     ExtractedContent with media, codeblocks, and tex
 - **Calls**: ExtractedContent, MDConverter.MEDIA_PATTERN.finditer, MDConverter.CODEBLOCK_PATTERN.findall, MDConverter.CODEBLOCK_PATTERN.sub, MDConverter.MEDIA_PATTERN.sub, plain_text.strip, match.groups, content.strip
+
+### src.propact.dsl_converter.SQLConverter.to_markdown
+> Convert SQL query/result to Markdown table.
+- **Calls**: kwargs.get, ConversionResult, ConversionResult, self._mock_sql_result, table_from_dataframe, table_md.to_markdown, self._create_md_table, self.logger.error
 
 ### src.propact.adapters.MQTTAdapter.send
 > Send MQTT message.
@@ -252,17 +264,17 @@ Args:
     output_fo
 - **Calls**: Path, None.lstrip, ConversionResult, self._md_to_pdf, self.logger.error, ConversionResult, output_path.suffix.lower, self._md_to_html
 
+### src.propact.dsl_converter.BaseConverter._parse_md_table
+> Parse a markdown table into headers and rows.
+- **Calls**: enumerate, line.strip, ValueError, h.strip, None.split, line.strip, header_line.split, h.strip
+
+### src.propact.dsl_converter.CSVConverter.to_markdown
+> Convert CSV to Markdown table.
+- **Calls**: pd.read_csv, ConversionResult, ConversionResult, StringIO, table_from_dataframe, table_md.to_markdown, self._create_md_table, ConversionResult
+
 ### src.propact.enhanced.Propact._introspect_schema
 > Introspect schema from file (OpenAPI, CLI, etc.).
 - **Calls**: Path, schema_path.endswith, schema_file.exists, schema_path.endswith, schema_path.endswith, prance.ResolvingParser, schema_path.endswith, schema_path.endswith
-
-### src.propact.error_handler.PropactErrorHandler._fallback_search
-> Search for similar endpoints using keywords and Levenshtein.
-- **Calls**: self._extract_keywords, None.items, None.items, error.error_msg.lower, methods.items, method.upper, path.lower, None.lower
-
-### src.propact.optimization.MDOptimizer._optimize_code_blocks
-> Optimize large code blocks by chunking them.
-- **Calls**: match.groups, range, enumerate, self.large_text_pattern.sub, len, match.group, len, chunk_file.parent.mkdir
 
 ### src.propact.uniconverter.UniConverter.to_markdown
 > Convert any supported format to Markdown.
@@ -272,24 +284,6 @@ Args:
     input_format: Format of input file (auto-detected if None)
    
 - **Calls**: Path, input_path.exists, ConversionResult, None.lstrip, ConversionResult, self._markitdown_to_md, self.logger.error, ConversionResult
-
-### src.propact.uniconverter.UniConverter._md_to_pptx
-> Convert Markdown to PPTX.
-- **Calls**: Presentation, re.split, prs.save, ConversionResult, ConversionResult, None.split, prs.slides.add_slide, str
-
-### src.propact.optimization.MDOptimizer._optimize_image
-> Optimize image data.
-- **Calls**: Image.open, io.BytesIO, format_map.get, output.getvalue, io.BytesIO, Image.new, background.paste, img.thumbnail
-
-### src.propact.validation.ValidationPipeline.detect_schema_drift
-> Detect schema drift in markdown content.
-
-Args:
-    markdown: Markdown content with schema pins
-    
-Returns:
-    Dictionary of schema drift status
-- **Calls**: markdown.startswith, markdown.find, frontmatter.split, self.logger.error, line.split, key.strip, value.strip, key.strip
 
 ## Process Flows
 
@@ -331,19 +325,19 @@ smart_send [src.propact.core.ToonPact]
   └─ →> create_matcher
 ```
 
-### Flow 8: file
+### Flow 8: from_markdown
+```
+from_markdown [src.propact.dsl_converter.SQLConverter]
+```
+
+### Flow 9: file
 ```
 file [src.propact.cli]
 ```
 
-### Flow 9: send
+### Flow 10: send
 ```
 send [src.propact.adapters.EmailAdapter]
-```
-
-### Flow 10: _email_to_md
-```
-_email_to_md [src.propact.uniconverter.UniConverter]
 ```
 
 ## Key Classes
@@ -425,6 +419,12 @@ Uses LiteLLM for multi-provider su
 - **Methods**: 6
 - **Key Methods**: src.propact.matcher.OpenAPILLMMatcher.__init__, src.propact.matcher.OpenAPILLMMatcher._llm_select, src.propact.matcher.OpenAPILLMMatcher.match, src.propact.matcher.OpenAPILLMMatcher._extract_intent, src.propact.matcher.OpenAPILLMMatcher._extract_candidates, src.propact.matcher.OpenAPILLMMatcher.hybrid_match
 
+### src.propact.dsl_converter.GraphQLConverter
+> Converter for GraphQL ↔ Markdown.
+- **Methods**: 6
+- **Key Methods**: src.propact.dsl_converter.GraphQLConverter.to_markdown, src.propact.dsl_converter.GraphQLConverter.from_markdown, src.propact.dsl_converter.GraphQLConverter._extract_structured_data, src.propact.dsl_converter.GraphQLConverter._generate_github_query, src.propact.dsl_converter.GraphQLConverter._generate_stripe_query, src.propact.dsl_converter.GraphQLConverter._generate_generic_query
+- **Inherits**: BaseConverter
+
 ### src.propact.query_gen.QueryGenerator
 > Generate Propact MD templates from natural language queries using LLM.
 - **Methods**: 6
@@ -440,20 +440,17 @@ Uses LiteLLM for multi-provider su
 - **Methods**: 6
 - **Key Methods**: src.propact.validation.ValidationPipeline.__init__, src.propact.validation.ValidationPipeline.validate, src.propact.validation.ValidationPipeline._validate_against_schema, src.propact.validation.ValidationPipeline._validate_types, src.propact.validation.ValidationPipeline.create_schema_pin, src.propact.validation.ValidationPipeline.detect_schema_drift
 
-### src.propact.validation.SchemaRegistry
-> Registry for managing API schemas.
+### src.propact.dsl_converter.BaseConverter
+> Base class for format converters.
 - **Methods**: 5
-- **Key Methods**: src.propact.validation.SchemaRegistry.__init__, src.propact.validation.SchemaRegistry._load_schemas, src.propact.validation.SchemaRegistry.get_schema, src.propact.validation.SchemaRegistry.register_schema, src.propact.validation.SchemaRegistry.detect_drift
+- **Key Methods**: src.propact.dsl_converter.BaseConverter.__init__, src.propact.dsl_converter.BaseConverter.to_markdown, src.propact.dsl_converter.BaseConverter.from_markdown, src.propact.dsl_converter.BaseConverter._parse_md_table, src.propact.dsl_converter.BaseConverter._create_md_table
+- **Inherits**: ABC
 
-### src.propact.importer.OpenAPILLMImporter
-> Imports and enhances OpenAPI specs generated by openapi-llm.
-- **Methods**: 4
-- **Key Methods**: src.propact.importer.OpenAPILLMImporter.import_browser_spec, src.propact.importer.OpenAPILLMImporter.from_browser_session, src.propact.importer.OpenAPILLMImporter.is_llm_enhanced, src.propact.importer.OpenAPILLMImporter.extract_llm_descriptions
-
-### src.propact.parser.MarkdownParser
-> Parser for extracting protocol blocks from markdown documents.
-- **Methods**: 4
-- **Key Methods**: src.propact.parser.MarkdownParser.__init__, src.propact.parser.MarkdownParser.parse, src.propact.parser.MarkdownParser._extract_attachments, src.propact.parser.MarkdownParser._extract_metadata
+### src.propact.dsl_converter.YAMLConverter
+> Converter for YAML ↔ Markdown.
+- **Methods**: 5
+- **Key Methods**: src.propact.dsl_converter.YAMLConverter.to_markdown, src.propact.dsl_converter.YAMLConverter.from_markdown, src.propact.dsl_converter.YAMLConverter._dict_to_markdown, src.propact.dsl_converter.YAMLConverter._list_to_markdown, src.propact.dsl_converter.YAMLConverter._markdown_to_dict
+- **Inherits**: BaseConverter
 
 ## Data Transformation Functions
 
@@ -466,6 +463,26 @@ Key functions that process and transform data:
 ### src.propact.cli.formats
 > List all supported formats.
 - **Output to**: convert.command, DSLConverter, converter.list_formats, Table, table.add_column
+
+### src.propact.dsl_converter.BaseConverter._parse_md_table
+> Parse a markdown table into headers and rows.
+- **Output to**: enumerate, line.strip, ValueError, h.strip, None.split
+
+### src.propact.dsl_converter.DSLConverter.convert
+> Convert content from one format to another.
+
+Args:
+    content: Input content
+    from_format: Sourc
+- **Output to**: from_format.lower, to_format.lower, converter.from_markdown, self.logger.error, ConversionResult
+
+### src.propact.dsl_converter.DSLConverter.list_formats
+> List all supported formats.
+- **Output to**: list, self.converters.keys
+
+### src.propact.dsl_converter.DSLConverter.register_converter
+> Register a custom converter.
+- **Output to**: format_name.lower
 
 ### src.propact.parser.MarkdownParser.parse
 > Parse markdown content and extract protocol blocks.
@@ -489,8 +506,6 @@ Returns:
 > Decode base64 string to binary data.
 - **Output to**: base64.b64decode, encoded.encode
 
-### examples.run-all.validate_example
-
 ### examples.05-security-hardening.secure_handler.SecureMarkdownHandler.process
 > Process markdown content with security checks.
 
@@ -498,6 +513,8 @@ Args:
     markdown_content: Raw markdown content
    
 - **Output to**: None.isoformat, self.sanitizer.audit, self.sanitizer.sanitize, self.optimizer.optimize, MarkdownParser
+
+### examples.run-all.validate_example
 
 ### src.propact.validation.ValidationPipeline.validate
 > Validate markdown content.
@@ -541,6 +558,7 @@ Functions exposed as public API (no underscore prefix):
 - `src.propact.enhanced.Propact.send_to_endpoint` - 39 calls
 - `examples.05-security-hardening.secure_handler.demo_security` - 39 calls
 - `src.propact.core.ToonPact.smart_send` - 32 calls
+- `src.propact.dsl_converter.SQLConverter.from_markdown` - 31 calls
 - `src.propact.cli.file` - 30 calls
 - `src.propact.adapters.EmailAdapter.send` - 28 calls
 - `src.propact.cli.send_email` - 24 calls
@@ -551,31 +569,30 @@ Functions exposed as public API (no underscore prefix):
 - `examples.05-security-hardening.secure_handler.SecureMarkdownHandler.process` - 21 calls
 - `src.propact.validation.ValidationPipeline.validate` - 21 calls
 - `src.propact.converter.MDConverter.extract_from_markdown` - 19 calls
+- `src.propact.dsl_converter.SQLConverter.to_markdown` - 18 calls
 - `src.propact.adapters.MQTTAdapter.send` - 17 calls
 - `src.propact.uniconverter.UniConverter.from_markdown` - 15 calls
+- `src.propact.dsl_converter.CSVConverter.to_markdown` - 14 calls
 - `src.propact.uniconverter.UniConverter.to_markdown` - 14 calls
+- `src.propact.dsl_converter.DSLConverter.convert` - 13 calls
 - `src.propact.validation.ValidationPipeline.detect_schema_drift` - 13 calls
 - `src.propact.converter.MDConverter.prepare_payload` - 12 calls
 - `src.propact.importer.OpenAPILLMImporter.import_browser_spec` - 11 calls
 - `src.propact.adapters.GraphQLAdapter.send` - 11 calls
 - `src.propact.adapters.SOAPAdapter.send` - 11 calls
+- `src.propact.dsl_converter.CSVConverter.from_markdown` - 11 calls
 - `src.propact.error_handler.PropactErrorHandler.handle_match_failure` - 11 calls
-- `src.propact.matcher.EndpointMatcher.extract_intent` - 10 calls
 - `src.propact.cli.list_blocks` - 10 calls
 - `src.propact.cli.display_results` - 10 calls
 - `src.propact.cli.formats` - 10 calls
+- `src.propact.matcher.EndpointMatcher.extract_intent` - 10 calls
 - `src.propact.matcher.EndpointMatcher.extract_endpoints` - 9 calls
 - `src.propact.matcher.EndpointMatcher.match` - 9 calls
+- `src.propact.dsl_converter.YAMLConverter.to_markdown` - 9 calls
+- `src.propact.dsl_converter.XMLConverter.from_markdown` - 9 calls
 - `src.propact.parser.MarkdownParser.parse` - 9 calls
 - `src.propact.core.ToonPact.execute` - 9 calls
 - `src.propact.llm_proxy.self_correct` - 9 calls
-- `src.propact.adapters.GRPCAdapter.send` - 8 calls
-- `src.propact.matcher.EndpointMatcher.compute_similarities` - 8 calls
-- `src.propact.matcher.EndpointMatcher.match_from_file` - 8 calls
-- `src.propact.converter.MDConverter.response_to_markdown` - 8 calls
-- `src.propact.validation.SchemaRegistry.register_schema` - 8 calls
-- `src.propact.optimization.MDOptimizer.optimize` - 7 calls
-- `src.propact.optimization.MDOptimizer.create_chunks` - 7 calls
 
 ## System Interactions
 
@@ -611,8 +628,8 @@ graph TD
     smart_send --> PropactErrorHandler
     smart_send --> create_matcher
     smart_send --> print
-    file --> command
-    file --> argument
+    from_markdown --> get
+    from_markdown --> _parse_md_table
 ```
 
 ## Reverse Engineering Guidelines

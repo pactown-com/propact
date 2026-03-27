@@ -511,3 +511,575 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
+  - id: ticket-90b4c604
+    name: Fix smart-return-type issues
+    description: Resolve 1 smart-return-type issues in examples/smart-test/test_matcher.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/smart-test/test_matcher.py
+    rule_id: smart-return-type
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9ce87816
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in examples/smart-test/test_matcher.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/smart-test/test_matcher.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6e35c8d1
+    name: Fix smart-return-type issues
+    description: Resolve 1 smart-return-type issues in examples/05-security-hardening/secure_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/05-security-hardening/secure_handler.py
+    rule_id: smart-return-type
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9413b6c7
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in examples/05-security-hardening/secure_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/05-security-hardening/secure_handler.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bdf92974
+    name: Fix unused-imports issues
+    description: Resolve 16 unused-imports issues in examples/05-security-hardening/secure_handler.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - examples/05-security-hardening/secure_handler.py
+    rule_id: unused-imports
+    count: 16
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5d3717f4
+    name: Fix llm-generated-code issues
+    description: Resolve 2 llm-generated-code issues in examples/05-security-hardening/secure_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/05-security-hardening/secure_handler.py
+    rule_id: llm-generated-code
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c324eea1
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in examples/05-security-hardening/secure_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - examples/05-security-hardening/secure_handler.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b138b821
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/propact/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/cli.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-35d256ed
+    name: Fix smart-return-type issues
+    description: Resolve 8 smart-return-type issues in src/propact/cli.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/cli.py
+    rule_id: smart-return-type
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d7eb513f
+    name: Fix unused-imports issues
+    description: Resolve 8 unused-imports issues in src/propact/importer.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/importer.py
+    rule_id: unused-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b2a834ea
+    name: Fix llm-generated-code issues
+    description: Resolve 4 llm-generated-code issues in src/propact/importer.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/importer.py
+    rule_id: llm-generated-code
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-97ad3a30
+    name: Fix smart-return-type issues
+    description: Resolve 1 smart-return-type issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: smart-return-type
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-905cd098
+    name: Fix string-concat issues
+    description: Resolve 11 string-concat issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: string-concat
+    count: 11
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-54873cc6
+    name: Fix unused-imports issues
+    description: Resolve 12 unused-imports issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: unused-imports
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-452f6474
+    name: Fix duplicate-imports issues
+    description: Resolve 1 duplicate-imports issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: duplicate-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f86d77cd
+    name: Fix wildcard-imports issues
+    description: Resolve 3 wildcard-imports issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: wildcard-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-056eaf62
+    name: Fix magic-numbers issues
+    description: Resolve 4 magic-numbers issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: magic-numbers
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-00b27554
+    name: Fix llm-generated-code issues
+    description: Resolve 1 llm-generated-code issues in src/propact/dsl_converter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/dsl_converter.py
+    rule_id: llm-generated-code
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bb91dc9b
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/propact/error_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/error_handler.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b25fa2bf
+    name: Fix string-concat issues
+    description: Resolve 4 string-concat issues in src/propact/error_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/error_handler.py
+    rule_id: string-concat
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e1159b1c
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in src/propact/error_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/error_handler.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0909d7d8
+    name: Fix magic-numbers issues
+    description: Resolve 2 magic-numbers issues in src/propact/error_handler.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/error_handler.py
+    rule_id: magic-numbers
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1be50d8e
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/propact/matcher.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/matcher.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-19bee94a
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in src/propact/matcher.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/matcher.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0e84b37c
+    name: Fix magic-numbers issues
+    description: Resolve 4 magic-numbers issues in src/propact/matcher.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/matcher.py
+    rule_id: magic-numbers
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4d7c1e8c
+    name: Fix llm-generated-code issues
+    description: Resolve 2 llm-generated-code issues in src/propact/matcher.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/matcher.py
+    rule_id: llm-generated-code
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-98929a61
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in src/propact/llm_proxy.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/llm_proxy.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8534c2c5
+    name: Fix llm-generated-code issues
+    description: Resolve 3 llm-generated-code issues in src/propact/llm_proxy.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/llm_proxy.py
+    rule_id: llm-generated-code
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0e557b24
+    name: Fix smart-return-type issues
+    description: Resolve 2 smart-return-type issues in src/propact/optimization.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/optimization.py
+    rule_id: smart-return-type
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ccc31618
+    name: Fix string-concat issues
+    description: Resolve 4 string-concat issues in src/propact/optimization.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/optimization.py
+    rule_id: string-concat
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-54913b62
+    name: Fix unused-imports issues
+    description: Resolve 12 unused-imports issues in src/propact/optimization.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/optimization.py
+    rule_id: unused-imports
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-df98a580
+    name: Fix magic-numbers issues
+    description: Resolve 6 magic-numbers issues in src/propact/optimization.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/optimization.py
+    rule_id: magic-numbers
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0d760cba
+    name: Fix llm-generated-code issues
+    description: Resolve 7 llm-generated-code issues in src/propact/optimization.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/optimization.py
+    rule_id: llm-generated-code
+    count: 7
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-79530882
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in src/propact/query_gen.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/query_gen.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fb993022
+    name: Fix llm-generated-code issues
+    description: Resolve 2 llm-generated-code issues in src/propact/query_gen.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/query_gen.py
+    rule_id: llm-generated-code
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5b23675f
+    name: Fix smart-return-type issues
+    description: Resolve 3 smart-return-type issues in src/propact/security.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/security.py
+    rule_id: smart-return-type
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-37afe160
+    name: Fix unused-imports issues
+    description: Resolve 14 unused-imports issues in src/propact/security.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/security.py
+    rule_id: unused-imports
+    count: 14
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a7faa774
+    name: Fix llm-generated-code issues
+    description: Resolve 4 llm-generated-code issues in src/propact/security.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/security.py
+    rule_id: llm-generated-code
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e4a1ecf6
+    name: Fix unused-imports issues
+    description: Resolve 18 unused-imports issues in src/propact/uniconverter.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/uniconverter.py
+    rule_id: unused-imports
+    count: 18
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9b9ead3a
+    name: Fix duplicate-imports issues
+    description: Resolve 2 duplicate-imports issues in src/propact/uniconverter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/uniconverter.py
+    rule_id: duplicate-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-897354b0
+    name: Fix llm-generated-code issues
+    description: Resolve 4 llm-generated-code issues in src/propact/uniconverter.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/uniconverter.py
+    rule_id: llm-generated-code
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-db49ad80
+    name: Fix string-concat issues
+    description: Resolve 1 string-concat issues in src/propact/validation.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/validation.py
+    rule_id: string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2435eac6
+    name: Fix unused-imports issues
+    description: Resolve 14 unused-imports issues in src/propact/validation.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/validation.py
+    rule_id: unused-imports
+    count: 14
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-02f59f56
+    name: Fix llm-generated-code issues
+    description: Resolve 7 llm-generated-code issues in src/propact/validation.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/validation.py
+    rule_id: llm-generated-code
+    count: 7
+    model_hints:
+      planning: balanced
+      implementation: balanced

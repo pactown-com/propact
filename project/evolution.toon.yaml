@@ -1,22 +1,57 @@
-# code2llm/evolution | 112 func | 12f | 2026-03-27
+# code2llm/evolution | 253 func | 22f | 2026-03-27
 
-NEXT[2] (ranked by impact):
-  [1] !  SPLIT-FUNC      EmailAdapter.send  CC=16  fan=22
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT           src/propact/uniconverter.py
+      WHY: 759L, 3 classes, max CC=23
+      EFFORT: ~4h  IMPACT: 17457
+
+  [2] !! SPLIT           src/propact/dsl_converter.py
+      WHY: 811L, 8 classes, max CC=18
+      EFFORT: ~4h  IMPACT: 14598
+
+  [3] !! SPLIT           src/propact/cli.py
+      WHY: 656L, 0 classes, max CC=17
+      EFFORT: ~4h  IMPACT: 11152
+
+  [4] !  SPLIT-FUNC      UniConverter._md_to_docx  CC=23  fan=19
+      WHY: CC=23 exceeds 15
+      EFFORT: ~1h  IMPACT: 437
+
+  [5] !  SPLIT-FUNC      EmailAdapter.send  CC=16  fan=22
       WHY: CC=16 exceeds 15
       EFFORT: ~1h  IMPACT: 352
 
-  [2] !  SPLIT-FUNC      Propact.send_to_endpoint  CC=20  fan=17
+  [6] !  SPLIT-FUNC      Propact.send_to_endpoint  CC=20  fan=17
       WHY: CC=20 exceeds 15
       EFFORT: ~1h  IMPACT: 340
 
+  [7] !  SPLIT-FUNC      SQLConverter.from_markdown  CC=18  fan=16
+      WHY: CC=18 exceeds 15
+      EFFORT: ~1h  IMPACT: 288
 
-RISKS[0]: none
+  [8] !  SPLIT-FUNC      ValidationPipeline.validate  CC=16  fan=17
+      WHY: CC=16 exceeds 15
+      EFFORT: ~1h  IMPACT: 272
+
+  [9] !  SPLIT-FUNC      universal  CC=17  fan=11
+      WHY: CC=17 exceeds 15
+      EFFORT: ~1h  IMPACT: 187
+
+  [10] !  SPLIT-FUNC      file  CC=15  fan=12
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 180
+
+
+RISKS[3]:
+  ⚠ Splitting src/propact/dsl_converter.py may break 30 import paths
+  ⚠ Splitting src/propact/uniconverter.py may break 17 import paths
+  ⚠ Splitting src/propact/cli.py may break 11 import paths
 
 METRICS-TARGET:
-  CC̄:          3.0 → ≤2.1
-  max-CC:      20 → ≤10
-  god-modules: 0 → 0
-  high-CC(≥15): 2 → ≤1
+  CC̄:          3.8 → ≤2.7
+  max-CC:      23 → ≤11
+  god-modules: 3 → 0
+  high-CC(≥15): 9 → ≤4
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -44,4 +79,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=3.0 → now CC̄=3.0
+  prev CC̄=3.0 → now CC̄=3.8

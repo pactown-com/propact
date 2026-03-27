@@ -1,18 +1,23 @@
-# code2llm | 24f 6317L | python:23,shell:1 | 2026-03-27
-# CC̄=3.7 | critical:6/250 | dups:0 | cycles:0
+# code2llm | 25f 7118L | python:24,shell:1 | 2026-03-27
+# CC̄=3.8 | critical:9/280 | dups:0 | cycles:0
 
-HEALTH[6]:
+HEALTH[10]:
+  🔴 GOD   src/propact/dsl_converter.py = 811L, 8 classes, 30m, max CC=18
   🟡 CC    send CC=16 (limit:15)
   🟡 CC    file CC=15 (limit:15)
   🟡 CC    universal CC=17 (limit:15)
+  🟡 CC    _parse_md_table CC=15 (limit:15)
+  🟡 CC    _create_md_table CC=15 (limit:15)
+  🟡 CC    from_markdown CC=18 (limit:15)
   🟡 CC    send_to_endpoint CC=20 (limit:15)
   🟡 CC    _md_to_docx CC=23 (limit:15)
   🟡 CC    validate CC=16 (limit:15)
 
-REFACTOR[1]:
-  1. split 6 high-CC methods  (CC>15)
+REFACTOR[2]:
+  1. split src/propact/dsl_converter.py  (god module)
+  2. split 9 high-CC methods  (CC>15)
 
-PIPELINES[193]:
+PIPELINES[218]:
   [1] Src [import_browser_spec]: import_browser_spec
       PURITY: 100% pure
   [2] Src [is_llm_enhanced]: is_llm_enhanced
@@ -25,7 +30,8 @@ PIPELINES[193]:
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=3.7    ←in:0  →out:0
+  src/                            CC̄=3.8    ←in:0  →out:0
+  │ !! dsl_converter              811L  8C   30m  CC=18     ←0
   │ !! uniconverter               759L  3C   17m  CC=23     ←0
   │ !! cli                        656L  0C   11m  CC=17     ←0
   │ matcher                    444L  2C   14m  CC=10     ←1
@@ -47,7 +53,7 @@ LAYERS:
   │ parser                     102L  3C    5m  CC=4      ←0
   │ attachments                 94L  1C    7m  CC=6      ←0
   │ shell                       74L  1C    3m  CC=6      ←0
-  │ __init__                    39L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
   │ __init__                     8L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=0.0    ←in:0  →out:0

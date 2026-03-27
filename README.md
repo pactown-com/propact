@@ -255,3 +255,6 @@ Markdown speaks all protocols! Shell → MCP → REST/WS without conversion.
 ## License
 
 Licensed under Apache-2.0.
+
+
+Licensed under Apache-2.0.

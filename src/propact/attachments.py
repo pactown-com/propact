@@ -4,7 +4,6 @@ import base64
 import mimetypes
 from pathlib import Path
 from typing import Dict, Optional, Union
-import asyncio
 
 
 class AttachmentHandler:

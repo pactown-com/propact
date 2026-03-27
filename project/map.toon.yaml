@@ -1,18 +1,19 @@
-# propact | 24f 6317L | python:23,shell:1 | 2026-03-27
-# stats: 223 func | 0 cls | 24 mod | CC̄=3.7 | critical:6 | cycles:0
+# propact | 25f 7118L | python:24,shell:1 | 2026-03-27
+# stats: 253 func | 0 cls | 25 mod | CC̄=3.8 | critical:9 | cycles:0
 # alerts[5]: fan-out main=34; fan-out EmailAdapter.send=22; fan-out ToonPact.smart_send=21; fan-out UniConverter.send_email=20; CC UniConverter._md_to_docx=23
 # hotspots[5]: main fan=34; EmailAdapter.send fan=22; ToonPact.smart_send fan=21; UniConverter.send_email fan=20; UniConverter._md_to_docx fan=19
-# evolution: CC̄ 3.0→3.7 (regressed +0.7)
+# evolution: CC̄ 3.0→3.8 (regressed +0.8)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[24]:
+M[25]:
   project.sh,24
-  src/propact/__init__.py,39
+  src/propact/__init__.py,29
   src/propact/adapters.py,368
   src/propact/attachments.py,94
   src/propact/cli.py,656
   src/propact/config.py,356
   src/propact/converter.py,368
   src/propact/core.py,237
+  src/propact/dsl_converter.py,811
   src/propact/enhanced.py,409
   src/propact/error_handler.py,361
   src/propact/importer.py,115
@@ -39,6 +40,16 @@ D:
     e: SplitContent,Propact
     SplitContent: __post_init__(0)  # Represents split content ready for transport...
     Propact(ToonPact): __init__(3),_introspect_schema(1),_smart_split_md(2),_detect_schema_type(1),_adapt_to_openapi(2),_adapt_to_shell(2),_adapt_to_mcp(2),_get_mime_type(1),send_to_endpoint(1),_send_rest(2),_send_mcp(2),_send_ws(2),_send_shell(2),_response_to_md(1),server_mode(1)  # Enhanced Propact class with schema introspection and intelli...
+  src/propact/dsl_converter.py:
+    e: ConversionResult,BaseConverter,SQLConverter,GraphQLConverter,YAMLConverter,CSVConverter,XMLConverter,DSLConverter
+    ConversionResult: __post_init__(0)  # Result of a conversion operation...
+    BaseConverter(ABC): __init__(0),to_markdown(1),from_markdown(1),_parse_md_table(1),_create_md_table(3)  # Base class for format converters...
+    SQLConverter(BaseConverter): __init__(0),to_markdown(1),from_markdown(1),_mock_sql_result(1)  # Converter for SQL ↔ Markdown tables...
+    GraphQLConverter(BaseConverter): to_markdown(1),from_markdown(1),_extract_structured_data(1),_generate_github_query(1),_generate_stripe_query(1),_generate_generic_query(1)  # Converter for GraphQL ↔ Markdown...
+    YAMLConverter(BaseConverter): to_markdown(1),from_markdown(1),_dict_to_markdown(2),_list_to_markdown(1),_markdown_to_dict(1)  # Converter for YAML ↔ Markdown...
+    CSVConverter(BaseConverter): to_markdown(1),from_markdown(1)  # Converter for CSV ↔ Markdown tables...
+    XMLConverter(BaseConverter): to_markdown(1),from_markdown(1),_markdown_to_dict(1)  # Converter for XML ↔ Markdown...
+    DSLConverter: __init__(0),convert(3),list_formats(0),register_converter(2)  # Main DSL converter using strategy pattern...
   src/propact/cli.py:
     e: cli,main,list_blocks,display_results,convert,file,string,formats,universal,send_email,batch
     cli()

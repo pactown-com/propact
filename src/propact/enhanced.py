@@ -4,7 +4,6 @@ import json
 import subprocess
 from typing import Dict, Any, Union
 from pathlib import Path
-import asyncio
 from dataclasses import dataclass
 
 try:
@@ -13,11 +12,10 @@ try:
 except ImportError:
     HAS_PRANCE = False
 
-from .core import ToonPact
-from .parser import MarkdownParser, ProtocolBlock, ProtocolType
-from .attachments import AttachmentHandler
-from .converter import MDConverter, ExtractedContent
-from .adapters import get_protocol_adapter, PROTOCOL_ADAPTERS
+from propact.core import ToonPact
+from propact.attachments import AttachmentHandler
+from propact.converter import MDConverter, ExtractedContent
+from propact.adapters import get_protocol_adapter, PROTOCOL_ADAPTERS
 
 
 @dataclass

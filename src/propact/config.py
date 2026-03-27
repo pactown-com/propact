@@ -2,8 +2,16 @@
 
 import os
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Optional
 from dataclasses import dataclass, field
+
+from propact.constants import (
+    DEFAULT_GRPC_PORT, DEFAULT_MQTT_PORT, DEFAULT_SMTP_PORT,
+    DEFAULT_WS_PORT, DEFAULT_SERVER_PORT, DEFAULT_MCP_PORT,
+    DEFAULT_GRPC_TIMEOUT, DEFAULT_MQTT_KEEPALIVE, DEFAULT_WEBSOCKET_TIMEOUT,
+    DEFAULT_REQUEST_TIMEOUT, DEFAULT_RATE_LIMIT_REQUESTS, DEFAULT_RATE_LIMIT_WINDOW,
+    DEFAULT_MAX_TOKENS
+)
 
 
 # Try to load python-dotenv if available
@@ -20,7 +28,7 @@ class OpenAIConfig:
     api_key: str = ""
     base_url: str = "https://api.openai.com/v1"
     model: str = "gpt-4-vision-preview"
-    max_tokens: int = 500
+    max_tokens: int = DEFAULT_MAX_TOKENS
     temperature: float = 0.2
 
 
@@ -28,8 +36,8 @@ class OpenAIConfig:
 class GRPCConfig:
     """gRPC configuration."""
     host: str = "localhost"
-    port: int = 50051
-    timeout: int = 30
+    port: int = DEFAULT_GRPC_PORT
+    timeout: int = DEFAULT_GRPC_TIMEOUT
     insecure: bool = True
 
 
@@ -37,11 +45,11 @@ class GRPCConfig:
 class MQTTConfig:
     """MQTT configuration."""
     host: str = "localhost"
-    port: int = 1883
+    port: int = DEFAULT_MQTT_PORT
     username: str = ""
     password: str = ""
     client_id: str = "propact_client"
-    keepalive: int = 60
+    keepalive: int = DEFAULT_MQTT_KEEPALIVE
     qos: int = 1
 
 
@@ -49,7 +57,7 @@ class MQTTConfig:
 class SMTPConfig:
     """SMTP configuration for email."""
     host: str = "smtp.gmail.com"
-    port: int = 587
+    port: int = DEFAULT_SMTP_PORT
     username: str = ""
     password: str = ""
     from_email: str = "propact@example.com"
@@ -60,16 +68,16 @@ class SMTPConfig:
 class WebSocketConfig:
     """WebSocket configuration."""
     host: str = "localhost"
-    port: int = 8080
+    port: int = DEFAULT_WS_PORT
     path: str = "/"
-    timeout: int = 60
+    timeout: int = DEFAULT_WEBSOCKET_TIMEOUT
 
 
 @dataclass
 class ServerConfig:
     """Server configuration."""
     host: str = "0.0.0.0"
-    port: int = 8080
+    port: int = DEFAULT_SERVER_PORT
     workers: int = 1
     reload: bool = False
 
@@ -78,7 +86,7 @@ class ServerConfig:
 class MCPConfig:
     """MCP configuration."""
     host: str = "localhost"
-    port: int = 8080
+    port: int = DEFAULT_MCP_PORT
     path: str = "/mcp"
 
 

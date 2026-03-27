@@ -1,10 +1,8 @@
 """Protocol adapters for extended protocols in Propact."""
 
 from typing import Dict, Any
-import asyncio
-from pathlib import Path
 
-from .config import get_grpc_config, get_mqtt_config, get_smtp_config
+from propact.config import get_mqtt_config, get_smtp_config
 
 # Import optional dependencies with graceful fallback
 try:

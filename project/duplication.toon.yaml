@@ -1,23 +1,25 @@
-# redup/duplication | 1 groups | 12f 2473L | 2026-03-27
+# redup/duplication | 1 groups | 23f 7311L | 2026-03-27
 
 SUMMARY:
-  files_scanned: 12
-  total_lines:   2473
+  files_scanned: 23
+  total_lines:   7311
   dup_groups:    1
-  dup_fragments: 2
-  saved_lines:   9
-  scan_ms:       1215
+  dup_fragments: 4
+  saved_lines:   27
+  scan_ms:       1410
 
 DUPLICATES[1] (ranked by impact):
-  [e775ebebbe3efb86]   STRU  __post_init__  L=9 N=2 saved=9 sim=1.00
-      src/propact/converter.py:0-8  (__post_init__)
+  [e775ebebbe3efb86]   STRU  __post_init__  L=9 N=4 saved=27 sim=1.00
       src/propact/enhanced.py:0-8  (__post_init__)
+      src/propact/converter.py:0-8  (__post_init__)
+      src/propact/uniconverter.py:0-8  (__post_init__)
+      src/propact/dsl_converter.py:0-8  (__post_init__)
 
 REFACTOR[1] (ranked by priority):
   [1] ○ extract_function   → src/propact/utils/__post_init__.py
-      WHY: 2 occurrences of 9-line block across 2 files — saves 9 lines
-      FILES: src/propact/converter.py, src/propact/enhanced.py
+      WHY: 4 occurrences of 9-line block across 4 files — saves 27 lines
+      FILES: src/propact/converter.py, src/propact/dsl_converter.py, src/propact/enhanced.py, src/propact/uniconverter.py
 
 METRICS-TARGET:
   dup_groups:  1 → 0
-  saved_lines: 9 lines recoverable
+  saved_lines: 27 lines recoverable

@@ -25,9 +25,9 @@ except ImportError:
     HAS_PYDANTIC = False
     logging.warning("pydantic not installed. Type safety will be limited.")
 
-from .parser import MarkdownParser, ProtocolBlock, ProtocolType
-from .security import MDSanitizer
-from .optimization import MDOptimizer
+from propact.parser import MarkdownParser, ProtocolBlock, ProtocolType
+from propact.security import MDSanitizer
+from propact.optimization import MDOptimizer
 
 
 @dataclass

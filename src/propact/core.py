@@ -2,11 +2,10 @@
 
 from typing import Dict, List, Optional, Any, Union
 from pathlib import Path
-from enum import Enum
 import json
 
-from .parser import MarkdownParser, ProtocolBlock, ProtocolType
-from .attachments import AttachmentHandler
+from propact.parser import MarkdownParser, ProtocolBlock, ProtocolType
+from propact.attachments import AttachmentHandler
 
 
 class ToonPact:

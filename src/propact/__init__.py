@@ -1,15 +1,15 @@
 """Propact: Protocol Pact via Markdown"""
 
-__version__ = "0.0.7"
+__version__ = "0.0.8"
 __author__ = "Tom Sapletta <tom@sapletta.com>"
 __license__ = "Apache-2.0"
 
-from .core import ToonPact
-from .parser import MarkdownParser, ProtocolBlock, ProtocolType
-from .attachments import AttachmentHandler
-from .enhanced import Propact
-from .converter import MDConverter
-from .config import (
+from propact.core import ToonPact
+from propact.parser import MarkdownParser, ProtocolBlock, ProtocolType
+from propact.attachments import AttachmentHandler
+from propact.enhanced import Propact
+from propact.converter import MDConverter
+from propact.config import (
     Config, ConfigManager, OpenAIConfig, GRPCConfig, MQTTConfig, 
     SMTPConfig, WebSocketConfig, ServerConfig, MCPConfig, 
     LoggingConfig, PathConfig, SecurityConfig,

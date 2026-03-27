@@ -1,9 +1,7 @@
 """Markdown parser for Protocol Pact documents."""
 
 import re
-import asyncio
 from typing import Dict, Any, List
-from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
 

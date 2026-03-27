@@ -23,11 +23,11 @@ except ImportError:
     ResolvingParser = None
 
 # Import error handler
-from .error_handler import PropactErrorHandler, MatchError, ErrorMode
+from propact.error_handler import PropactErrorHandler, MatchError, ErrorMode
 
 # Import LLM proxy for enhanced matching
 try:
-    from .llm_proxy import LiteLLMProxy, match_intent
+    from propact.llm_proxy import LiteLLMProxy, match_intent
     HAS_LLM = True
 except ImportError:
     HAS_LLM = False

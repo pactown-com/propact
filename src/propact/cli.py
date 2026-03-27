@@ -14,6 +14,10 @@ from propact.enhanced import Propact
 from propact.config import get_server_config
 from propact.dsl_converter import DSLConverter
 from propact.uniconverter import UniConverter, EmailConfig
+from propact.constants import (
+    MAX_CONTENT_PREVIEW_LENGTH, MAX_ERROR_PREVIEW_LENGTH,
+    DEFAULT_SMTP_PORT
+)
 
 
 console = Console()
@@ -287,7 +291,7 @@ async def list_blocks(pact: ToonPact) -> None:
     table.add_column("Attachments", style="green")
     
     for i, block in enumerate(pact.blocks):
-        content_preview = block.content[:50] + "..." if len(block.content) > 50 else block.content
+        content_preview = block.content[:MAX_CONTENT_PREVIEW_LENGTH] + "..." if len(block.content) > MAX_CONTENT_PREVIEW_LENGTH else block.content
         attachments = ", ".join(block.attachments) if block.attachments else "None"
         
         table.add_row(
@@ -322,9 +326,9 @@ def display_results(results: dict, verbose: bool) -> None:
                 output += f"ERROR: {result['error']}"
         else:
             if "stdout" in result:
-                output = f"{result['stdout'][:100]}..." if len(result['stdout']) > 100 else result['stdout']
+                output = f"{result['stdout'][:MAX_ERROR_PREVIEW_LENGTH]}..." if len(result['stdout']) > MAX_ERROR_PREVIEW_LENGTH else result['stdout']
             elif "error" in result:
-                output = f"{result['error'][:100]}..." if len(result['error']) > 100 else result['error']
+                output = f"{result['error'][:MAX_ERROR_PREVIEW_LENGTH]}..." if len(result['error']) > MAX_ERROR_PREVIEW_LENGTH else result['error']
                 
         table.add_row(block_name, status, output)
     
@@ -565,7 +569,7 @@ def universal(input_path: Path, to_md: bool, to_pdf: Optional[Path],
 @click.option("--to", "to_emails", required=True, help="Recipient email(s), comma-separated")
 @click.option("--subject", default="Propact Document", help="Email subject")
 @click.option("--smtp-host", required=True, help="SMTP server host")
-@click.option("--smtp-port", default=587, type=int, help="SMTP server port")
+@click.option("--smtp-port", default=DEFAULT_SMTP_PORT, type=int, help="SMTP server port")
 @click.option("--smtp-user", required=True, help="SMTP username")
 @click.option("--smtp-password", required=True, help="SMTP password")
 @click.option("--from", "from_email", help="From email (default: SMTP username)")

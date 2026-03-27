@@ -3,7 +3,7 @@
 import re
 import json
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional, Union, Tuple
+from typing import Dict, Any, List, Union, Tuple
 from dataclasses import dataclass
 from pathlib import Path
 import logging
@@ -521,7 +521,7 @@ class YAMLConverter(BaseConverter):
         lines = []
         for item in data:
             if isinstance(item, dict):
-                lines.append("- " + self._dict_to_markdown(item, 1))
+                lines.append(f"- {self._dict_to_markdown(item, 1)}")
             else:
                 lines.append(f"- {item}")
         return '\n'.join(lines)

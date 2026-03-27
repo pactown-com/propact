@@ -1,7 +1,7 @@
 """Query Generator with LiteLLM integration for intent-to-MD conversion."""
 
 from typing import Optional, Dict, Any
-from .llm_proxy import LiteLLMProxy
+from propact.llm_proxy import LiteLLMProxy
 
 
 class QueryGenerator:

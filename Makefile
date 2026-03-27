@@ -74,17 +74,7 @@ llm-test:
 
 llm-bench:
 	@echo "Benchmarking LLM providers..."
-	@time poetry run python -c "
-import asyncio
-from propact.llm_proxy import quick_generate
-async def bench():
-    try:
-        result = await quick_generate('Say hello', provider='local')
-        print('Local/Ollama:', len(result), 'chars')
-    except Exception as e:
-        print('Local/Ollama:', str(e)[:50])
-asyncio.run(bench())
-"
+	@poetry run python -c "import asyncio; from propact.llm_proxy import quick_generate; asyncio.run(quick_generate('Say hello', provider='local'))" 2>/dev/null || echo "Ollama not available"
 	@echo "✅ LLM benchmark complete"
 
 public-demo:
