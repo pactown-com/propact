@@ -1,1 +1,6 @@
 flowchart LR
+    subgraph src__propact
+        src__propact__cli__display_results["display_results"]
+        src__propact__cli__main["main"]
+    end
+    src__propact__cli__main --> src__propact__cli__display_results

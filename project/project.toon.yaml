@@ -1,11 +1,29 @@
-# propact | 0 func | 1f | 24L | shell | 2026-03-27
+# propact | 44 func | 8f | 1274L | python | 2026-03-27
 
 HEALTH:
-  CC̄=0.0  critical=0 (limit:10)  dup=0  cycles=0
+  CC̄=2.1  critical=1 (limit:10)  dup=0  cycles=0
 
-MODULES[1] (top by size):
+ALERTS[1]:
+  !   high_fan_out     main = 14 (limit:10)
+
+MODULES[11] (top by size):
+  M[src/propact/protocols/ws.py] 152L C:3 F:7 CC↑3 D:0 (python)
+  M[src/propact/protocols/rest.py] 127L C:4 F:6 CC↑4 D:0 (python)
+  M[src/propact/core.py] 123L C:3 F:7 CC↑9 D:0 (python)
+  M[src/propact/cli.py] 116L C:0 F:3 CC↑12 D:0 (python)
+  M[src/propact/protocols/mcp.py] 115L C:2 F:7 CC↑1 D:0 (python)
+  M[src/propact/attachments.py] 94L C:1 F:7 CC↑6 D:0 (python)
+  M[src/propact/parser.py] 79L C:1 F:4 CC↑4 D:0 (python)
+  M[src/propact/protocols/shell.py] 76L C:1 F:3 CC↑6 D:0 (python)
   M[project.sh] 24L C:0 F:0 CC↑0 D:0 (shell)
-  LANGS: shell:1
+  M[src/propact/__init__.py] 11L C:0 F:0 CC↑0 D:0 (python)
+  M[src/propact/protocols/__init__.py] 8L C:0 F:0 CC↑0 D:0 (python)
+  LANGS: python:10/shell:1
+
+HOTSPOTS[1]:
+  ★ main fan=14  // Execute Protocol Pact documents.
+
+FILE_PATH: Path to the markdown file containin
 
 EVOLUTION:
-  2026-03-27 CC̄=0.0 crit=0 24L // Automated analysis
+  2026-03-27 CC̄=2.1 crit=1 1274L // Automated analysis

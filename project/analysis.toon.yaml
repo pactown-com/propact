@@ -1,13 +1,35 @@
-# code2llm | 1f 24L | shell:1 | 2026-03-27
-# CC̄=0.0 | critical:0/0 | dups:0 | cycles:0
+# code2llm | 11f 925L | python:10,shell:1 | 2026-03-27
+# CC̄=2.1 | critical:0/44 | dups:0 | cycles:0
 
 HEALTH[0]: ok
 
 REFACTOR[0]: none needed
 
-PIPELINES[0]: none detected
+PIPELINES[32]:
+  [1] Src [main]: main → display_results
+      PURITY: 100% pure
+  [2] Src [load_attachment]: load_attachment
+      PURITY: 100% pure
+  [3] Src [save_attachment]: save_attachment
+      PURITY: 100% pure
+  [4] Src [encode_base64]: encode_base64
+      PURITY: 100% pure
+  [5] Src [decode_base64]: decode_base64
+      PURITY: 100% pure
 
 LAYERS:
+  src/                            CC̄=2.1    ←in:0  →out:0
+  │ ws                         152L  3C    7m  CC=3      ←0
+  │ rest                       127L  4C    6m  CC=4      ←0
+  │ core                       123L  3C    7m  CC=9      ←0
+  │ cli                        116L  0C    3m  CC=12     ←0
+  │ mcp                        115L  2C    7m  CC=1      ←0
+  │ attachments                 94L  1C    7m  CC=6      ←0
+  │ parser                      79L  1C    4m  CC=4      ←0
+  │ shell                       76L  1C    3m  CC=6      ←0
+  │ __init__                    11L  0C    0m  CC=0.0    ←0
+  │ __init__                     8L  0C    0m  CC=0.0    ←0
+  │
   ./                              CC̄=0.0    ←in:0  →out:0
   │ project.sh                  24L  0C    0m  CC=0.0    ←0
   │

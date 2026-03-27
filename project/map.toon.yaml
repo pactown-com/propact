@@ -1,10 +1,58 @@
-# propact | 1f 24L | shell:1 | 2026-03-27
-# stats: 0 func | 0 cls | 1 mod | CC̄=0.0 | critical:0 | cycles:0
-# alerts[0]: none
-# hotspots[0]: none
-# evolution: baseline
+# propact | 11f 925L | python:10,shell:1 | 2026-03-27
+# stats: 44 func | 0 cls | 11 mod | CC̄=2.1 | critical:0 | cycles:0
+# alerts[1]: fan-out main=14
+# hotspots[5]: main fan=14; list_blocks fan=8; MarkdownParser.parse fan=8; display_results fan=7; AttachmentHandler.extract_from_markdown fan=6
+# evolution: CC̄ 0.0→2.1 (regressed +2.1)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[1]:
+M[11]:
   project.sh,24
+  src/propact/__init__.py,11
+  src/propact/attachments.py,94
+  src/propact/cli.py,116
+  src/propact/core.py,123
+  src/propact/parser.py,79
+  src/propact/protocols/__init__.py,8
+  src/propact/protocols/mcp.py,115
+  src/propact/protocols/rest.py,127
+  src/propact/protocols/shell.py,76
+  src/propact/protocols/ws.py,152
 D:
+  src/propact/cli.py:
+    e: main,list_blocks,display_results
+    main(file_path;protocol;list;verbose)
+    list_blocks(pact)
+    display_results(results;verbose)
+  src/propact/core.py:
+    e: ProtocolType,ProtocolBlock,ToonPact
+    ProtocolType(Enum):  # Supported protocol types...
+    ProtocolBlock:  # Represents a protocol block in markdown...
+    ToonPact: __init__(1),load(0),execute(1),_execute_shell(1),_execute_mcp(1),_execute_rest(1),_execute_ws(1)  # Main class for executing Protocol Pact documents.
+
+Handles m...
+  src/propact/attachments.py:
+    e: AttachmentHandler
+    AttachmentHandler: __init__(0),load_attachment(1),save_attachment(2),encode_base64(1),decode_base64(1),get_mime_type(1),extract_from_markdown(2)  # Handles binary attachments in Protocol Pact documents...
+  src/propact/protocols/shell.py:
+    e: ShellProtocol
+    ShellProtocol: __init__(1),execute(3),execute_script(3)  # Handles shell command execution within Protocol Pact...
+  src/propact/parser.py:
+    e: MarkdownParser
+    MarkdownParser: __init__(0),parse(1),_extract_attachments(1),_extract_metadata(1)  # Parser for extracting protocol blocks from markdown document...
+  src/propact/protocols/rest.py:
+    e: HTTPMethod,RESTRequest,RESTResponse,RESTProtocol
+    HTTPMethod(Enum):  # HTTP methods supported by REST protocol...
+    RESTRequest:  # REST request structure...
+    RESTResponse:  # REST response structure...
+    RESTProtocol: __init__(2),execute(1),get(3),post(3),put(3),delete(2)  # Handles REST API communication within Protocol Pact...
+  src/propact/protocols/ws.py:
+    e: WebSocketState,WebSocketMessage,WebSocketProtocol
+    WebSocketState(Enum):  # WebSocket connection states...
+    WebSocketMessage:  # WebSocket message structure...
+    WebSocketProtocol: __init__(2),connect(0),disconnect(0),send(1),receive(0),add_message_handler(1),remove_message_handler(1)  # Handles WebSocket communication within Protocol Pact...
+  src/propact/protocols/mcp.py:
+    e: MCPMessage,MCPProtocol
+    MCPMessage:  # MCP message structure...
+    MCPProtocol: __init__(1),register_tool(3),register_resource(4),execute_tool(2),get_resource(1),create_list_tools_response(1),create_list_resources_response(1)  # Handles MCP (Model Context Protocol) communication within Pr...
+  src/propact/__init__.py:
+  src/propact/protocols/__init__.py:
   project.sh:

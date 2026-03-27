@@ -1,9 +1,45 @@
-# vallm batch | 19f | 2✓ 0⚠ 0✗ | 2026-03-27
+# vallm batch | 38f | 11✓ 0⚠ 7✗ | 2026-03-27
 
 SUMMARY:
-  scanned: 19  passed: 2 (10.5%)  warnings: 0  errors: 0  unsupported: 17
+  scanned: 38  passed: 11 (28.9%)  warnings: 0  errors: 7  unsupported: 20
+
+ERRORS[7]{path,score}:
+  src/propact/__init__.py,0.57
+    issues[3]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'core' not found,7
+      python.import.resolvable,error,Module 'parser' not found,8
+      python.import.resolvable,error,Module 'attachments' not found,9
+  src/propact/protocols/__init__.py,0.57
+    issues[4]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'shell' not found,3
+      python.import.resolvable,error,Module 'mcp' not found,4
+      python.import.resolvable,error,Module 'rest' not found,5
+      python.import.resolvable,error,Module 'ws' not found,6
+  tests/test_protocols.py,0.68
+    issues[3]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+      python.import.resolvable,error,Module 'propact.protocols' not found,5
+      python.import.resolvable,error,Module 'propact.protocols.rest' not found,6
+  tests/test_core.py,0.69
+    issues[5]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+      python.import.resolvable,error,Module 'propact' not found,7
+      python.import.resolvable,error,Module 'propact.core' not found,8
+      python.import.resolvable,error,Module 'propact.parser' not found,9
+      python.import.resolvable,error,Module 'propact.attachments' not found,10
+  src/propact/core.py,0.89
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'parser' not found,9
+      python.import.resolvable,error,Module 'attachments' not found,10
+  src/propact/cli.py,0.90
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'propact' not found,12
+      python.import.resolvable,error,Module 'propact.core' not found,13
+  src/propact/parser.py,0.91
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'core' not found,8
 
 UNSUPPORTED[3]{bucket,count}:
-  *.md,10
+  *.md,11
   *.txt,1
-  other,6
+  other,8

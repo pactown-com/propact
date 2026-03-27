@@ -1,6 +1,6 @@
 """Propact: Protocol Pact via Markdown"""
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 __author__ = "Tom Sapletta <tom@sapletta.com>"
 __license__ = "Apache-2.0"
 

@@ -16,4 +16,251 @@ sprints:
   duration: 2 weeks
   objectives:
   - Fix code quality issues
-  task_patterns: []
+  task_patterns:
+  - id: ticket-26661a5b
+    name: Fix relative-imports issues
+    description: Resolve 6 relative-imports issues in src/propact/__init__.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/__init__.py
+    rule_id: relative-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-509e428e
+    name: Fix string-concat issues
+    description: Resolve 3 string-concat issues in src/propact/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/cli.py
+    rule_id: string-concat
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e6dfcb57
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in src/propact/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/cli.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-62001fcc
+    name: Fix magic-numbers issues
+    description: Resolve 3 magic-numbers issues in src/propact/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/cli.py
+    rule_id: magic-numbers
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-803acb90
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in src/propact/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2e799c00
+    name: Fix unused-imports issues
+    description: Resolve 12 unused-imports issues in src/propact/attachments.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/attachments.py
+    rule_id: unused-imports
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9fbf738f
+    name: Fix relative-imports issues
+    description: Resolve 8 relative-imports issues in src/propact/protocols/__init__.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/protocols/__init__.py
+    rule_id: relative-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e825114e
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in src/propact/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/core.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-689dd376
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in src/propact/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - src/propact/core.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9079b533
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in src/propact/parser.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/parser.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-67074383
+    name: Fix unused-imports issues
+    description: Resolve 12 unused-imports issues in src/propact/parser.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/parser.py
+    rule_id: unused-imports
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8e794bde
+    name: Fix unused-imports issues
+    description: Resolve 8 unused-imports issues in src/propact/protocols/shell.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/protocols/shell.py
+    rule_id: unused-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-23031a3e
+    name: Fix llm-generated-code issues
+    description: Resolve 1 llm-generated-code issues in src/propact/protocols/shell.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/protocols/shell.py
+    rule_id: llm-generated-code
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a64fce44
+    name: Fix unused-imports issues
+    description: Resolve 8 unused-imports issues in src/propact/protocols/mcp.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - src/propact/protocols/mcp.py
+    rule_id: unused-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7012a59f
+    name: Fix llm-generated-code issues
+    description: Resolve 3 llm-generated-code issues in src/propact/protocols/mcp.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/protocols/mcp.py
+    rule_id: llm-generated-code
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bd6f50e7
+    name: Fix unused-imports issues
+    description: Resolve 12 unused-imports issues in src/propact/protocols/rest.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - src/propact/protocols/rest.py
+    rule_id: unused-imports
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-45840472
+    name: Fix magic-numbers issues
+    description: Resolve 1 magic-numbers issues in src/propact/protocols/rest.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/protocols/rest.py
+    rule_id: magic-numbers
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-168d0b67
+    name: Fix llm-generated-code issues
+    description: Resolve 1 llm-generated-code issues in src/propact/protocols/rest.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/protocols/rest.py
+    rule_id: llm-generated-code
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-97138167
+    name: Fix llm-generated-code issues
+    description: Resolve 3 llm-generated-code issues in src/propact/protocols/ws.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - src/propact/protocols/ws.py
+    rule_id: llm-generated-code
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced

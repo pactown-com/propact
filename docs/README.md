@@ -1,7 +1,7 @@
 <!-- code2docs:start --># propact
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey)
-> **0** functions | **0** classes | **1** files | CC̄ = 0.0
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-44-green)
+> **44** functions | **15** classes | **11** files | CC̄ = 2.1
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,14 +141,48 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 propact/
-├── project```
+    ├── propact/        ├── parser        ├── cli        ├── attachments        ├── protocols/            ├── shell            ├── mcp├── project        ├── core            ├── ws            ├── rest```
 
 ## API Overview
+
+### Classes
+
+- **`MarkdownParser`** — Parser for extracting protocol blocks from markdown documents.
+- **`AttachmentHandler`** — Handles binary attachments in Protocol Pact documents.
+- **`ShellProtocol`** — Handles shell command execution within Protocol Pact.
+- **`MCPMessage`** — MCP message structure.
+- **`MCPProtocol`** — Handles MCP (Model Context Protocol) communication within Protocol Pact.
+- **`ProtocolType`** — Supported protocol types.
+- **`ProtocolBlock`** — Represents a protocol block in markdown.
+- **`ToonPact`** — Main class for executing Protocol Pact documents.
+- **`WebSocketState`** — WebSocket connection states.
+- **`WebSocketMessage`** — WebSocket message structure.
+- **`WebSocketProtocol`** — Handles WebSocket communication within Protocol Pact.
+- **`HTTPMethod`** — HTTP methods supported by REST protocol.
+- **`RESTRequest`** — REST request structure.
+- **`RESTResponse`** — REST response structure.
+- **`RESTProtocol`** — Handles REST API communication within Protocol Pact.
+
+### Functions
+
+- `main(file_path, protocol, list, verbose)` — Execute Protocol Pact documents.
+- `list_blocks(pact)` — List all protocol blocks in the document.
+- `display_results(results, verbose)` — Display execution results.
 
 
 ## Project Structure
 
 📄 `project`
+📦 `src.propact`
+📄 `src.propact.attachments` (7 functions, 1 classes)
+📄 `src.propact.cli` (3 functions)
+📄 `src.propact.core` (7 functions, 3 classes)
+📄 `src.propact.parser` (4 functions, 1 classes)
+📦 `src.propact.protocols`
+📄 `src.propact.protocols.mcp` (7 functions, 2 classes)
+📄 `src.propact.protocols.rest` (6 functions, 4 classes)
+📄 `src.propact.protocols.shell` (3 functions, 1 classes)
+📄 `src.propact.protocols.ws` (7 functions, 3 classes)
 
 ## Requirements
 
@@ -157,8 +191,8 @@ propact/
 ## Contributing
 
 **Contributors:**
-- Tom Sapletta <tom-sapletta-com@users.noreply.github.com>
 - Tom Softreck <tom@sapletta.com>
+- Tom Sapletta <tom-sapletta-com@users.noreply.github.com>
 
 We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 

@@ -3,3 +3,23 @@ flowchart TD
     %% Entry points (blue)
     classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
 
+    subgraph Core
+        src__propact__cli__main["main"]
+        src__propact__cli__list_blocks["list_blocks"]
+        src__propact__cli__display_results["display_results"]
+        src__propact__attachments__AttachmentHandler__load_attachment["load_attachment"]
+        src__propact__attachments__AttachmentHandler__save_attachment["save_attachment"]
+        src__propact__attachments__AttachmentHandler__encode_base64["encode_base64"]
+        src__propact__attachments__AttachmentHandler__decode_base64["decode_base64"]
+        src__propact__attachments__AttachmentHandler__get_mime_type["get_mime_type"]
+        src__propact__attachments__AttachmentHandler__extract_from_markdown["extract_from_markdown"]
+        src__propact__parser__MarkdownParser__parse["parse"]
+        src__propact__parser__MarkdownParser___extract_attachments["_extract_attachments"]
+        src__propact__parser__MarkdownParser___extract_metadata["_extract_metadata"]
+        src__propact__protocols__shell__ShellProtocol__execute["execute"]
+        src__propact__protocols__shell__ShellProtocol__execute_script["execute_script"]
+        src__propact__protocols__mcp__MCPProtocol__register_tool["register_tool"]
+        ...["+22 more"]
+    end
+
+    class src__propact__cli__main,src__propact__cli__list_blocks,src__propact__cli__display_results,src__propact__attachments__AttachmentHandler__load_attachment,src__propact__attachments__AttachmentHandler__save_attachment,src__propact__attachments__AttachmentHandler__encode_base64,src__propact__attachments__AttachmentHandler__decode_base64,src__propact__attachments__AttachmentHandler__get_mime_type,src__propact__attachments__AttachmentHandler__extract_from_markdown,src__propact__parser__MarkdownParser__parse entry
